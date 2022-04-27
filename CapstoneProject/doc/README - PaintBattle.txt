@@ -42,7 +42,7 @@ What are the primary features of your program?]
 
 
 
-Our program is a 2 player game, with a side-view similar to mario. In this game, there is a battlefield, which consists of walls that serve as borders and platforms to jump on. Players start from their home bases, one in the bottom-left corner and the other in the bottom-right. Players have the ability to navigate the maze and jump up onto platforms to eventually reach the flag. They each have a paint gun, with which they can shoot paint onto the map (walls, platforms, etc.) or shoot the other player and eliminate them. If there is already paint in the spot, nothing will change. The paint on the ground gives the player the ability to move 4 times faster if they 'swim' in it by passing through. When the player shoots their opponent, they lose health, and if they are eliminated, they respawn back at their home base after a few seconds of cooldown time. At the top-center of the map there is a flag, which also serves as a stronger paint gun. The goal is to take the flag and go back to your base, which is how you win. When someone takes the flag, they can use it to shoot paint with a bigger stroke width[a] and damage their opponent more; however, it shoots less frequently than a regular gun. The player holding the flag is also two times slower compared to their regular movement, and they lose the ability to 'swim' in their paint. When someone dies holding the flag, the flag will remain in the death location. In addition, there is a time limit, and the user has the ability to influence the amount of time for the game based on difficulty selection, along with the choice of map. At the end of the time limit, the win is awarded to the player who has the most points. Points are a combination of paint percentage on the map and whether the flag has been collected. A flag collection would be either 50 or 0 points, while paint points are just your paint percentage. So if you painted 10% of the map and got the flag, 50 (collected flag) +10 (paint) = 60, so you would get 60 points. Your opponent would get 0 (ceded flag) + 90 (paint) = 90. This means that a player that has collected the flag will not necessarily win if they have a much smaller paint percentage than their opponent.
+Our program is a 2 player game, with a side-view similar to mario. In this game, there is a battlefield, which consists of walls that serve as borders and platforms to jump on. Players start from their home bases, one in the bottom-left corner and the other in the bottom-right. Players have the ability to navigate the maze and jump up onto platforms to eventually reach the flag. They each have a paint gun, with which they can shoot paint onto the map (walls, platforms, etc.) or shoot the other player and eliminate them. If there is already paint in the spot, nothing will change. The paint on the ground gives the player the ability to move 4 times faster if they 'swim' in it by passing through. When the player shoots their opponent, they lose health, and if they are eliminated, they respawn back at their home base after a few seconds of cooldown time. At the top-center of the map there is a flag, which also serves as a stronger paint gun. The goal is to take the flag and go back to your base, which is how you win. When someone takes the flag, they can use it to shoot paint with a bigger stroke width[a] and damage their opponent more; however, it shoots less frequently than a regular gun. The player holding the flag is also two times slower compared to their regular movement, and they lose the ability to 'swim' in their paint.[b][c] When someone dies holding the flag, the flag will remain in the death location. In addition, there is a time limit, and the user has the ability to influence the amount of time for the game based on difficulty selection, along with the choice of map. At the end of the time limit, the win is awarded to the player who has the most points. Points are a combination of paint percentage on the map and whether the flag has been collected. A flag collection would be either 50 or 0 points, while paint points are just your paint percentage. So if you painted 10% of the map and got the flag, 50 (collected flag) +10 (paint) = 60, so you would get 60 points. Your opponent would get 0 (ceded flag) + 90 (paint) = 90. This means that a player that has collected the flag will not necessarily win if they have a much smaller paint percentage than their opponent.
 
 
 People who would love our program are those who enjoy games such as Splatoon or Capture The Flag. This game merges both in 2D, so the game feel and mechanics are altered completely. Gamers who play Halo 5, Call of Duty or Fortnite are also likely to be fans of this game, as they already play games in which aiming at the right target with the gun is the most important goal. 
@@ -86,12 +86,15 @@ Gameplay:
 Features List (THE ONLY SECTION THAT CANNOT CHANGE LATER):
 Must-have Features:
 [These are features that we agree you will definitely have by the project due date. A good final project would have all of these completed. At least 5 are required. Each feature should be fully described (at least a few full sentences for each)]
-*  Map with platforms, barrels on platforms, wall border
+* Multiplayer function
+   * Arrow keys for one player, WASD for the other
+* Map with platforms, barrels on platforms, wall border
    * Restricts both players' movement
+   * Cannot swim over barrels, must jump over 
 * Running and 'swimming' through paint
    * Regular running - walking on non-paint territory or your color
    * Swimming in your paint faster than regular walking
-   * If you walk on opponent paint, you get 'dizzy': slow down and gradually lose health
+   * If you walk on opponent paint, you get 'dizzy': slow down and gradually lose health[d][e][f]
 * Paint-shooting 
    * Try to cover the platforms, walls, barrels with your color paint 
       * Determines win if no one collects the flag by the end of time limit
@@ -108,6 +111,7 @@ Must-have Features:
 
 Want-to-have Features:
 [These are features that you would like to have by the project due date, but you’re unsure whether you’ll hit all of them. A good final project would have perhaps half of these completed. At least 5 are required. Again, fully describe each.]
+* Multiplayer function with networking, two different devices
 * Choosing different paint guns with different reload speeds, paint stroke width, paint stroke length, etc. before the match
 *  Each player starts with a few paint bombs: items that they can throw and they will burst with paint covering a certain radius
    * Paint burst does not pass through walls/platforms
@@ -131,13 +135,21 @@ Stretch Features:
 Class List:
 [This section lists the Java classes that make up the program and very briefly describes what each represents. It’s totally fine to put this section in list format and not to use full sentences.]
 * Main
+   * Runnable class that creates drawing surface
 * DrawingSurface
+   * The drawing surface on which the game is displayed
+   * Tracks score
+   * Displays the remaining time for the game.
+   * Shows the player's total health.
 * Various Screen classes
+   * Each screen that the user sees
 * Platform (extends Sprite)
+   * Has a border made of PaintBlocks
 * Flag (extends PaintGun)
 * Avatar (extends Sprite)
 * PaintGun (extends Sprite)
 * PaintBomb (extends Sprite)
+* PaintBlock (extends Rectangle)
 
 
 Credits:
@@ -195,3 +207,16 @@ Credits:
 
 
 [a]We were also thinking if instead, it would be better to have a thinner stroke width, but the paint stroke can 'rebound' on walls and platforms. It would have the same damaging effect on the opponent. What do you think, @john_shelby@fuhsd.org
+[b]Because a player holding the flag can't "swim", the gun serves to:
+a) defend themselves
+b) paint more board for points at the end
+
+
+If it is too easy for the player to spread paint right before turning in the flag, it might take away from the purpose of the "paint percentage points"?
+
+
+I'm not sure, as this seems like a subtle element of gameplay that might need to be play tested. This could be easily turned on/off or adjusted once we have a functional demo. It would be fine to change details like this later.
+[c]Yep, this is definitely something we will test out!
+[d]Is it OP that paint both speeds yourself *and* slows/damages the opponent?
+[e]Once we make the game, we will test it out.
+[f]But if we end up cutting some part of this, it'll probably be the increased speed.
