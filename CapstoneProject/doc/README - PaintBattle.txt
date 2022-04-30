@@ -136,20 +136,41 @@ Class List:
 [This section lists the Java classes that make up the program and very briefly describes what each represents. It’s totally fine to put this section in list format and not to use full sentences.]
 * Main
    * Runnable class that creates drawing surface
+   * Uses DrawingSurface
 * DrawingSurface
    * The drawing surface on which the game is displayed
+* Various Screen classes
+   * Each screen that the user sees
+* MainMenu (extends Screen)
+   * Beginning screen of the game
+   * Where the player is introduced to the came 
+* GameRoom (extends Screen)
+   * Where the player can customize and create a new game for another person to join
+      * Set a time limit, map, etc.
+* Game (extends Screen)
+   * Displays the actual game
    * Tracks score
    * Displays the remaining time for the game.
    * Shows the player's total health.
-* Various Screen classes
-   * Each screen that the user sees
-* Platform (extends Sprite)
-   * Has a border made of PaintBlocks
+* Platform
+   * The platforms that each player can jump on to reach the flag
+   * Has a PaintBlock border to represent the parts that have been painted
 * Flag (extends PaintGun)
+   * Is a paintgun, but there is only one in the center of the map
+   * If one user is able to capture the flag and return it to their home base, the game ends and that player is heavily favored to win
 * Avatar (extends Sprite)
+   * Represents the player on the map
+   * Health, speed, color
+   * Jump, move, throw bomb, shoot paint
 * PaintGun (extends Sprite)
+   * int ammo, reloadTime, velocity
+   * PaintBlock stroke
+   * shoot(int x, int y)
 * PaintBomb (extends Sprite)
+   * A bomb that the player can throw
+   * Has a certain radius of explosion, releases many PaintBlocks when exploding
 * PaintBlock (extends Rectangle)
+   * Is a square, represents a 'block' of paint used to paint the map
 
 
 Credits:
@@ -160,42 +181,22 @@ Credits:
 
 
 
+Rajiv
+* PaintGun & Flag
+* Firebase for multiplayer features 
+* Set-up (Main, DrawingSurface, Sprite import)
 
 
+Aaditya
+* PaintBomb, PaintBlock, Platform classes
+* Finding images for graphical portion of game
+* MainMenu 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Ishaan
+* Avatar class 
+* Game class
+* Other Screen classes
 
 
 
