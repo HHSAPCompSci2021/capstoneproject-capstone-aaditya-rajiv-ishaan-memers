@@ -1,4 +1,4 @@
 
-public class PaintGun {
-
+public class PaintGun extends Sprite {
+	private 
 }
