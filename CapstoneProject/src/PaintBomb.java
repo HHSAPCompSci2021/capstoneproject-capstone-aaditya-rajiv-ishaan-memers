@@ -5,16 +5,18 @@ import java.util.ArrayList;
 public class PaintBomb extends Sprite {
 	
 	private double explosionRadius;
-	public static double velocity;
 	private boolean isThrown;
 	private Color c;
 	
+	public static double velocity;
+
 	
-	public PaintBomb(double r, double velocity, Color c) {
+	
+	public PaintBomb(double r, Color c) {
 		super();
 		this.explosionRadius = r;
-		this.velocity = velocity;
 		this.c = c;
+		isThrown = false;
 	}
 	
 	public ArrayList<PaintBlock> blowUp() {
