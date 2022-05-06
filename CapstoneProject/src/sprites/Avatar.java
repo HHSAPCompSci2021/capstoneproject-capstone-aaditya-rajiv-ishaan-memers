@@ -9,7 +9,7 @@ import sprites.Sprite;
 
 public class Avatar extends Sprite {
 	private PaintGun gun;
-	private ArrayList<PaintBomb> arsenal;
+	private PaintBomb bombHeld;
 	private Color playerColor;
 	private int health, speed;
 	private int baseX, baseY;
@@ -57,9 +57,9 @@ public class Avatar extends Sprite {
 	public void draw(PApplet drawer) {
 		
 	}
-	public void throwBomb(Point2D point) {
-		arsenal.get(arsenal.size() - 1).launch(point);
-		arsenal.remove(arsenal.size() - 1);
+	public void throwBomb(Point2D startPoint, Point2D mouseClick) {
+		bombHeld.launch(startPoint, mouseClick);
+		bombHeld = null;
  	}
 	
 	public void shoot(Point2D point) {
