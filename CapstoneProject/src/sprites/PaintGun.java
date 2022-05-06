@@ -1,3 +1,4 @@
+package sprites;
 import processing.core.PImage;
 
 public class PaintGun extends Sprite {

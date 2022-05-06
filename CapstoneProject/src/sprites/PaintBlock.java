@@ -1,3 +1,4 @@
+package sprites;
 import java.awt.Color;
 
 public class PaintBlock extends Sprite {

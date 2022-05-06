@@ -1,7 +1,6 @@
+package sprites;
 import java.awt.Color;
 import java.util.ArrayList;
-
-import sprites.Sprite;
 
 public class Avatar extends Sprite {
 	private PaintGun gun;
