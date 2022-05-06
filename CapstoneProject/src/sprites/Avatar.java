@@ -58,7 +58,7 @@ public class Avatar extends Sprite {
 		
 	}
 	public void throwBomb(PaintBomb bomb) {
-		bomb.toThrow(bomb);
+//		bomb.toThrow(bomb);
  	}
 	
 	public void shoot(Point2D point) {
