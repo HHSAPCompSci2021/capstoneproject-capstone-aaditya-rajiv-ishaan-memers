@@ -75,4 +75,8 @@ public class Avatar extends Sprite {
 		
 	}
 	
+	public Color getColor() {
+		return playerColor;
+	}
+	
 }
