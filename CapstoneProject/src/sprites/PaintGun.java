@@ -14,4 +14,12 @@ public class PaintGun extends Sprite {
 		stroke = str;
 	}
 
+	public void shoot() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	
+
 }
