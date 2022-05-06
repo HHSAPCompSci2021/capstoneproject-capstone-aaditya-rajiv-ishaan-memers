@@ -3,12 +3,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< Updated upstream:CapstoneProject/src/sprites/Avatar.java
-=======
-import processing.core.PImage;
+
 import sprites.Sprite;
 
->>>>>>> Stashed changes:CapstoneProject/src/Avatar.java
 public class Avatar extends Sprite {
 	private PaintGun gun;
 	private ArrayList<PaintBomb> arsenal;
