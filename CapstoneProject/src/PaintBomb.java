@@ -12,8 +12,8 @@ public class PaintBomb extends Sprite {
 
 	
 	
-	public PaintBomb(double r, Color c) {
-		super();
+	public PaintBomb(int x, int y, int r, Color c) {
+		super(x, y, r, r);
 		this.explosionRadius = r;
 		this.c = c;
 		isThrown = false;

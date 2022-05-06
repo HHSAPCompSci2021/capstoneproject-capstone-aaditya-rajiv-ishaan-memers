@@ -6,7 +6,8 @@ public class PaintBlock extends Sprite {
 	double length;
 	
 	
-	public PaintBlock(Color c, double length) {
+	public PaintBlock(int x, int y, Color c, int length) {
+		super(x, y, length, length);
 		this.c = c;
 		this.length = length;
 	}
