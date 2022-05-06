@@ -5,17 +5,17 @@ import java.util.List;
 
 import processing.core.PImage;
 
-public class Character extends Sprite {
+public class Player extends Sprite {
 
-	public static final int CHARACTER_WIDTH = 40;
-	public static final int MARIO_HEIGHT = 60;
+	public static final int PLAYER_WIDTH = 40;
+	public static final int PLAYER_HEIGHT = 60;
 	public static final double GRAVITY = 0.6;
 
 	private double xVel, yVel;
 	private boolean onPlatform;
 
-	public Character(PImage img, int x, int y) {
-		super(img, x, y, CHARACTER_WIDTH, MARIO_HEIGHT);
+	public Player(PImage img, int x, int y) {
+		super(img, x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
 		xVel = 0;
 		yVel = 0;
 	}

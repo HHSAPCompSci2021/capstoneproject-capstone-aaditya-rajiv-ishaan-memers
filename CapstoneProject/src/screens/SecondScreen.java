@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import core.DrawingSurface;
-import sprites.Mario;
+import sprites.Player;
 import sprites.Sprite;
 
 
@@ -18,7 +18,7 @@ public class SecondScreen extends Screen {
 	
 	private Rectangle screenRect;
 
-	private Mario mario;
+	private Player player;
 	private List<Sprite> obstacles;
 
 	public SecondScreen(DrawingSurface surface) {
@@ -35,7 +35,7 @@ public class SecondScreen extends Screen {
 
 
 	public void spawnNewMario() {
-		mario = new Mario(surface.loadImage("img/mario.png"), DRAWING_WIDTH/2-Mario.MARIO_WIDTH/2,50);
+		player = new Player(surface.loadImage("img/player.png"), DRAWING_WIDTH/2-Player.PLAYER_HEIGHT/2,50);
 	}
 
 	// The statements in the setup() function 
@@ -58,7 +58,7 @@ public class SecondScreen extends Screen {
 			s.draw(surface);
 		}
 
-		mario.draw(surface);
+		player.draw(surface);
 
 		
 		// modifying stuff
@@ -68,15 +68,15 @@ public class SecondScreen extends Screen {
 			return;
 		}
 		if (surface.isPressed(KeyEvent.VK_LEFT))
-			mario.walk(-1);
+			player.walk(-1);
 		if (surface.isPressed(KeyEvent.VK_RIGHT))
-			mario.walk(1);
+			player.walk(1);
 		if (surface.isPressed(KeyEvent.VK_UP))
-			mario.jump();
+			player.jump();
 
-		mario.act(obstacles);
+		player.act(obstacles);
 
-		if (!screenRect.intersects(mario))
+		if (!screenRect.intersects(player))
 			spawnNewMario();
 
 	}

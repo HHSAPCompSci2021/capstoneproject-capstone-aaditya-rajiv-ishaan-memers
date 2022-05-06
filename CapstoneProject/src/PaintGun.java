@@ -14,6 +14,4 @@ public class PaintGun extends Sprite {
 		stroke = str;
 	}
 
-	
-	
 }
