@@ -53,12 +53,14 @@ public class Avatar extends Sprite {
 	}
 	
 	public void throwBomb(PaintBomb bomb) {
-		
+		bomb.toThrow(bomb);
  	}
 	
 	public void shoot() {
 		gun.shoot();
 	}
-	
+	public int setHealth(ArrayList<PaintBlock> blocks) {
+		return health - 12 * blocks.size();
+	}
 	
 }

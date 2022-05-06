@@ -1,11 +1,8 @@
 package sprites;
-import java.util.ArrayList;
-
-import processing.core.PImage;
 
 public class PaintGun extends Sprite {
 	int ammo, reloadTime, velocity;
-	ArrayList<PaintBlock> storage;
+	PaintBlock stroke;
 	
 	public PaintGun(Avatar a, int capacity, int rTime, int vel, PaintBlock str) {
 		super((int)a.x, (int)a.y, (int)a.width, (int)a.height);
@@ -14,12 +11,11 @@ public class PaintGun extends Sprite {
 		reloadTime = rTime;
 		velocity = vel;
 		
-		storage = new ArrayList<PaintBlock>();
+		stroke = str;
 	}
 
 	public void shoot() {
-		
-		ammo--;
+		// TODO Auto-generated method stub
 		
 	}
 
