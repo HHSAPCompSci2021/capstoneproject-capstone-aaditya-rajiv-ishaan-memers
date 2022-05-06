@@ -15,4 +15,14 @@ public class PaintGun extends Sprite {
 		stroke = str;
 	}
 
+<<<<<<< Updated upstream:CapstoneProject/src/sprites/PaintGun.java
+=======
+	public void shoot() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	
+>>>>>>> Stashed changes:CapstoneProject/src/PaintGun.java
 }
