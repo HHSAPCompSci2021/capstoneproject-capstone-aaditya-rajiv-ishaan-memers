@@ -1,5 +1,4 @@
 package sprites;
-import processing.core.PImage;
 
 public class PaintGun extends Sprite {
 	int ammo, reloadTime, velocity;
