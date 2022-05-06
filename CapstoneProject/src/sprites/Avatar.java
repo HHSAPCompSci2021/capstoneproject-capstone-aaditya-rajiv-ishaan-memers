@@ -1,5 +1,6 @@
 package sprites;
 import java.awt.Color;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,8 +62,8 @@ public class Avatar extends Sprite {
 		arsenal.remove(arsenal.size() - 1);
  	}
 	
-	public void shoot() {
-		gun.shoot();
+	public void shoot(Point2D point) {
+		gun.shoot(point);
 	}
 	public int setHealth(ArrayList<PaintBlock> blocks) {
 		return health - 12 * blocks.size();
@@ -79,5 +80,6 @@ public class Avatar extends Sprite {
 	public Color getColor() {
 		return playerColor;
 	}
+	
 	
 }
