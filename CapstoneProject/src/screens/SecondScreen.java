@@ -34,7 +34,7 @@ public class SecondScreen extends Screen {
 
 
 	public void spawnNewMario() {
-		player = new Avatar(0, 0, 40, 50);
+		player = new Avatar(0, 0, 40, 50, null);
 	}
 
 	// The statements in the setup() function 

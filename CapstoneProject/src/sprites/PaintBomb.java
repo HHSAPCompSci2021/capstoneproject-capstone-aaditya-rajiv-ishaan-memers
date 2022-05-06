@@ -29,9 +29,5 @@ public class PaintBomb extends Sprite {
 		isThrown = true;
 	}
 
-	public void toThrow(PaintBomb bomb) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

@@ -57,8 +57,8 @@ public class Avatar extends Sprite {
 	public void draw(PApplet drawer) {
 		
 	}
-	public void throwBomb() {
-		bomb.toThrow(arsenal.get(arsenal.size() - 1));
+	public void throwBomb(Point2D point) {
+		arsenal.get(arsenal.size() - 1).launch(point);
 		arsenal.remove(arsenal.size() - 1);
  	}
 	
