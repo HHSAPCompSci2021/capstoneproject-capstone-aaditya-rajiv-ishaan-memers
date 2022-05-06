@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import core.DrawingSurface;
-import sprites.Player;
+import sprites.Avatar;
 import sprites.Sprite;
 
 
@@ -17,7 +17,7 @@ public class SecondScreen extends Screen {
 	
 	private Rectangle screenRect;
 
-	private Player player;
+	private Avatar player;
 	private List<Sprite> obstacles;
 
 	public SecondScreen(DrawingSurface surface) {
@@ -34,7 +34,7 @@ public class SecondScreen extends Screen {
 
 
 	public void spawnNewMario() {
-		player = new Player(surface.loadImage("img/player.png"), DRAWING_WIDTH/2-Player.PLAYER_HEIGHT/2,50);
+		player = new Avatar(0, 0, 40, 50);
 	}
 
 	// The statements in the setup() function 
