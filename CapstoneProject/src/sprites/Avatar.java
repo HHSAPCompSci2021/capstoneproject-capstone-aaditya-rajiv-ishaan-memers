@@ -3,9 +3,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import sprites.Sprite;
-
 public class Avatar extends Sprite {
 	private PaintGun gun;
 	private ArrayList<PaintBomb> arsenal;
@@ -52,12 +49,16 @@ public class Avatar extends Sprite {
 		
 	}
 	
-	public void throwBomb(PaintBomb bomb) {
+	public void throwBomb() {
 		
  	}
 	
 	public void shoot() {
 		gun.shoot();
+	}
+	
+	public void respawn() {
+		super.moveToLocation(baseX, baseY);
 	}
 	
 	
