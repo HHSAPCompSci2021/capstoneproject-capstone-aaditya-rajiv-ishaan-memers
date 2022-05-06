@@ -17,5 +17,4 @@ public class PaintBlock extends Sprite {
 		this.c = c;
 	}
 	
-	
 }
