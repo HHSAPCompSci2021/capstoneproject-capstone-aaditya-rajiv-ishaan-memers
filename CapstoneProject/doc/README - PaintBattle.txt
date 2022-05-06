@@ -183,22 +183,22 @@ Credits:
 
 Rajiv
 * PaintGun & Flag
-* Firebase for multiplayer features 
 * Set-up (Main, DrawingSurface, Sprite import)
+* Server networking
 
 
 Aaditya
 * PaintBomb, PaintBlock, Platform classes
 * Finding images for graphical portion of game
 * MainMenu 
+* Server networking
 
 
 Ishaan
 * Avatar class 
 * Game class
 * Other Screen classes
-
-
+* Server networking
 
 
 
