@@ -1,3 +1,7 @@
+/** The bombs that spawn on the map which the player can pick up
+  @author Ishaan Singh
+  @version 1
+*/
 package sprites;
 import java.awt.Color;
 import java.awt.geom.Point2D;
@@ -5,43 +9,40 @@ import java.util.ArrayList;
 
 public class PaintBomb extends Sprite {
 	
-	private double explosionRadius;
+	private double explosionRadius, velocity;
 	private boolean isThrown;
 	private Color c;
-	private double xVel, yVel;
-	private double velocity;
 
 	
-	
-	public PaintBomb(int x, int y, int length, int r, double velocity, Color c) {
-		super(x, y, length, length);
-		this.velocity = velocity;
+	/** Constructs a new PaintBomb objects
+	 * 
+	 * @param x the x-coordinate of the initial location of the PaintBomb
+	 * @param y the y-coordinate of the initial location of the PaintBomb
+	 * @param r the radius of the paintbomb
+	 * @param c the color of this PaintBomb
+	 */
+	public PaintBomb(int x, int y, int r, Color c) {
+		super(x, y, r, r);
 		this.explosionRadius = r;
 		this.c = c;
 		isThrown = false;
-		xVel = 0;
-		yVel = 0;
 	}
 	
+	/** Scatters Paintbombs with the specified radius
+	 * 
+	 * @returnan ArrayList of paintblocks to be drawn on the map and acted upon
+	 */
 	public ArrayList<PaintBlock> blowUp() {
 		return null;
 	}
 	
-	public void launch(Point2D mouseClick, Point2D startPoint) {
+	/** Throws this bomb
+	 * 
+	 * @param point the point at which the bomb is being thrown
+	 */
+	public void launch(Point2D point) {
 		// set vx and vy based off mouse click and velocity field
 		isThrown = true;
-		double run = mouseClick.getX() - startPoint.getX();
-		double rise = mouseClick.getY() - startPoint.getY();
-		double currentSpeed = Math.sqrt(Math.pow(rise, 2) + Math.pow(run, 2));
-		if (currentSpeed > velocity) {
-			rise *= velocity/currentSpeed;
-			run *= velocity/currentSpeed;
-		} else {
-			rise *= velocity/currentSpeed;
-			run *=  velocity/currentSpeed;
-		}
-		this.xVel = run;
-		this.yVel = rise;
 	}
 
 

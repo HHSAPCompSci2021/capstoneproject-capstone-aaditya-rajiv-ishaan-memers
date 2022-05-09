@@ -1,3 +1,7 @@
+/** The object of the game
+  @author Aaditya Raj
+  @version 2
+*/
 package sprites;
 
 public class Flag extends PaintGun{
