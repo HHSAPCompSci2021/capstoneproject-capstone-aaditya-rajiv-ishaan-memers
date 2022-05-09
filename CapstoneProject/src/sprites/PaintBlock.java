@@ -1,3 +1,7 @@
+/** The basic unit of the game
+  @author Rajiv Venkatesh
+  @version 2
+*/
 package sprites;
 import java.awt.Color;
 import java.awt.geom.Point2D;
@@ -9,7 +13,13 @@ public class PaintBlock extends Sprite {
 	private Color c;
 	private double xVel, yVel;
 	
-	
+	/**
+	 * 
+	 * @param owner the owner of this Paintblock
+	 * @param length the length of this PaintBlock
+	 * @param velocity the velocity 
+	 * @param mouseClick the location
+	 */
 	public PaintBlock(Avatar owner, int length, double velocity, Point2D mouseClick) {
 		super((int) owner.getCenterX(), (int) owner.getCenterY(), length, length);
 		this.c = owner.getColor();
@@ -28,6 +38,9 @@ public class PaintBlock extends Sprite {
 		
 	}
 	
+	/**
+	 * Draws this PaintBlock
+	 */
 	public void draw(PApplet marker) {
 		marker.push();
 		marker.fill(c.getRed(), c.getGreen(), c.getBlue());
@@ -36,6 +49,10 @@ public class PaintBlock extends Sprite {
 		super.moveByAmount(xVel, yVel);
 	}
 	
+	/** changesthe color of this block
+	 * 
+	 * @param c the new color
+	 */
 	public void fill(Color c) {
 		this.c = c;
 	}

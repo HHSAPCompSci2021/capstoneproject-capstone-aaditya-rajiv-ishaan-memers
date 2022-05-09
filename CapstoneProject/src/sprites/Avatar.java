@@ -17,7 +17,14 @@ public class Avatar extends Sprite {
 	private boolean onPlatform;
 	public static final double GRAVITY = 0.6;
 
-	
+	/**
+	 * 
+	 * @param x x-coord of starting location of the Avatar
+	 * @param y y-coord of starting location of the Avatar
+	 * @param w width of Avatar
+	 * @param h height of Avatar
+	 * @param color red/blue for one of the two characters in the game
+	 */
 	public Avatar(int x, int y, int w, int h, Color color) {
 		super(x, y, w, h);
 		playerColor = color;
@@ -25,15 +32,26 @@ public class Avatar extends Sprite {
 		yVel = 0;
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	/**
+	 * 
+	 * @param dir up, down, left, right
+	 */
 	public void walk(int dir) {
 		xVel = dir;
 	}
 
+	/** Ch
+	 * 
+	 */
 	public void jump() {
 		yVel -= 1.6;
 	}
 
+	/**
+	 * 
+	 * @param gameObstacles
+	 */
 	public void act(List<Sprite> gameObstacles) {
 		
 		yVel += GRAVITY; // gravity
@@ -54,29 +72,59 @@ public class Avatar extends Sprite {
 		
 	}
 	
+	/**
+	 * 
+	 */
 	public void draw(PApplet drawer) {
 		
 	}
-	public void throwBomb(Point2D startPoint, Point2D mouseClick) {
+	
+	/**
+	 * 
+	 * @param startPoint
+	 * @param mouseClick
+	 */
+	public void throwBomb(Point2D mouseClick) {
 		bombHeld.launch(mouseClick);
 		bombHeld = null;
  	}
 	
+	/**
+	 * 
+	 * @param point
+	 */
 	public void shoot(Point2D point) {
 		gun.shoot(point);
 	}
+	
+	/**
+	 * 
+	 * @param blocks
+	 * @return
+	 */
 	public int setHealth(ArrayList<PaintBlock> blocks) {
 		return health - 12 * blocks.size();
 	}
 	
+	/**
+	 * 
+	 */
 	public void respawn() {
 		super.moveToLocation(baseX, baseY);
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getHealth() {
 		return health;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Color getColor() {
 		return playerColor;
 	}
