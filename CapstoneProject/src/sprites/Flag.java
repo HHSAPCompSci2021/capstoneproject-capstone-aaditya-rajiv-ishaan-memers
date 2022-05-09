@@ -7,8 +7,8 @@ public class Flag extends PaintGun{
 	private static int vel;
 	private static PaintBlock str;
 
-	public Flag(Avatar a) {
-		super(a, capacity, rTime, vel, str);
+	public Flag(int x, int y, int width, int height) {
+		super(x, y, width, height, capacity, rTime, vel, str);
 		// TODO Auto-generated constructor stub
 	}
 

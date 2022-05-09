@@ -5,10 +5,10 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
+import screens.Game;
 import screens.MainMenu;
 import screens.Screen;
 import screens.ScreenSwitcher;
-import screens.SecondScreen;
 
 public class DrawingSurface extends PApplet implements ScreenSwitcher {
 
@@ -30,7 +30,7 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		MainMenu screen1 = new MainMenu(this);
 		screens.add(screen1);
 		
-		SecondScreen screen2 = new SecondScreen(this);
+		Game screen2 = new Game(this);
 		screens.add(screen2);
 		
 		activeScreen = screens.get(0);

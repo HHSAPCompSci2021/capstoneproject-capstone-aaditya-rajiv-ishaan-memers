@@ -5,6 +5,11 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 
+/**
+ * 
+ * @author Mr. Shelby
+ *
+ */
 public class Sprite extends Rectangle2D.Double {
 	
 	// FIELDS

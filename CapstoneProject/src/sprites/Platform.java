@@ -1,6 +1,7 @@
 package sprites;
 import java.util.ArrayList;
 
+
 public class Platform {
 	
 	double x, y, width, height;
@@ -14,7 +15,4 @@ public class Platform {
 		border = new ArrayList<PaintBlock>();
 	}
 	
-//	public void draw(PApplet marker) {
-//		
-//	}
 }
