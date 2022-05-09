@@ -1,42 +1,39 @@
-/** Gun that can shoot which the player has
-  @author Rajiv Venkatesh
-  @version 2
-*/
+
 package sprites;
 
 import java.awt.geom.Point2D;
 
-import processing.core.PApplet;
 
+import processing.core.PApplet;
+/** Gun that can shoot which the player has
+	@author Rajiv Venkatesh, Aaditya Raj
+	@version 2
+*/
 public class PaintGun extends Sprite {
 	private Avatar owner;
 	private int ammo, maxAmmo, reloadTime, velocity, stroke, counter;
 	
-	
-	/** constructs a new PaintGun object
+	/**
 	 * 
-	 * @param x the Avatar this gun belongs to
+	 * @param x The x coordinate of the starting position of the PaintGun. 
+	 * @param y The y coordinate of the starting position of the PaintGun.
+	 * @param width The width of the paint gun.
+	 * @param height The height of the paint gun.
 	 * @param capacity the amount of ammunition this gun can hold
 	 * @param rTime the reload time of the gun
 	 * @param vel the muzzle velocity of bullets from this gun
 	 * @param str the size of "splotches" on the ground from this
 	 */
-	/**
-	 * 
-	 * @param x The x coordiante of the starting position of the PaintGun. 
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param capacity
-	 * @param rTime
-	 * @param vel
-	 * @param str
-	 */
 	public PaintGun(int x, int y, int width, int height, int capacity, int rTime, int vel, PaintBlock str) {
 		super(x, y, width, height);
 	}
 
-
+	/**
+	 * Returns a PaintBlock bullet with the correct velocities once the user has clicked to shoot.
+	 * 
+	 * @param point The mouse-click point where the user clicked. 
+	 * @return A PaintBlock bullet.
+	 */
 	public PaintBlock shoot(Point2D point) {
 		if (owner != null) {
 			if(ammo > 0) {
@@ -49,6 +46,10 @@ public class PaintGun extends Sprite {
 		
 	}
 	
+	/**
+	 * Draws this paint gun to the screen
+	 * @param drawer The PApplet to draw onto.
+	 */
 	public void draw(PApplet drawer) {
 		super.draw(drawer);
 		if (owner != null) {
@@ -63,6 +64,10 @@ public class PaintGun extends Sprite {
 		counter++;
 	}
 	
+	/**
+	 * Sets the Avatar owner of this paint gun.
+	 * @param a The owner.
+	 */
 	public void setOwner(Avatar a) {
 		owner = a;
 	}

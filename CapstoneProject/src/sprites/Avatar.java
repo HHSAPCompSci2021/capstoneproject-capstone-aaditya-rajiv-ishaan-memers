@@ -1,7 +1,4 @@
-/** The players in the game
-  @author Ishaan Singh
-  @version 3
-*/
+
 package sprites;
 import java.awt.Color;
 import java.awt.geom.Point2D;
@@ -11,6 +8,10 @@ import java.util.List;
 import processing.core.PApplet;
 import sprites.Sprite;
 
+/** The players in the game
+	@author Ishaan Singh
+	@version 3
+*/
 public class Avatar extends Sprite {
 	private PaintGun gun;
 	private PaintBomb bombHeld;

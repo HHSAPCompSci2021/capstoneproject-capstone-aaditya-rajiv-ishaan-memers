@@ -1,5 +1,11 @@
 package screens;
 
+/**
+ * The game room screen where a new room is created.
+ * 
+ * @author Aaditya Raj, Ishaan Singh
+ *
+ */
 public class GameRoom extends Screen {
 
 	/**

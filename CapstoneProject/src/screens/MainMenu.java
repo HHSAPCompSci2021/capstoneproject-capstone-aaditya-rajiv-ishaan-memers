@@ -7,13 +7,23 @@ import java.awt.Rectangle;
 
 import core.DrawingSurface;
 
-
+/**
+ * The main menu screen.
+ * 
+ * @author Aaditya Raj
+ *
+ */
 public class MainMenu extends Screen {
 
 	private DrawingSurface surface;
 	
 	private Rectangle button;
 
+	/**
+	 * Constructs a new main menu. 
+	 * 
+	 * @param surface The PApplet to draw this screen onto.
+	 */
 	public MainMenu(DrawingSurface surface) {
 		super(800,600);
 		this.surface = surface;

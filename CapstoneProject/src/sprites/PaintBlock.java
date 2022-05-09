@@ -1,13 +1,14 @@
-/** The basic unit of the game
-  @author Rajiv Venkatesh
-  @version 2
-*/
+
 package sprites;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 
 import processing.core.PApplet;
 
+/** The basic unit of the game
+	@author Aaditya Raj, Rajiv Venkatesh
+	@version 2
+*/
 public class PaintBlock extends Sprite {
 	
 	private Color c;
@@ -49,7 +50,7 @@ public class PaintBlock extends Sprite {
 		super.moveByAmount(xVel, yVel);
 	}
 	
-	/** changesthe color of this block
+	/** Changes the color of this block
 	 * 
 	 * @param c the new color
 	 */

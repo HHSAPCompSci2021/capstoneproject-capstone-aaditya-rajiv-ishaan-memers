@@ -1,12 +1,13 @@
-/** The bombs that spawn on the map which the player can pick up
-  @author Ishaan Singh
-  @version 1
-*/
+
 package sprites;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+/** The bombs that spawn on the map which the player can pick up
+	@author Aaditya Raj
+	@version 1
+*/
 public class PaintBomb extends Sprite {
 	
 	private double explosionRadius, velocity;
@@ -30,7 +31,7 @@ public class PaintBomb extends Sprite {
 	
 	/** Scatters Paintbombs with the specified radius
 	 * 
-	 * @returnan ArrayList of paintblocks to be drawn on the map and acted upon
+	 * @return An ArrayList of paintblocks to be drawn on the map and acted upon
 	 */
 	public ArrayList<PaintBlock> blowUp() {
 		return null;

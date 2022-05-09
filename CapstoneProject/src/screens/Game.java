@@ -8,6 +8,12 @@ import sprites.Flag;
 import sprites.PaintBomb;
 import sprites.Platform;
 
+/**
+ * Represents the interactive game screen.
+ * 
+ * @author Ishaan Singh
+ *
+ */
 public class Game extends Screen{
 	
 	Avatar player1, player2;
@@ -30,7 +36,7 @@ public class Game extends Screen{
 		platforms.add(new Platform(0, 0, 0, 0));
 		flag = new Flag(0, 0, 0, 0);
 		bombs = new ArrayList<PaintBomb>();
-		bombs.add(new PaintBomb(0, 0, 0, 0, 0, null));
+		bombs.add(new PaintBomb(0, 0, 0, null));
 	}
 
 }

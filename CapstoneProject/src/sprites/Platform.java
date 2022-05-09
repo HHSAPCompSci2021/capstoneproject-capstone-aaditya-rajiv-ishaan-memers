@@ -1,12 +1,13 @@
-/** Platform to form the map
-  @author Aaditya Raj
-  @version 2
-*/
+
 package sprites;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
 
+/** Platform to form the map
+	@author Aaditya Raj, Ishaan Singh
+	@version 2
+*/
 public class Platform {
 	
 	double x, y, width, height;
