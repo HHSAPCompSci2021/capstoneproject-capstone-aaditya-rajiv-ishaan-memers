@@ -58,7 +58,7 @@ public class Avatar extends Sprite {
 		
 	}
 	public void throwBomb(Point2D startPoint, Point2D mouseClick) {
-		bombHeld.launch(startPoint, mouseClick);
+		bombHeld.launch(mouseClick);
 		bombHeld = null;
  	}
 	
