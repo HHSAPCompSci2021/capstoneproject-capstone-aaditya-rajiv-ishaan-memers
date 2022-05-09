@@ -1,3 +1,7 @@
+/** The players in the game
+  @author Ishaan Singh
+  @version 3
+*/
 package sprites;
 import java.awt.Color;
 import java.awt.geom.Point2D;
@@ -35,13 +39,13 @@ public class Avatar extends Sprite {
 	
 	/**
 	 * 
-	 * @param dir up, down, left, right
+	 * @param dir left, right
 	 */
 	public void walk(int dir) {
 		xVel = dir;
 	}
 
-	/** Ch
+	/** Avatar jumps as a result 
 	 * 
 	 */
 	public void jump() {
@@ -50,7 +54,7 @@ public class Avatar extends Sprite {
 
 	/**
 	 * 
-	 * @param gameObstacles
+	 * @param gameObstacles the sprites to act on
 	 */
 	public void act(List<Sprite> gameObstacles) {
 		
@@ -73,16 +77,17 @@ public class Avatar extends Sprite {
 	}
 	
 	/**
-	 * 
+	 * Draws the avatar in the game
+	 * @param drawer the PApplet that draws the Avatar
 	 */
 	public void draw(PApplet drawer) {
 		
 	}
 	
-	/**
+	/** Throws a bomb
 	 * 
-	 * @param startPoint
-	 * @param mouseClick
+	 * @param startPoint the starting point
+	 * @param mouseClick the location of the throw
 	 */
 	public void throwBomb(Point2D mouseClick) {
 		bombHeld.launch(mouseClick);
@@ -97,33 +102,33 @@ public class Avatar extends Sprite {
 		gun.shoot(point);
 	}
 	
-	/**
+	/** Sets the health (useful when respawning)
 	 * 
-	 * @param blocks
-	 * @return
+	 * @param blocks calc tool
+	 * @return 
 	 */
 	public int setHealth(ArrayList<PaintBlock> blocks) {
 		return health - 12 * blocks.size();
 	}
 	
-	/**
+	/** Respawns this avatar back to ther home base when they die
 	 * 
 	 */
 	public void respawn() {
 		super.moveToLocation(baseX, baseY);
 	}
 	
-	/**
+	/** Gets the health of this avatar
 	 * 
-	 * @return
+	 * @return the health
 	 */
 	public int getHealth() {
 		return health;
 	}
 	
-	/**
+	/** Gets the color of this avatar
 	 * 
-	 * @return
+	 * @return the color
 	 */
 	public Color getColor() {
 		return playerColor;
