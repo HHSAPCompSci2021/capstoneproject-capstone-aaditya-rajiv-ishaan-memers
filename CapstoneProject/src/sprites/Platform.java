@@ -1,5 +1,6 @@
 
 package sprites;
+import java.awt.Color;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
@@ -45,5 +46,9 @@ public class Platform {
 	 */
 	public void draw(PApplet marker) {
 		marker.rect((float)x,(float)y,(float)width,(float)height);
+		for (PaintBlock block : border) {
+			block.draw(marker);
+		}
+		marker.color(Color.GRAY.getRGB());
 	}
 }
