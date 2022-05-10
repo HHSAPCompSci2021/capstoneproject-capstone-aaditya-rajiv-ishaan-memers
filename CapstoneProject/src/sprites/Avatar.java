@@ -82,7 +82,7 @@ public class Avatar extends Sprite {
 	 * @param drawer the PApplet that draws the Avatar
 	 */
 	public void draw(PApplet drawer) {
-		
+	 	
 	}
 	
 	/** Throws a bomb
