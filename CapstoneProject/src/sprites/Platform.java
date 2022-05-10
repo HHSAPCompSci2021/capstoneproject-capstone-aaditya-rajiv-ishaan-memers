@@ -26,6 +26,17 @@ public class Platform {
 		this.width = width;
 		this.height = height;
 		border = new ArrayList<PaintBlock>();
+		int widthBlocks = (int) (width/PaintBlock.LENGTH + 0.5);
+		int heightBlocks = (int) ((height - PaintBlock.LENGTH * 2)/PaintBlock.LENGTH + 0.5);
+		for (int i = 0; i < widthBlocks; i++) {
+			border.add(new PaintBlock((int) (x + i * PaintBlock.LENGTH + 0.5), (int) (y + 0.5), PaintBlock.LENGTH));
+			border.add(new PaintBlock((int) (x + i * PaintBlock.LENGTH + 0.5), (int) (y + height - PaintBlock.LENGTH + 0.5), PaintBlock.LENGTH));
+		}
+		for (int i = 0; i < heightBlocks; i++) {
+			border.add(new PaintBlock((int) (x + 0.5), (int) (y + PaintBlock.LENGTH + i * PaintBlock.LENGTH + 0.5), PaintBlock.LENGTH));
+			border.add(new PaintBlock((int) (x + width - PaintBlock.LENGTH + 0.5), (int) (y + PaintBlock.LENGTH + i * PaintBlock.LENGTH + 0.5), PaintBlock.LENGTH));
+		}
+		
 	}
 	
 	/** Draws the platform on the screen
