@@ -66,6 +66,9 @@ public class PaintBlock extends Sprite {
 		this.c = c;
 	}
 	
+	public Color getColor() {
+		return c;
+	}
 	
 	
 }
