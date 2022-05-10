@@ -34,5 +34,8 @@ public class Platform {
 	 */
 	public void draw(PApplet marker) {
 		marker.rect((float)x,(float)y,(float)width,(float)height);
+		for (PaintBlock block : border) {
+			block.draw(marker);
+		}
 	}
 }
