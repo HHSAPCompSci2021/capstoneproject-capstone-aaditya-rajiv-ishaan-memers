@@ -38,5 +38,12 @@ public class Game extends Screen{
 		bombs = new ArrayList<PaintBomb>();
 		bombs.add(new PaintBomb(0, 0, 0, null));
 	}
+	
+	public void draw() {
+
+		surface.background(0,0,255);
+		
+		
+	}
 
 }
