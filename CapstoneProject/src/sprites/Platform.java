@@ -40,6 +40,28 @@ public class Platform {
 		
 	}
 	
+	/**
+	 * 
+	 * @pre bullet has a color field that is set.
+	 */
+	public void paint(PaintBlock bullet) {
+		for (PaintBlock block : border) {
+			if (block.intersects(bullet)) {
+				block.fill(bullet.getColor());
+			}
+		}
+	}
+	
+	public boolean insidePlatform(PaintBlock bullet) {
+		return (isPointInside(bullet.x, bullet.y) && isPointInside(bullet.x + bullet.width, bullet.y) && isPointInside(bullet.x + width, bullet.y + height) && isPointInside(bullet.x, bullet.y + height));
+	}
+	
+	private boolean isPointInside(double x, double y) {
+		return (x >= this.x + PaintBlock.LENGTH && y >= this.y + PaintBlock.LENGTH && x <= this.x + width - PaintBlock.LENGTH && y <= this.y + height - PaintBlock.LENGTH);
+	}
+	
+	
+	
 	/** Draws the platform on the screen
 	 * 
 	 * @param marker the PApplet that draws the platform
