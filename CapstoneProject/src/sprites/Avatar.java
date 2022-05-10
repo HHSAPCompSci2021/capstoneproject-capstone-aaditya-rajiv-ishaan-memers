@@ -108,11 +108,15 @@ public class Avatar extends Sprite {
 	 * @param blocks calc tool
 	 * @return 
 	 */
-	public int setHealth(ArrayList<PaintBlock> blocks) {
-		return health - 12 * blocks.size();
+	public void setHealth(ArrayList<PaintBlock> blocks) {
+		health -= (10 * blocks.size());
+		if (health <= 0) {
+			respawn();
+			health = 100;
+		}
 	}
 	
-	/** Respawns this avatar back to ther home base when they die
+	/** Respawns this Avatar back to their home base when they die
 	 * 
 	 */
 	public void respawn() {
@@ -133,6 +137,10 @@ public class Avatar extends Sprite {
 	 */
 	public Color getColor() {
 		return playerColor;
+	}
+	
+	public void collectFlag() {
+		
 	}
 	
 	
