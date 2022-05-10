@@ -13,6 +13,7 @@ public class PaintBlock extends Sprite {
 	
 	private Color c;
 	private double xVel, yVel;
+	public static final int LENGTH = 10;
 	
 	/**
 	 * 
@@ -37,6 +38,13 @@ public class PaintBlock extends Sprite {
 		this.xVel = run;
 		this.yVel = rise;
 		
+	}
+	
+	public PaintBlock(int x, int y, int length) {
+		super(x, y, length, length);
+		this.c = null;
+		xVel = 0;
+		yVel = 0;
 	}
 	
 	/**
