@@ -44,6 +44,6 @@ public class Platform {
 	 * @param marker the PApplet that draws the platform
 	 */
 	public void draw(PApplet marker) {
-		
+		marker.rect((float)x,(float)y,(float)width,(float)height);
 	}
 }
