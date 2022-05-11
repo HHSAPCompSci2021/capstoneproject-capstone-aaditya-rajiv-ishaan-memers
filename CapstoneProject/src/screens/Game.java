@@ -42,6 +42,13 @@ public class Game extends Screen{
 	public void draw() {
 
 		surface.background(0,0,255);
+		player1.draw(surface);
+		player2.draw(surface);
+		for (Platform p : platforms) {
+			p.draw(surface);
+		}
+		
+		
 		
 		
 	}
