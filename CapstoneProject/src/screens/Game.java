@@ -1,6 +1,7 @@
 package screens;
 
 import java.awt.geom.Point2D;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import core.DrawingSurface;
@@ -12,10 +13,10 @@ import sprites.Platform;
 /**
  * Represents the interactive game screen.
  * 
- * @author Ishaan Singh
+ * @author Ishaan Singh and Aaditya Raj
  *
  */
-public class Game extends Screen{
+public class Game extends Screen {
 	
 	Avatar player1, player2;
 	Double player1Points, player2Points;
@@ -49,10 +50,24 @@ public class Game extends Screen{
 			p.draw(surface);
 		}
 		flag.draw(surface);
-		for (PaintBomb bomb : bombs) {
-			bomb.draw(surface);
+		if (surface.isPressed(KeyEvent.VK_LEFT)) {
+			player1.walk(-2);
+		if (surface.isPressed(KeyEvent.VK_RIGHT)) {
+			player1.walk(2);
+		}
+		if (surface.isPressed(KeyEvent.VK_UP)) {
+			player1.jump();
 		}
 		
+		if (surface.isPressed(KeyEvent.VK_W)) {
+			player2.walk(-2);
+		}
+		if (surface.isPressed(KeyEvent.VK_A)) {
+			player2.walk(2);
+		}
+		if (surface.isPressed(KeyEvent.VK_D)) {
+			player2.jump();
+		}
 		
 		
 		
