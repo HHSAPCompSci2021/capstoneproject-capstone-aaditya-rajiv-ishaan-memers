@@ -16,7 +16,7 @@ public class Avatar extends Sprite {
 	private PaintGun gun;
 	private PaintBomb bombHeld;
 	private Color playerColor;
-	private int health, speed;
+	private int health;
 	private int baseX, baseY;
 	private int xVel, yVel;
 	private boolean onPlatform;
@@ -32,6 +32,7 @@ public class Avatar extends Sprite {
 	 */
 	public Avatar(int x, int y, int w, int h, Color color) {
 		super(x, y, w, h);
+		gun = new PaintGun(x + 10, y, w/2, h/2, 5, 5, 5, PaintBlock.LENGTH);
 		playerColor = color;
 		xVel = 0;
 		yVel = 0;
@@ -83,6 +84,7 @@ public class Avatar extends Sprite {
 	 */
 	public void draw(PApplet drawer) {
 	 	super.draw(drawer);
+	 	gun.draw(drawer, new Point2D.Double(x, y));
 	 	
 	}
 	
@@ -101,7 +103,7 @@ public class Avatar extends Sprite {
 	 * @param point
 	 */
 	public void shoot(Point2D point) {
-		gun.shoot(point);
+		gun.shoot(point, playerColor);
 	}
 	
 	/** Sets the health (useful when respawning)

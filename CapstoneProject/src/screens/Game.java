@@ -1,5 +1,6 @@
 package screens;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import core.DrawingSurface;
@@ -47,10 +48,18 @@ public class Game extends Screen{
 		for (Platform p : platforms) {
 			p.draw(surface);
 		}
+		flag.draw(surface);
+		for (PaintBomb bomb : bombs) {
+			bomb.draw(surface);
+		}
 		
 		
 		
 		
+	}
+	
+	public void mousePressed(int mouseX, int mouseY) {
+		player1.shoot(new Point2D.Double(mouseX, mouseY));
 	}
 
 }

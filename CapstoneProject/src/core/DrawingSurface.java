@@ -13,7 +13,7 @@ import screens.ScreenSwitcher;
 public class DrawingSurface extends PApplet implements ScreenSwitcher {
 
 	public float ratioX, ratioY;
-	
+		
 	private ArrayList<Integer> keys;
 	
 	private Screen activeScreen;
@@ -70,8 +70,9 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 	}
 	
 	public void mousePressed() {
-		activeScreen.mousePressed();
+		activeScreen.mousePressed(mouseX, mouseY);
 	}
+
 	
 	public void mouseMoved() {
 		activeScreen.mouseMoved();
