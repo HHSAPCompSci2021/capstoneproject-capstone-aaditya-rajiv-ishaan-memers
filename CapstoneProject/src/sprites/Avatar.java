@@ -102,8 +102,8 @@ public class Avatar extends Sprite {
 	 * 
 	 * @param point
 	 */
-	public void shoot(Point2D point) {
-		gun.shoot(point, playerColor);
+	public PaintBlock shoot(Point2D point) {
+		return gun.shoot(point, playerColor);
 	}
 	
 	/** Sets the health (useful when respawning)
