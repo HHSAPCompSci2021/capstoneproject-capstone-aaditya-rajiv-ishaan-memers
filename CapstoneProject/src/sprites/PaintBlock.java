@@ -14,6 +14,7 @@ public class PaintBlock extends Sprite {
 	private Color c;
 	private double xVel, yVel;
 	public static final int LENGTH = 10;
+	public static final double velocity = 5;
 	
 	/**
 	 * 

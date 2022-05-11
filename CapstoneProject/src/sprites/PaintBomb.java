@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import processing.core.PApplet;
+
 /** The bombs that spawn on the map which the player can pick up
 	@author Aaditya Raj
 	@version 1
@@ -11,8 +13,10 @@ import java.util.ArrayList;
 public class PaintBomb extends Sprite {
 	
 	private double explosionRadius, velocity;
+	private double xVel, yVel;
 	private boolean isThrown;
 	private Color c;
+	private Avatar owner;
 
 	
 	/** Constructs a new PaintBomb objects
@@ -35,15 +39,46 @@ public class PaintBomb extends Sprite {
 	 */
 	public ArrayList<PaintBlock> blowUp() {
 		return null;
-	}
+	}	
 	
 	/** Throws this bomb
 	 * 
 	 * @param point the point at which the bomb is being thrown
 	 */
-	public void launch(Point2D point) {
-		// set vx and vy based off mouse click and velocity field
-		isThrown = true;
+	public void launch(Point2D mouseClick) {
+		if (owner != null) {
+			// set vx and vy based off mouse click and velocity field
+			double run = mouseClick.getX() - owner.getCenterX();
+			double rise = mouseClick.getY() - owner.getCenterY();
+			double currentSpeed = Math.sqrt(Math.pow(rise, 2) + Math.pow(run, 2));
+			if (currentSpeed > velocity) {
+				rise *= velocity/currentSpeed;
+				run *= velocity/currentSpeed;
+			} else {
+				rise *= velocity/currentSpeed;
+				run *=  velocity/currentSpeed;
+			}
+			this.xVel = run;
+			this.yVel = rise;
+			isThrown = true;
+		}
+		
+	}
+	
+	public void setOwner(Avatar a) {
+		owner = a;
+	}
+	
+	public void draw(PApplet drawer) {
+		if (owner != null) {
+			if (isThrown) {
+				super.draw(drawer);
+			}
+		}
+		else if (owner == null) {
+			super.draw(drawer);
+		}
+	
 	}
 
 
