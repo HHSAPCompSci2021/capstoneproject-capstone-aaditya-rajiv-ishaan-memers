@@ -1,5 +1,6 @@
 package screens;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import core.DrawingSurface;
@@ -11,7 +12,7 @@ import sprites.Platform;
 /**
  * Represents the interactive game screen.
  * 
- * @author Ishaan Singh
+ * @author Ishaan Singh and Aaditya Raj
  *
  */
 public class Game extends Screen{
@@ -47,10 +48,31 @@ public class Game extends Screen{
 		for (Platform p : platforms) {
 			p.draw(surface);
 		}
+		if (surface.isPressed(KeyEvent.VK_LEFT)) {
+			player1.walk(-2);
+		}
+		if (surface.isPressed(KeyEvent.VK_RIGHT)) {
+			player1.walk(2);
+		}
+		if (surface.isPressed(KeyEvent.VK_UP)) {
+			player1.jump();
+		}
+		
+		if (surface.isPressed(KeyEvent.VK_W)) {
+			player2.walk(-2);
+		}
+		if (surface.isPressed(KeyEvent.VK_A)) {
+			player2.walk(2);
+		}
+		if (surface.isPressed(KeyEvent.VK_D)) {
+			player2.jump();
+		}
 		
 		
 		
 		
 	}
+	
+	
 
 }
