@@ -11,7 +11,6 @@ import processing.core.PApplet;
 	@version 2
 */
 public class PaintGun extends Sprite {
-	private Avatar owner;
 	private int ammo, maxAmmo, reloadTime, velocity, stroke, counter;
 	
 	/**
@@ -25,8 +24,13 @@ public class PaintGun extends Sprite {
 	 * @param vel the muzzle velocity of bullets from this gun
 	 * @param str the size of "splotches" on the ground from this
 	 */
-	public PaintGun(int x, int y, int width, int height, int capacity, int rTime, int vel, PaintBlock str) {
+	public PaintGun(int x, int y, int width, int height, int capacity, int rTime, int vel, int strokeLength) {
 		super(x, y, width, height);
+		this.maxAmmo = capacity;
+		this.ammo = capacity;
+		this.reloadTime = rTime;
+		this.velocity = vel;
+		this.stroke = strokeLength;
 	}
 
 	/**
@@ -35,14 +39,12 @@ public class PaintGun extends Sprite {
 	 * @param point The mouse-click point where the user clicked. 
 	 * @return A PaintBlock bullet.
 	 */
-	public PaintBlock shoot(Point2D point) {
-		if (owner != null) {
+	public PaintBlock shoot(Point2D point, Color ownerColor) {
 			if(ammo > 0) {
-				PaintBlock bullet = new PaintBlock(owner, stroke, velocity, point);
+				PaintBlock bullet = new PaintBlock((int) x, (int) y, ownerColor, stroke, velocity, point);
 				ammo--;
 				return bullet;
 			}
-		}
 		return null;
 		
 	}
@@ -51,12 +53,10 @@ public class PaintGun extends Sprite {
 	 * Draws this paint gun to the screen
 	 * @param drawer The PApplet to draw onto.
 	 */
-	public void draw(PApplet drawer) {
+	public void draw(PApplet drawer, Point2D ownerLoc) {
 		super.draw(drawer);
-		if (owner != null) {
-			super.x = owner.getCenterX();
-			super.y = owner.getCenterY();
-		}
+		x = ownerLoc.getX() + 10;
+		y = ownerLoc.getY() + 10;
 		if (counter % reloadTime == 0) {
 			if (ammo < maxAmmo) {
 				ammo++;
@@ -65,13 +65,6 @@ public class PaintGun extends Sprite {
 		counter++;
 	}
 	
-	/**
-	 * Sets the Avatar owner of this paint gun.
-	 * @param a The owner.
-	 */
-	public void setOwner(Avatar a) {
-		owner = a;
-	}
 
 	
 	

@@ -1,11 +1,13 @@
 package screens;
 
+import java.awt.geom.Point2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import core.DrawingSurface;
 import sprites.Avatar;
 import sprites.Flag;
+import sprites.PaintBlock;
 import sprites.PaintBomb;
 import sprites.Platform;
 
@@ -15,13 +17,14 @@ import sprites.Platform;
  * @author Ishaan Singh and Aaditya Raj
  *
  */
-public class Game extends Screen{
+public class Game extends Screen {
 	
 	Avatar player1, player2;
 	Double player1Points, player2Points;
 	ArrayList<Platform> platforms;
 	public static Flag flag;
 	ArrayList<PaintBomb> bombs;
+	ArrayList<PaintBlock> bullets;
 	DrawingSurface surface;
 	/**
 	 * Constructs a screen representing the interactive game screen. 
@@ -48,9 +51,9 @@ public class Game extends Screen{
 		for (Platform p : platforms) {
 			p.draw(surface);
 		}
+		flag.draw(surface);
 		if (surface.isPressed(KeyEvent.VK_LEFT)) {
 			player1.walk(-2);
-		}
 		if (surface.isPressed(KeyEvent.VK_RIGHT)) {
 			player1.walk(2);
 		}
@@ -67,13 +70,14 @@ public class Game extends Screen{
 		if (surface.isPressed(KeyEvent.VK_D)) {
 			player2.jump();
 		}
-		
-		
+		}
 		
 		
 		
 	}
 	
-	
+	public void mousePressed(int mouseX, int mouseY) {
+		bullets.add(player1.shoot(new Point2D.Double(mouseX, mouseY)));
+	}
 
 }

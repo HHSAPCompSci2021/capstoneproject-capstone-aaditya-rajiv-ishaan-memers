@@ -10,7 +10,7 @@ public class Flag extends PaintGun{
 	private static int capacity;
 	private static int rTime;
 	private static int vel;
-	private static PaintBlock str;
+	private static int str;
 
 	/**
 	 * Constructs a new flag object.
