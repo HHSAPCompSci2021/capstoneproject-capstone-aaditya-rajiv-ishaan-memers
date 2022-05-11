@@ -14,6 +14,7 @@ public class PaintBlock extends Sprite {
 	private Color c;
 	private double xVel, yVel;
 	public static final int LENGTH = 10;
+	public static final double velocity = 5;
 	
 	/**
 	 * 
@@ -22,11 +23,11 @@ public class PaintBlock extends Sprite {
 	 * @param velocity the velocity 
 	 * @param mouseClick the location
 	 */
-	public PaintBlock(Avatar owner, int length, double velocity, Point2D mouseClick) {
-		super((int) owner.getCenterX(), (int) owner.getCenterY(), length, length);
-		this.c = owner.getColor();
-		double run = mouseClick.getX() - owner.getCenterX();
-		double rise = mouseClick.getY() - owner.getCenterY();
+	public PaintBlock(int x, int y, Color c, int length, double velocity, Point2D mouseClick) {
+		super(x, y, length, length);
+		this.c = c;
+		double run = mouseClick.getX() - x;
+		double rise = mouseClick.getY() - y;
 		double currentSpeed = Math.sqrt(Math.pow(rise, 2) + Math.pow(run, 2));
 		if (currentSpeed > velocity) {
 			rise *= velocity/currentSpeed;
@@ -66,6 +67,9 @@ public class PaintBlock extends Sprite {
 		this.c = c;
 	}
 	
+	public Color getColor() {
+		return c;
+	}
 	
 	
 }
