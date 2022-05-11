@@ -28,21 +28,26 @@ public class Game extends Screen{
 	 * @param 0 The 0 of the screen.
 	 */
 	public Game(DrawingSurface s) {
-		super(800, 600);
+		super(1600, 1200);
 		surface = s;
 		player1 = new Avatar(0, 0, 0, 0, null);
 		player2 = new Avatar(0, 0, 0, 0, null);
 		platforms = new ArrayList<Platform>();
-		platforms.add(new Platform(0, 0, 0, 0));
-		flag = new Flag(0, 0, 0, 0);
+		platforms.add(new Platform(1200, 200, 400, 100));
+		flag = new Flag(10, 10, 100, 100);
 		bombs = new ArrayList<PaintBomb>();
 		bombs.add(new PaintBomb(0, 0, 0, null));
 	}
 	
 	public void draw() {
 
-		surface.background(0,0,255);
+		surface.image(surface.loadImage("img/background.png"), 1, 0);
 		
+		for(Platform p : platforms) {
+			p.draw(surface);
+		}
+		
+		flag.draw(surface);
 		
 	}
 
