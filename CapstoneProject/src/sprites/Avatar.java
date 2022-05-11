@@ -141,7 +141,11 @@ public class Avatar extends Sprite {
 	}
 	
 	public void collectFlag() {
-		
+	}
+	
+	public void swim() {
+		xVel *= 4;
+		yVel *= 4;
 	}
 	
 	

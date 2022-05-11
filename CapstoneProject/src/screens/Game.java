@@ -19,7 +19,7 @@ public class Game extends Screen{
 	Avatar player1, player2;
 	Double player1Points, player2Points;
 	ArrayList<Platform> platforms;
-	Flag flag;
+	public static Flag flag;
 	ArrayList<PaintBomb> bombs;
 	DrawingSurface surface;
 	/**

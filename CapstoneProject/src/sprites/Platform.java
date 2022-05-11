@@ -67,10 +67,14 @@ public class Platform {
 	 * @param marker the PApplet that draws the platform
 	 */
 	public void draw(PApplet marker) {
-		marker.rect((float)x,(float)y,(float)width,(float)height);
-		for (PaintBlock block : border) {
-			block.draw(marker);
-		}
+		marker.push();
 		marker.color(Color.GRAY.getRGB());
+		marker.rect((float)x,(float)y,(float)width,(float)height);
+		marker.pop();
+		for (PaintBlock block : border) {
+			if (!block.getColor().equals(null)) {
+				block.draw(marker);
+			}
+		}
 	}
 }
