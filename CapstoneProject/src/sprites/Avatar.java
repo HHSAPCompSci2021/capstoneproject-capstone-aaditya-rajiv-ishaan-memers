@@ -144,7 +144,7 @@ public class Avatar extends Sprite {
 	}
 	
 	public void collectFlag() {
-		gun = Game.flag;
+//		gun = Game.flag;
 	}
 	
 	public void swim() {

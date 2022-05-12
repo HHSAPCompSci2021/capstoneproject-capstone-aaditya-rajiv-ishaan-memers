@@ -1,5 +1,6 @@
 package screens;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import core.DrawingSurface;
@@ -48,6 +49,26 @@ public class Game extends Screen{
 		}
 		
 		flag.draw(surface);
+		
+		if (surface.isPressed(KeyEvent.VK_A)) {
+			player1.walk(-2);
+		}
+		if (surface.isPressed(KeyEvent.VK_D)) {
+			player1.walk(2);
+		}
+		if (surface.isPressed(KeyEvent.VK_W)) {
+			player1.jump();
+		}
+		
+		if (surface.isPressed(KeyEvent.VK_LEFT)) {
+			player2.walk(-2);
+		}
+		if (surface.isPressed(KeyEvent.VK_RIGHT)) {
+			player2.walk(2);
+		}
+		if (surface.isPressed(KeyEvent.VK_UP)) {
+			player2.jump();
+		}
 		
 	}
 
