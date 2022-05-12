@@ -40,11 +40,11 @@ public class PaintGun extends Sprite {
 	 * @return A PaintBlock bullet.
 	 */
 	public PaintBlock shoot(Point2D point, Color ownerColor) {
-			if(ammo > 0) {
-				PaintBlock bullet = new PaintBlock((int) x, (int) y, ownerColor, stroke, velocity, point);
-				ammo--;
-				return bullet;
-			}
+		if(ammo > 0) {
+			PaintBlock bullet = new PaintBlock((int) x, (int) y, ownerColor, stroke, velocity, point);
+			ammo--;
+			return bullet;
+		}
 		return null;
 		
 	}

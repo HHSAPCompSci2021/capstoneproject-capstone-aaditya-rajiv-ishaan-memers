@@ -60,7 +60,7 @@ public class Avatar extends Sprite {
 	 * 
 	 * @param gameObstacles the sprites to act on
 	 */
-	public void act(List<Sprite> gameObstacles) {
+	public void act(ArrayList<Sprite> gameObstacles) {
 		
 		yVel += GRAVITY; // gravity
 		

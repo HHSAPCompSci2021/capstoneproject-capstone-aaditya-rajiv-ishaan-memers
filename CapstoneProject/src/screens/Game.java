@@ -2,13 +2,17 @@ package screens;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import core.DrawingSurface;
 import sprites.Avatar;
 import sprites.Flag;
+import sprites.PaintBlock;
 import sprites.PaintBomb;
 import sprites.Platform;
+import sprites.Sprite;
 
 /**
  * Represents the interactive game screen.
@@ -24,6 +28,7 @@ public class Game extends Screen{
 	Flag flag;
 	ArrayList<PaintBomb> bombs;
 	DrawingSurface surface;
+	private ArrayList<PaintBlock> bullets;
 	/**
 	 * Constructs a screen representing the interactive game screen. 
 	 * @param width The width of the screen.
@@ -35,6 +40,7 @@ public class Game extends Screen{
 		player1 = new Avatar(0, 0, 0, 0, null);
 		player2 = new Avatar(0, 0, 0, 0, null);
 		platforms = new ArrayList<Platform>();
+		bullets = new ArrayList<PaintBlock>();
 		platforms.add(new Platform(1200, 200, 400, 100));
 		flag = new Flag(10, 10, 100, 100);
 		bombs = new ArrayList<PaintBomb>();
@@ -42,20 +48,34 @@ public class Game extends Screen{
 	}
 	
 	public void draw() {
-
+		
 		surface.image(surface.loadImage("img/background.png"), 1, 0);
 		int  player1Score = 0;
 		int  player2Score = 0; 
 		for(Platform p : platforms) {
+			for (PaintBlock bullet : bullets) {
+				p.paint(bullet);
+			}
 			p.draw(surface);
 			player1Score += p.numBlocksWithColor(player1.getColor());
 			player2Score += p.numBlocksWithColor(player2.getColor());
 		}
 		player1Score = (player1Score * 10000 / 48000);// Area/ windowSize
 		player2Score = (player2Score * 10000 / 48000);// Area/ windowSize
-
+		
+		
+		ArrayList<Sprite> checkPieces = new ArrayList<Sprite>();
+		checkPieces.addAll(platforms);
+		checkPieces.add(player2);
+		player1.act(checkPieces);
+		
+		checkPieces = new ArrayList<Sprite>();
+		checkPieces.addAll(platforms);
+		checkPieces.add(player1);
+		player2.act(checkPieces);
 		
 		flag.draw(surface);
+		
 		
 		if (surface.isPressed(KeyEvent.VK_A)) {
 			player1.walk(-2);
@@ -76,9 +96,18 @@ public class Game extends Screen{
 		if (surface.isPressed(KeyEvent.VK_UP)) {
 			player2.jump();
 		}
+		player1.draw(surface);
+		player2.draw(surface);
 		
 		
 		
 	}
+	
+	public void mousePressed(int mouseX, int mouseY) {
+		bullets.add(player1.shoot(new Point2D.Double(mouseX, mouseY)));
+	}
+	
+	
+	
 
 }

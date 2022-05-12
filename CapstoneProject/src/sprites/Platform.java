@@ -9,23 +9,20 @@ import processing.core.PApplet;
 	@author Aaditya Raj, Ishaan Singh
 	@version 2
 */
-public class Platform {
+public class Platform extends Sprite {
 	
-	double x, y, width, height;
 	ArrayList<PaintBlock> border;
 	
 	/** Constructs a platform for drawing on the game screen
 	 * 
+	 * @pre width and height are multiples of 10
 	 * @param x the x-coordinate of the upper left corner of the platform
 	 * @param y the y-coordinate of the upper left corner of the platform
 	 * @param width the width of the platform
 	 * @param height the height of the platform -- typically constant at 20px
 	 */
 	public Platform(double x, double y, double width, double height) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
+		super((int) x, (int) y, (int) width, (int) height);
 		border = new ArrayList<PaintBlock>();
 		int widthBlocks = (int) (width/PaintBlock.LENGTH + 0.5);
 		int heightBlocks = (int) ((height - PaintBlock.LENGTH * 2)/PaintBlock.LENGTH + 0.5);
