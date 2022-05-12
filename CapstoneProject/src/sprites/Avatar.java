@@ -18,8 +18,9 @@ public class Avatar extends Sprite {
 	private Color playerColor;
 	private int health;
 	private int baseX, baseY;
-	private int xVel, yVel;
-	private boolean onPlatform;
+	private int yVel;
+	private double prevX, prevY;
+	private int scale;
 	public static final double GRAVITY = 0.6;
 
 	/**
@@ -34,8 +35,8 @@ public class Avatar extends Sprite {
 		super(x, y, w, h);
 		gun = new PaintGun(x + 10, y, w/2, h/2, 5, 5, 5, PaintBlock.LENGTH);
 		playerColor = color;
-		xVel = 0;
 		yVel = 0;
+		scale = 1;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -44,7 +45,7 @@ public class Avatar extends Sprite {
 	 * @param dir left, right
 	 */
 	public void walk(int dir) {
-		xVel = dir;
+		x += dir * scale;
 	}
 
 	/** Avatar jumps as a result 
@@ -62,19 +63,29 @@ public class Avatar extends Sprite {
 		
 		yVel += GRAVITY; // gravity
 		
-		x += xVel;
-		y += yVel;
+		y += yVel * scale;
 		
 		for (Sprite sprite : gameObstacles) {
 			if (super.intersects(sprite)) {
-				yVel = 0;
-				super.y = sprite.y - super.height;
-				onPlatform = true;
+				if (y != prevY) {
+					yVel = 0;
+					if (y > prevY) {
+						super.y = sprite.y - super.height;
+					} else if (y < prevY) {
+						super.y = sprite.y + sprite.height;
+					}
+				}
+				if (x > prevX) {
+					super.x = sprite.x - super.width; 
+					
+				} else if (x < prevX) {
+					super.x = sprite.x + sprite.width;
+				}
 			}
 		}
-		if (yVel != 0) {
-			onPlatform = false;
-		}
+		
+		prevX = x;
+		prevY = y;
 		
 	}
 	
@@ -143,11 +154,11 @@ public class Avatar extends Sprite {
 	}
 	
 	public void collectFlag() {
+		
 	}
 	
 	public void swim() {
-		xVel *= 4;
-		yVel *= 4;
+		scale = 4;
 	}
 	
 	
