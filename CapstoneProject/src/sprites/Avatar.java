@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import processing.core.PApplet;
+import screens.Game;
 import sprites.Sprite;
 
 /** The players in the game
-	@author Ishaan Singh
+	@author Ishaan Singh and Aaditya Raj
 	@version 3
 */
 public class Avatar extends Sprite {
@@ -154,7 +155,7 @@ public class Avatar extends Sprite {
 	}
 	
 	public void collectFlag() {
-		
+//		gun = Game.flag;
 	}
 	
 	public void swim() {

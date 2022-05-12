@@ -1,6 +1,9 @@
 
 package sprites;
 
+import processing.core.PApplet;
+import processing.core.PImage;
+
 /** The flag that the players race to collect.
 	@author Rajiv Venkatesh
 	@version 2
@@ -21,6 +24,13 @@ public class Flag extends PaintGun{
 	 */
 	public Flag(int x, int y, int width, int height) {
 		super(x, y, width, height, capacity, rTime, vel, str);
+	}
+	
+	public void draw(PApplet drawer) {
+		drawer.fill(0, 0, 0);
+		drawer.rect(800, 550, 25, 200);
+		drawer.fill(255, 0, 0);
+		drawer.rect(825, 550, 150, 75);
 	}
 
 }

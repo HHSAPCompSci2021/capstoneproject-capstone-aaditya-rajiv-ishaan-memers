@@ -1,13 +1,12 @@
 package screens;
 
-import java.awt.geom.Point2D;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import core.DrawingSurface;
 import sprites.Avatar;
 import sprites.Flag;
-import sprites.PaintBlock;
 import sprites.PaintBomb;
 import sprites.Platform;
 
@@ -17,14 +16,13 @@ import sprites.Platform;
  * @author Ishaan Singh and Aaditya Raj
  *
  */
-public class Game extends Screen {
+public class Game extends Screen{
 	
 	Avatar player1, player2;
 	Double player1Points, player2Points;
 	ArrayList<Platform> platforms;
-	public static Flag flag;
+	Flag flag;
 	ArrayList<PaintBomb> bombs;
-	ArrayList<PaintBlock> bullets;
 	DrawingSurface surface;
 	/**
 	 * Constructs a screen representing the interactive game screen. 
@@ -32,51 +30,55 @@ public class Game extends Screen {
 	 * @param 0 The 0 of the screen.
 	 */
 	public Game(DrawingSurface s) {
-		super(800, 600);
+		super(1600, 1200);
 		surface = s;
 		player1 = new Avatar(0, 0, 0, 0, null);
 		player2 = new Avatar(0, 0, 0, 0, null);
 		platforms = new ArrayList<Platform>();
-		platforms.add(new Platform(0, 0, 0, 0));
-		flag = new Flag(0, 0, 0, 0);
+		platforms.add(new Platform(1200, 200, 400, 100));
+		flag = new Flag(10, 10, 100, 100);
 		bombs = new ArrayList<PaintBomb>();
 		bombs.add(new PaintBomb(0, 0, 0, null));
 	}
 	
 	public void draw() {
 
-		surface.background(0,0,255);
-		player1.draw(surface);
-		player2.draw(surface);
-		for (Platform p : platforms) {
+		surface.image(surface.loadImage("img/background.png"), 1, 0);
+		int  player1Score = 0;
+		int  player2Score = 0; 
+		for(Platform p : platforms) {
 			p.draw(surface);
+			player1Score += p.numBlocksWithColor(player1.getColor());
+			player2Score += p.numBlocksWithColor(player2.getColor());
 		}
+		player1Score = (player1Score * 10000 / 48000);// Area/ windowSize
+		player2Score = (player2Score * 10000 / 48000);// Area/ windowSize
+
+		
 		flag.draw(surface);
-		if (surface.isPressed(KeyEvent.VK_LEFT)) {
+		
+		if (surface.isPressed(KeyEvent.VK_A)) {
 			player1.walk(-2);
-		if (surface.isPressed(KeyEvent.VK_RIGHT)) {
+		}
+		if (surface.isPressed(KeyEvent.VK_D)) {
 			player1.walk(2);
 		}
-		if (surface.isPressed(KeyEvent.VK_UP)) {
+		if (surface.isPressed(KeyEvent.VK_W)) {
 			player1.jump();
 		}
 		
-		if (surface.isPressed(KeyEvent.VK_W)) {
+		if (surface.isPressed(KeyEvent.VK_LEFT)) {
 			player2.walk(-2);
 		}
-		if (surface.isPressed(KeyEvent.VK_A)) {
+		if (surface.isPressed(KeyEvent.VK_RIGHT)) {
 			player2.walk(2);
 		}
-		if (surface.isPressed(KeyEvent.VK_D)) {
+		if (surface.isPressed(KeyEvent.VK_UP)) {
 			player2.jump();
 		}
-		}
 		
 		
-	}
-	
-	public void mousePressed(int mouseX, int mouseY) {
-		bullets.add(player1.shoot(new Point2D.Double(mouseX, mouseY)));
+		
 	}
 
 }

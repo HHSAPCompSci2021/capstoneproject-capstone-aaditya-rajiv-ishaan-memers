@@ -43,7 +43,7 @@ public class PaintBlock extends Sprite {
 	
 	public PaintBlock(int x, int y, int length) {
 		super(x, y, length, length);
-		this.c = null;
+		this.c = Color.red;
 		xVel = 0;
 		yVel = 0;
 	}
