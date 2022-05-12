@@ -1,5 +1,6 @@
 package screens;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ import sprites.Platform;
 /**
  * Represents the interactive game screen.
  * 
- * @author Ishaan Singh
+ * @author Ishaan Singh and Aaditya Raj
  *
  */
 public class Game extends Screen{
@@ -43,10 +44,16 @@ public class Game extends Screen{
 	public void draw() {
 
 		surface.image(surface.loadImage("img/background.png"), 1, 0);
-		
+		int  player1Score = 0;
+		int  player2Score = 0; 
 		for(Platform p : platforms) {
 			p.draw(surface);
+			player1Score += p.numBlocksWithColor(player1.getColor());
+			player2Score += p.numBlocksWithColor(player2.getColor());
 		}
+		player1Score = (player1Score * 10000 / 48000);// Area/ windowSize
+		player2Score = (player2Score * 10000 / 48000);// Area/ windowSize
+
 		
 		flag.draw(surface);
 		
@@ -71,7 +78,9 @@ public class Game extends Screen{
 		}
 		int  player1Score = 0;
 		int  player2Score = 0;
-		
+		for (Platform p: platforms) {
+			if 
+		}
 		
 	}
 
