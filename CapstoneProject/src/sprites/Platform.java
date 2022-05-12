@@ -60,6 +60,16 @@ public class Platform {
 		return (x >= this.x + PaintBlock.LENGTH && y >= this.y + PaintBlock.LENGTH && x <= this.x + width - PaintBlock.LENGTH && y <= this.y + height - PaintBlock.LENGTH);
 	}
 	
+	public int numBlocksWithColor(Color c) {
+		int total = 0;
+		for (PaintBlock b : border) {
+			if (b.getColor().equals(c)) {
+				total++;
+			}
+		}
+		return total;
+	}
+	
 	
 	
 	/** Draws the platform on the screen
