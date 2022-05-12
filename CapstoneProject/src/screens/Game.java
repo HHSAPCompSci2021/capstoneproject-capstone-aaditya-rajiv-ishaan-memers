@@ -76,11 +76,8 @@ public class Game extends Screen{
 		if (surface.isPressed(KeyEvent.VK_UP)) {
 			player2.jump();
 		}
-		int  player1Score = 0;
-		int  player2Score = 0;
-		for (Platform p: platforms) {
-			if 
-		}
+		
+		
 		
 	}
 
