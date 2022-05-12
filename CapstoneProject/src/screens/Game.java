@@ -73,6 +73,7 @@ public class Game extends Screen{
 		checkPieces.addAll(platforms);
 		checkPieces.add(player1);
 		player2.act(checkPieces);
+		surface.text("Player 1 Score: " + player1Score + "\n" + "Player 2 Score: " + player2Score, 750, 50);
 		
 		flag.draw(surface);
 		
