@@ -53,7 +53,7 @@ public class Game extends Screen{
 		}
 		player1Score = (player1Score * 10000 / 48000);// Area/ windowSize
 		player2Score = (player2Score * 10000 / 48000);// Area/ windowSize
-
+		surface.text("Player 1 Score: " + player1Score + "\n" + "Player 2 Score: " + player2Score, 750, 50);
 		
 		flag.draw(surface);
 		
