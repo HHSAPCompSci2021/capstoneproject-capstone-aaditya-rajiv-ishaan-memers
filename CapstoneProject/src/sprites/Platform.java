@@ -60,7 +60,7 @@ public class Platform extends Sprite {
 	public int numBlocksWithColor(Color c) {
 		int total = 0;
 		for (PaintBlock b : border) {
-			if (b.getColor().equals(c)) {
+			if (b.getColor() != null && b.getColor().equals(c)) {
 				total++;
 			}
 		}
@@ -79,7 +79,7 @@ public class Platform extends Sprite {
 		marker.rect((float)x,(float)y,(float)width,(float)height);
 		marker.pop();
 		for (PaintBlock block : border) {
-			if (!block.getColor().equals(null)) {
+			if (!(block.getColor() == null)) {
 				block.draw(marker);
 			}
 		}
