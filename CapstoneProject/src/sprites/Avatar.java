@@ -50,6 +50,7 @@ public class Avatar extends Sprite {
 	 * @param color red/blue for one of the two characters in the game
 	 */
 	public Avatar(PImage img, int x, int y, int w, int h, Color color) {
+		
 		super(img, x, y, w, h);
 		gun = new PaintGun(x + 10, y, w/2, h/2, 5, 5, 5, PaintBlock.LENGTH);
 		playerColor = color;
@@ -111,6 +112,7 @@ public class Avatar extends Sprite {
 	 * @param drawer the PApplet that draws the Avatar
 	 */
 	public void draw(PApplet drawer) {
+		drawer.fill(playerColor.getRGB());
 	 	super.draw(drawer);
 	 	gun.draw(drawer, new Point2D.Double(x, y));
 	 	
@@ -171,7 +173,7 @@ public class Avatar extends Sprite {
 	}
 	
 	public void collectFlag() {
-//		gun = Game.flag;
+		gun = Game.FLAG;
 	}
 	
 	public void swim() {

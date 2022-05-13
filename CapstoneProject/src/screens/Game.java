@@ -26,7 +26,7 @@ public class Game extends Screen{
 	Avatar player1, player2;
 	Double player1Points, player2Points;
 	ArrayList<Platform> platforms;
-	Flag flag;
+	public static Flag FLAG;
 	ArrayList<PaintBomb> bombs;
 	DrawingSurface surface;
 	private ArrayList<PaintBlock> bullets;
@@ -46,7 +46,7 @@ public class Game extends Screen{
 		platforms = new ArrayList<Platform>();
 		bullets = new ArrayList<PaintBlock>();
 		platforms.add(new Platform(1200, 200, 400, 100));
-		flag = new Flag(10, 10, 100, 100);
+		FLAG = new Flag(10, 10, 100, 100);
 		bombs = new ArrayList<PaintBomb>();
 		bombs.add(new PaintBomb(0, 0, 0, null));
 	}
@@ -80,7 +80,7 @@ public class Game extends Screen{
 		surface.textSize(30);
 		surface.text("Player 1 Score: " + player1Score + "\n" + "Player 2 Score: " + player2Score, 1300, 50);
 		
-		flag.draw(surface);
+		FLAG.draw(surface);
 		
 		
 		if (surface.isPressed(KeyEvent.VK_A)) {
