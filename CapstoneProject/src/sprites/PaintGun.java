@@ -7,7 +7,7 @@ import java.awt.geom.Point2D;
 
 import processing.core.PApplet;
 /** Gun that can shoot which the player has
-	@author Rajiv Venkatesh, Aaditya Raj
+	@author Rajiv Venkatesh, Aaditya Raj, Ishaan Singh
 	@version 2
 */
 public class PaintGun extends Sprite {
@@ -55,7 +55,7 @@ public class PaintGun extends Sprite {
 	 */
 	public void draw(PApplet drawer, Point2D ownerLoc) {
 		super.draw(drawer);
-		x = ownerLoc.getX() + 10;
+		x = ownerLoc.getX() - 20;
 		y = ownerLoc.getY() + 10;
 		if (counter % reloadTime == 0) {
 			if (ammo < maxAmmo) {

@@ -37,14 +37,18 @@ public class Game extends Screen{
 	public Game(DrawingSurface s) {
 		super(1600, 1200);
 		surface = s;
-		player1 = new Avatar(0, 0, 0, 0, null);
-		player2 = new Avatar(0, 0, 0, 0, null);
+		
 		platforms = new ArrayList<Platform>();
 		bullets = new ArrayList<PaintBlock>();
 		platforms.add(new Platform(1200, 200, 400, 100));
 		flag = new Flag(10, 10, 100, 100);
 		bombs = new ArrayList<PaintBomb>();
 		bombs.add(new PaintBomb(0, 0, 0, null));
+	}
+	
+	public void setup() {
+		player1 = new Avatar(surface.loadImage("img/Avatar1.png"), 200, 500, 200, 200, Color.RED);
+		player2 = new Avatar(surface.loadImage("img/Avatar2.png"), 0, 0, 0, 0, Color.BLUE);
 	}
 	
 	public void draw() {
