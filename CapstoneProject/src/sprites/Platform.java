@@ -11,7 +11,7 @@ import processing.core.PApplet;
 */
 public class Platform extends Sprite {
 	
-	ArrayList<PaintBlock> border;
+	private ArrayList<PaintBlock> border;
 	
 	/** Constructs a platform for drawing on the game screen
 	 * 
@@ -50,12 +50,9 @@ public class Platform extends Sprite {
 	}
 	
 	public boolean insidePlatform(PaintBlock bullet) {
-		return (isPointInside(bullet.x, bullet.y) && isPointInside(bullet.x + bullet.width, bullet.y) && isPointInside(bullet.x + width, bullet.y + height) && isPointInside(bullet.x, bullet.y + height));
+		return (contains(bullet.x, bullet.y) && contains(bullet.x + bullet.width, bullet.y) && contains(bullet.x + width, bullet.y + height) && contains(bullet.x, bullet.y + height));
 	}
 	
-	private boolean isPointInside(double x, double y) {
-		return (x >= this.x + PaintBlock.LENGTH && y >= this.y + PaintBlock.LENGTH && x <= this.x + width - PaintBlock.LENGTH && y <= this.y + height - PaintBlock.LENGTH);
-	}
 	
 	public int numBlocksWithColor(Color c) {
 		int total = 0;
@@ -84,4 +81,10 @@ public class Platform extends Sprite {
 			}
 		}
 	}
+
+	public ArrayList<PaintBlock> getBorder() {
+		// TODO Auto-generated method stub
+		return border;
+	}
+
 }

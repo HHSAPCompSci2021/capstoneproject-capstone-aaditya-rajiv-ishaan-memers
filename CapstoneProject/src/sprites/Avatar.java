@@ -33,30 +33,15 @@ public class Avatar extends Sprite {
 	 * @param h height of Avatar
 	 * @param color red/blue for one of the two characters in the game
 	 */
-	public Avatar(int x, int y, int w, int h, Color color) {
-		super(x, y, w, h);
+	public Avatar(PImage image, int x, int y, int w, int h, Color color) {
+		super(image, x, y, w, h);
 		gun = new PaintGun(x + 10, y, w/2, h/2, 5, 5, 5, PaintBlock.LENGTH);
 		playerColor = color;
 		yVel = 0;
 		scale = 1;
 	}
 	
-	/**
-	 * 
-	 * @param x x-coord of starting location of the Avatar
-	 * @param y y-coord of starting location of the Avatar
-	 * @param w width of Avatar
-	 * @param h height of Avatar
-	 * @param color red/blue for one of the two characters in the game
-	 */
-	public Avatar(PImage img, int x, int y, int w, int h, Color color) {
-		
-		super(img, x, y, w, h);
-		gun = new PaintGun(x + 10, y, w/2, h/2, 5, 5, 5, PaintBlock.LENGTH);
-		playerColor = color;
-		yVel = 0;
-		scale = 1;
-	}
+	
 	
 	/**
 	 * 
@@ -85,6 +70,7 @@ public class Avatar extends Sprite {
 		
 		for (Sprite sprite : gameObstacles) {
 			if (super.intersects(sprite)) {
+				System.out.println(sprite.x + " " + sprite.y + " " + sprite.width + " " + sprite.height);
 				if (y != prevY) {
 					yVel = 0;
 					if (y > prevY) {
@@ -112,7 +98,6 @@ public class Avatar extends Sprite {
 	 * @param drawer the PApplet that draws the Avatar
 	 */
 	public void draw(PApplet drawer) {
-		drawer.fill(playerColor.getRGB());
 	 	super.draw(drawer);
 	 	gun.draw(drawer, new Point2D.Double(x, y));
 	 	
@@ -134,6 +119,15 @@ public class Avatar extends Sprite {
 	 */
 	public PaintBlock shoot(Point2D point) {
 		return gun.shoot(point, playerColor);
+	}
+	
+	public boolean onPaint(Platform p) {
+		for (PaintBlock block : p.getBorder()) {
+			if (intersects(block) && block.getColor() != null && block.getColor().equals(getColor())) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/** Sets the health (useful when respawning)
@@ -173,12 +167,15 @@ public class Avatar extends Sprite {
 	}
 	
 	public void collectFlag() {
-		gun = Game.FLAG;
+		gun = Game.flag;
 	}
 	
-	public void swim() {
+	public void boost() {
 		scale = 4;
 	}
 	
+	public void undoSpeedBoost() {
+		
+	}
 	
 }
