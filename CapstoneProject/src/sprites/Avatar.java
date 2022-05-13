@@ -70,7 +70,6 @@ public class Avatar extends Sprite {
 		
 		for (Sprite sprite : gameObstacles) {
 			if (super.intersects(sprite)) {
-				System.out.println(sprite.x + " " + sprite.y + " " + sprite.width + " " + sprite.height);
 				if (y != prevY) {
 					yVel = 0;
 					if (y > prevY) {

@@ -41,6 +41,12 @@ public class Game extends Screen{
 		platforms = new ArrayList<Platform>();
 		bullets = new ArrayList<PaintBlock>();
 		platforms.add(new Platform(1200, 200, 400, 100));
+		platforms.add(new Platform (0,1040,1600,1));
+		platforms.add(new Platform (-49, 0, 50, 1040));
+		platforms.add(new Platform (1599, 0, 50, 1040));
+
+		
+	
 		flag = new Flag(10, 10, 100, 100);
 		bombs = new ArrayList<PaintBomb>();
 		bombs.add(new PaintBomb(0, 0, 0, null));
@@ -49,7 +55,7 @@ public class Game extends Screen{
 	public void setup() {
 		String pre = surface.sketchPath();
 		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 200, 500, 200, 200, Color.RED);
-		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 0, 0, 0, 0, Color.BLUE);
+		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 1300, 500, 200, 200, Color.BLUE);
 	}
 
 	public void draw() {
@@ -82,7 +88,6 @@ public class Game extends Screen{
 		player1Score = (player1Score * 10000 / 48000);// Area/ windowSize
 		player2Score = (player2Score * 10000 / 48000);// Area/ windowSize
 		
-		surface.text("Player 1 Score: " + player1Score + "\n" + "Player 2 Score: " + player2Score, 750, 50);
 		
 		ArrayList<Sprite> checkPieces = new ArrayList<Sprite>();
 		checkPieces.addAll(platforms);
