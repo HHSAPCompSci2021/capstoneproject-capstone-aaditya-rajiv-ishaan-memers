@@ -171,11 +171,11 @@ public class Avatar extends Sprite {
 	}
 	
 	public void boost() {
-		scale = 4;
+		scale = 2;
 	}
 	
 	public void undoSpeedBoost() {
-		scale /= 4;
+		scale /= 2;
 	}
 	
 }
