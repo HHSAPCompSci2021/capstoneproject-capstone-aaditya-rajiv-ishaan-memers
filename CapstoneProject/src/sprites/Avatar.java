@@ -23,7 +23,7 @@ public class Avatar extends Sprite {
 	private int yVel;
 	private double prevX, prevY;
 	private int scale;
-	public static final double GRAVITY = 0.6;
+	public static final double GRAVITY = 1.98;
 
 	/**
 	 * 
@@ -64,7 +64,7 @@ public class Avatar extends Sprite {
 	 */
 	public void act(ArrayList<Sprite> gameObstacles) {
 		
-		yVel += GRAVITY; // gravity
+		yVel += GRAVITY; 
 		
 		y += yVel * scale;
 		
