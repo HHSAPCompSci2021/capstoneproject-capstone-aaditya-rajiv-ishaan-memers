@@ -41,21 +41,7 @@ public class Avatar extends Sprite {
 		scale = 1;
 	}
 	
-	/**
-	 * 
-	 * @param x x-coord of starting location of the Avatar
-	 * @param y y-coord of starting location of the Avatar
-	 * @param w width of Avatar
-	 * @param h height of Avatar
-	 * @param color red/blue for one of the two characters in the game
-	 */
-	public Avatar(PImage img, int x, int y, int w, int h, Color color) {
-		super(img, x, y, w, h);
-		gun = new PaintGun(x + 10, y, w/2, h/2, 5, 5, 5, PaintBlock.LENGTH);
-		playerColor = color;
-		yVel = 0;
-		scale = 1;
-	}
+	
 	
 	/**
 	 * 
@@ -84,6 +70,7 @@ public class Avatar extends Sprite {
 		
 		for (Sprite sprite : gameObstacles) {
 			if (super.intersects(sprite)) {
+				System.out.println(sprite.x + " " + sprite.y + " " + sprite.width + " " + sprite.height);
 				if (y != prevY) {
 					yVel = 0;
 					if (y > prevY) {
