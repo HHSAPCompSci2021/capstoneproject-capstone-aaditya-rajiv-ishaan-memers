@@ -118,6 +118,15 @@ public class Avatar extends Sprite {
 		return gun.shoot(point, playerColor);
 	}
 	
+	public boolean onPaint(Platform p) {
+		for (PaintBlock block : p.getBorder()) {
+			if (intersects(block) && block.getColor() != null && block.getColor().equals(getColor())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/** Sets the health (useful when respawning)
 	 * 
 	 * @param blocks calc tool
@@ -155,12 +164,15 @@ public class Avatar extends Sprite {
 	}
 	
 	public void collectFlag() {
-//		gun = Game.flag;
+		gun = Game.flag;
 	}
 	
-	public void swim() {
+	public void boost() {
 		scale = 4;
 	}
 	
+	public void undoSpeedBoost() {
+		
+	}
 	
 }

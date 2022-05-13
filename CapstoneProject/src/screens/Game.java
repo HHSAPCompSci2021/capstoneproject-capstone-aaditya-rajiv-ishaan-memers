@@ -25,7 +25,7 @@ public class Game extends Screen{
 	Avatar player1, player2;
 	Double player1Points, player2Points;
 	ArrayList<Platform> platforms;
-	Flag flag;
+	public static Flag flag;
 	ArrayList<PaintBomb> bombs;
 	DrawingSurface surface;
 	private ArrayList<PaintBlock> bullets;
@@ -37,7 +37,7 @@ public class Game extends Screen{
 	public Game(DrawingSurface s) {
 		super(1600, 1200);
 		surface = s;
-		player1 = new Avatar(0, 0, 0, 0, null);
+		player1 = new Avatar(0, 0, 0, 0, null); 
 		player2 = new Avatar(0, 0, 0, 0, null);
 		platforms = new ArrayList<Platform>();
 		bullets = new ArrayList<PaintBlock>();
@@ -55,26 +55,49 @@ public class Game extends Screen{
 		for(Platform p : platforms) {
 			for (PaintBlock bullet : bullets) {
 				p.paint(bullet);
+				if (p.insidePlatform(bullet)) {
+					bullets.remove(bullet);
+				}
+			}
+			if (player1.onPaint(p)) {
+				player1.boost();
+			} else {
+				player1.undoSpeedBoost();
+			}
+			if (player2.onPaint(p)) {
+				player2.boost();
+			} else {
+				player2.undoSpeedBoost();
 			}
 			p.draw(surface);
 			player1Score += p.numBlocksWithColor(player1.getColor());
 			player2Score += p.numBlocksWithColor(player2.getColor());
 		}
+		
 		player1Score = (player1Score * 10000 / 48000);// Area/ windowSize
 		player2Score = (player2Score * 10000 / 48000);// Area/ windowSize
 		
+		surface.text("Player 1 Score: " + player1Score + "\n" + "Player 2 Score: " + player2Score, 750, 50);
 		
 		ArrayList<Sprite> checkPieces = new ArrayList<Sprite>();
 		checkPieces.addAll(platforms);
 		checkPieces.add(player2);
 		player1.act(checkPieces);
-		
+				
 		checkPieces = new ArrayList<Sprite>();
 		checkPieces.addAll(platforms);
 		checkPieces.add(player1);
 		player2.act(checkPieces);
-		surface.text("Player 1 Score: " + player1Score + "\n" + "Player 2 Score: " + player2Score, 750, 50);
 		
+		for (PaintBlock b : bullets) {
+			b.draw(surface);
+		}
+		
+		if (flag.intersects(player1)) {
+			player1.collectFlag();
+		} else if (flag.intersects(player2)){
+			player2.collectFlag();	
+		}
 		flag.draw(surface);
 		
 		
