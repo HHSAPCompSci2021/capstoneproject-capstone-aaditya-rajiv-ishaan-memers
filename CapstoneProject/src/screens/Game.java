@@ -41,8 +41,12 @@ public class Game extends Screen{
 		platforms = new ArrayList<Platform>();
 		bullets = new ArrayList<PaintBlock>();
 		platforms.add(new Platform(1200, 200, 400, 100));
-		platforms.add(new Platform (0,1000,1500,5));
+		platforms.add(new Platform (0,1040,1600,1));
+		platforms.add(new Platform (-49, 0, 50, 1040));
+		platforms.add(new Platform (1599, 0, 50, 1040));
+
 		
+	
 		flag = new Flag(10, 10, 100, 100);
 		bombs = new ArrayList<PaintBomb>();
 		bombs.add(new PaintBomb(0, 0, 0, null));
