@@ -66,12 +66,12 @@ public class Game extends Screen{
 			}
 			if (player1.onPaint(p)) {
 				player1.boost();
-			} else {
+			} else if (player1.isBoosted()) {
 				player1.undoSpeedBoost();
 			}
 			if (player2.onPaint(p)) {
 				player2.boost();
-			} else {
+			} else if (player2.isBoosted()){
 				player2.undoSpeedBoost();
 			}
 			p.draw(surface);
