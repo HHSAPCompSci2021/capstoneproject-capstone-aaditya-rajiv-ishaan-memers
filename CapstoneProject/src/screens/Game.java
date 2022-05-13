@@ -7,6 +7,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import core.DrawingSurface;
+import processing.core.PImage;
 import sprites.Avatar;
 import sprites.Flag;
 import sprites.PaintBlock;
@@ -37,8 +38,11 @@ public class Game extends Screen{
 	public Game(DrawingSurface s) {
 		super(1600, 1200);
 		surface = s;
-		player1 = new Avatar(0, 0, 0, 0, null);
-		player2 = new Avatar(0, 0, 0, 0, null);
+		String pre = s.sketchPath();
+		PImage img = s.loadImage(pre + "/" + "img/character.png");
+		
+		player1 = new Avatar(img, 600, 300, 40, 40, Color.red);
+		player2 = new Avatar(0, 0, 0, 0, Color.black);
 		platforms = new ArrayList<Platform>();
 		bullets = new ArrayList<PaintBlock>();
 		platforms.add(new Platform(1200, 200, 400, 100));
@@ -50,8 +54,8 @@ public class Game extends Screen{
 	public void draw() {
 		
 		surface.image(surface.loadImage("img/background.png"), 1, 0);
-		int  player1Score = 0;
-		int  player2Score = 0; 
+		int player1Score = 0;
+		int player2Score = 0; 
 		for(Platform p : platforms) {
 			for (PaintBlock bullet : bullets) {
 				p.paint(bullet);
