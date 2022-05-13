@@ -75,9 +75,9 @@ public class Platform extends Sprite {
 	 */
 	public void draw(PApplet marker) {
 		marker.push();
-		marker.color(Color.GRAY.getRGB());
+		marker.color(255,0,0);
 		marker.rect((float)x,(float)y,(float)width,(float)height);
-		marker.pop();
+		marker.pop();                                             
 		for (PaintBlock block : border) {
 			if (!(block.getColor() == null)) {
 				block.draw(marker);
