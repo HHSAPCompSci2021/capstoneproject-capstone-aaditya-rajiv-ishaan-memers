@@ -3,7 +3,6 @@ package screens;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import core.DrawingSurface;
@@ -16,12 +15,12 @@ import sprites.Sprite;
 
 /**
  * Represents the interactive game screen.
- * 
+ *
  * @author Ishaan Singh and Aaditya Raj
  *
  */
 public class Game extends Screen{
-	
+
 	Avatar player1, player2;
 	Double player1Points, player2Points;
 	ArrayList<Platform> platforms;
@@ -30,15 +29,15 @@ public class Game extends Screen{
 	DrawingSurface surface;
 	private ArrayList<PaintBlock> bullets;
 	/**
-	 * Constructs a screen representing the interactive game screen. 
+	 * Constructs a screen representing the interactive game screen.
 	 * @param width The width of the screen.
 	 * @param 0 The 0 of the screen.
 	 */
 	public Game(DrawingSurface s) {
 		super(1600, 1200);
 		surface = s;
-		player1 = new Avatar(0, 0, 0, 0, null); 
-		player2 = new Avatar(0, 0, 0, 0, null);
+		player1 = new Avatar(null, 0, 0, 0, 0, null); 
+		player2 = new Avatar(null, 0, 0, 0, 0, null);
 		platforms = new ArrayList<Platform>();
 		bullets = new ArrayList<PaintBlock>();
 		platforms.add(new Platform(1200, 200, 400, 100));
@@ -46,12 +45,18 @@ public class Game extends Screen{
 		bombs = new ArrayList<PaintBomb>();
 		bombs.add(new PaintBomb(0, 0, 0, null));
 	}
-	
+
+	public void setup() {
+		String pre = surface.sketchPath();
+		player1 = new Avatar(surface.loadImage(pre + "/" + "img/Avatar1.png"), 200, 500, 200, 200, Color.RED);
+		player2 = new Avatar(surface.loadImage(pre + "/" + "img/Avatar2.png"), 0, 0, 0, 0, Color.BLUE);
+	}
+
 	public void draw() {
-		
+
 		surface.image(surface.loadImage("img/background.png"), 1, 0);
-		int  player1Score = 0;
-		int  player2Score = 0; 
+		int player1Score = 0;
+		int player2Score = 0;
 		for(Platform p : platforms) {
 			for (PaintBlock bullet : bullets) {
 				p.paint(bullet);
@@ -98,9 +103,12 @@ public class Game extends Screen{
 		} else if (flag.intersects(player2)){
 			player2.collectFlag();	
 		}
+		surface.textSize(30);
+		surface.text("Player 1 Score: " + player1Score + "\n" + "Player 2 Score: " + player2Score, 1300, 50);
+
 		flag.draw(surface);
-		
-		
+
+
 		if (surface.isPressed(KeyEvent.VK_A)) {
 			player1.walk(-2);
 		}
@@ -110,7 +118,7 @@ public class Game extends Screen{
 		if (surface.isPressed(KeyEvent.VK_W)) {
 			player1.jump();
 		}
-		
+
 		if (surface.isPressed(KeyEvent.VK_LEFT)) {
 			player2.walk(-2);
 		}
@@ -122,16 +130,16 @@ public class Game extends Screen{
 		}
 		player1.draw(surface);
 		player2.draw(surface);
-		
-		
-		
+
+
+
 	}
-	
+
 	public void mousePressed(int mouseX, int mouseY) {
 		bullets.add(player1.shoot(new Point2D.Double(mouseX, mouseY)));
 	}
-	
-	
-	
+
+
+
 
 }
