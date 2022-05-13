@@ -48,7 +48,7 @@ public class Game extends Screen{
 	}
 
 	public void setup() {
-		String pre = s.sketchPath();
+		String pre = surface.sketchPath();
 		player1 = new Avatar(surface.loadImage(pre + "/" + "img/Avatar1.png"), 200, 500, 200, 200, Color.RED);
 		player2 = new Avatar(surface.loadImage(pre + "/" + "img/Avatar2.png"), 0, 0, 0, 0, Color.BLUE);
 	}
