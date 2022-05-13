@@ -39,6 +39,7 @@ public class Avatar extends Sprite {
 		playerColor = color;
 		yVel = 0;
 		scale = 1;
+		health = 100;
 	}
 	
 	

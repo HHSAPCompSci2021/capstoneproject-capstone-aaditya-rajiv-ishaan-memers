@@ -141,7 +141,10 @@ public class Game extends Screen{
 	}
 
 	public void mousePressed(int mouseX, int mouseY) {
-		bullets.add(player1.shoot(new Point2D.Double(mouseX, mouseY)));
+		PaintBlock bullet = player1.shoot(new Point2D.Double(mouseX, mouseY));
+		if (bullet != null) {
+			bullets.add(bullet);
+		}
 	}
 
 
