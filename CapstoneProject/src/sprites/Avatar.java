@@ -178,4 +178,8 @@ public class Avatar extends Sprite {
 		scale /= 2;
 	}
 	
+	public boolean isBoosted() {
+		return (scale == 2);
+	}
+	
 }
