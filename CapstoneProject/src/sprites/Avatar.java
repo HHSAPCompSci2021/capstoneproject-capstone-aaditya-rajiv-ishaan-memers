@@ -35,7 +35,7 @@ public class Avatar extends Sprite {
 	 */
 	public Avatar(PImage image, int x, int y, int w, int h, Color color) {
 		super(image, x, y, w, h);
-		gun = new PaintGun(x + 10, y, w/2, h/2, 5, 5, 5, PaintBlock.LENGTH);
+		gun = new PaintGun(x + 10, y, w/2, h/2, 5, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH);
 		playerColor = color;
 		yVel = 0;
 		scale = 1;
@@ -129,24 +129,24 @@ public class Avatar extends Sprite {
 		}
 		return false;
 	}
+
 	
-	/** Sets the health (useful when respawning)
-	 * 
-	 * @param blocks calc tool
-	 * @return 
-	 */
-	public void setHealth(ArrayList<PaintBlock> blocks) {
-		health -= (10 * blocks.size());
+	
+	public void changeHealth(double amount) {
+		health += amount;
 		if (health <= 0) {
 			respawn();
 			health = 100;
 		}
 	}
 	
+	
+	
 	/** Respawns this Avatar back to their home base when they die
 	 * 
 	 */
 	public void respawn() {
+		
 		super.moveToLocation(baseX, baseY);
 	}
 	

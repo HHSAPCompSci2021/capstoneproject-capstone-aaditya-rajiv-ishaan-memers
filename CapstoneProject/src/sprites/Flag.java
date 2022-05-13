@@ -23,7 +23,7 @@ public class Flag extends PaintGun{
 	 * @param height The height of the flag.
 	 */
 	public Flag(int x, int y, int width, int height) {
-		super(x, y, width, height, capacity, rTime, vel, str);
+		super(x, y, width, height, capacity, vel, rTime, str);
 	}
 	
 	public void draw(PApplet drawer) {

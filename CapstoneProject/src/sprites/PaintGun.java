@@ -39,9 +39,9 @@ public class PaintGun extends Sprite {
 	 * @param point The mouse-click point where the user clicked. 
 	 * @return A PaintBlock bullet.
 	 */
-	public PaintBlock shoot(Point2D point, Color ownerColor) {
+	public PaintBlock shoot(Point2D click, Color ownerColor) {
 		if(ammo > 0) {
-			PaintBlock bullet = new PaintBlock((int) x, (int) y, ownerColor, stroke, velocity, point);
+			PaintBlock bullet = new PaintBlock((int) x, (int) y, ownerColor, stroke, velocity, click);
 			ammo--;
 			return bullet;
 		}
