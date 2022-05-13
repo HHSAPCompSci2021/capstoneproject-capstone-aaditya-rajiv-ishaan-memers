@@ -175,7 +175,7 @@ public class Avatar extends Sprite {
 	}
 	
 	public void undoSpeedBoost() {
-		
+		scale /= 4;
 	}
 	
 }
