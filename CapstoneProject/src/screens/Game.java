@@ -44,9 +44,6 @@ public class Game extends Screen{
 		platforms = new ArrayList<Platform>();
 		bullets = new ArrayList<PaintBlock>();
 		platforms.add(new Platform(1200, 200, 400, 100));
-		platforms.add(new Platform (0,1040,1600,1));
-		platforms.add(new Platform (0, 0, 50, 1200));
-		platforms.add(new Platform (1550, 0, 50, 1200));
 	
 		flag = new Flag(10, 10, 100, 100);
 		bombs = new ArrayList<PaintBomb>();
@@ -58,10 +55,11 @@ public class Game extends Screen{
 	}
 
 	public void draw() {
-
 		surface.image(surface.loadImage("img/background.png"), 1, 0);
+		
 		int player1Score = 0;
 		int player2Score = 0;
+		
 		for(Platform p : platforms) {
 			for (PaintBlock bullet : bullets) {
 				p.paint(bullet);
@@ -84,9 +82,8 @@ public class Game extends Screen{
 			player2Score += p.numBlocksWithColor(player2.getColor());
 		}
 		
-		player1Score = (player1Score * 10000 / 48000);// Area/ windowSize
-		player2Score = (player2Score * 10000 / 48000);// Area/ windowSize
-		
+		player1Score = (player1Score * 10000 / 48000); // change from hard-coded vals
+		player2Score = (player2Score * 10000 / 48000);
 
 		ArrayList<Sprite> checkPieces = new ArrayList<Sprite>();
 		checkPieces.addAll(platforms);
@@ -114,25 +111,46 @@ public class Game extends Screen{
 
 
 		if (surface.isPressed(KeyEvent.VK_A)) {
-			player1.walk(-10);
+			if((player1.x - 10) > 0) {
+				player1.walk(-10);
+			}
 		}
+		
 		if (surface.isPressed(KeyEvent.VK_D)) {
-			player1.walk(10);
+			if((player1.x + 10) < DRAWING_WIDTH) {
+				player1.walk(10);
+			}
 		}
+			
 		if (surface.isPressed(KeyEvent.VK_W)) {
 			player1.jump();
 		}
 
 		if (surface.isPressed(KeyEvent.VK_LEFT)) {
-			player2.walk(-10);
+			if((player2.x - 10) > 0) {
+				player2.walk(-10);
+			}
 		}
 		if (surface.isPressed(KeyEvent.VK_RIGHT)) {
-			player2.walk(10);
+			if((player2.x + 10) < DRAWING_WIDTH) {
+				player2.walk(10);
+			}
 		}
 		if (surface.isPressed(KeyEvent.VK_UP)) {
 			player2.jump();
 		}
+		
+		if(player1.y > 4*DRAWING_HEIGHT/5) {
+			player1.moveTo(player1.x, (double) 4*DRAWING_HEIGHT/5);
+		} 
+		
 		player1.draw(surface);
+		
+		
+		if(player2.y > 4*DRAWING_HEIGHT/5) {
+			player2.moveTo(player2.x, (double) 4*DRAWING_HEIGHT/5);
+		} 
+		
 		player2.draw(surface);
 
 
