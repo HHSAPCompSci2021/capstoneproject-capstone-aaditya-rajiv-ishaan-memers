@@ -25,7 +25,7 @@ public class Avatar extends Sprite {
 	private int scale;
 	public static final double GRAVITY = 1.98;
 //	private boolean atBoundary;
-	private final int xVel = 1;
+	private final int xVel = 7;
 
 	/**
 	 * 
@@ -37,7 +37,7 @@ public class Avatar extends Sprite {
 	 */
 	public Avatar(PImage image, int x, int y, int w, int h, Color color) {
 		super(image, x, y, w, h);
-		gun = new PaintGun(x + 10, y, w/2, h/2, 5, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH);
+		gun = new PaintGun(x + 10, y + 150, w/4, h/2, 5, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH);
 		playerColor = color;
 		yVel = 0;
 		scale = 1;
@@ -53,14 +53,16 @@ public class Avatar extends Sprite {
 	 */
 	public void walk(boolean right) {
 		
-		x += xVel  * scale * (right ? 1 : -1);
+		x += xVel  * scale * (right ? 7 : -7);
 	}
 
 	/** Avatar jumps as a result 
 	 * 
 	 */
 	public void jump() {
+	
 		yVel -= 16;
+		
 //		atBoundary = false;
 	}
 
@@ -70,8 +72,11 @@ public class Avatar extends Sprite {
 	 */
 	public void act(ArrayList<Sprite> gameObstacles) {
 		yVel += GRAVITY; 
-		
 		y += yVel * scale;
+		if (y < 0) {
+			y = 0;
+		}
+		
 		
 		for (Sprite sprite : gameObstacles) {
 			if (super.intersects(sprite)) {
