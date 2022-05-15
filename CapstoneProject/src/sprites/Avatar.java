@@ -67,7 +67,7 @@ public class Avatar extends Sprite {
 	public void act(ArrayList<Sprite> gameObstacles) {
 		yVel += GRAVITY; 
 		
-		y += yVel;
+		y += yVel * scale;
 		
 		for (Sprite sprite : gameObstacles) {
 			if (super.intersects(sprite)) {
