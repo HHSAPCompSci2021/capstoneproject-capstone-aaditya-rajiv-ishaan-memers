@@ -53,10 +53,10 @@ public class PaintGun extends Sprite {
 	 * Draws this paint gun to the screen
 	 * @param drawer The PApplet to draw onto.
 	 */
-	public void draw(PApplet drawer, Point2D ownerLoc) {
+	public void draw(PApplet drawer, double x, double y) {
 		super.draw(drawer);
-		x = ownerLoc.getX() - 20;
-		y = ownerLoc.getY() + 10;
+		this.x = x - 20;
+		this.y = y - 20;
 		if (counter % reloadTime == 0) {
 			if (ammo < maxAmmo) {
 				ammo++;

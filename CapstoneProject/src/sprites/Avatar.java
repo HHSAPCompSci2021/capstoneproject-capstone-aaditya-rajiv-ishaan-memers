@@ -48,8 +48,9 @@ public class Avatar extends Sprite {
 	 * 
 	 * @param dir left, right
 	 */
-	public void walk(int dir) {
-		x += dir * scale;
+	public void walk(int xVel) {
+		
+		x += xVel * scale;
 	}
 
 	/** Avatar jumps as a result 
@@ -98,7 +99,7 @@ public class Avatar extends Sprite {
 	 */
 	public void draw(PApplet drawer) {
 	 	super.draw(drawer);
-	 	gun.draw(drawer, new Point2D.Double(x, y));
+	 	gun.draw(drawer, this.x, this.y);
 	 	
 	}
 	
@@ -179,4 +180,8 @@ public class Avatar extends Sprite {
 		return (scale == 2);
 	}
 	
+	public void moveTo(double x, double y) {
+		this.x = x;
+		this.y = y;
+	}
 }
