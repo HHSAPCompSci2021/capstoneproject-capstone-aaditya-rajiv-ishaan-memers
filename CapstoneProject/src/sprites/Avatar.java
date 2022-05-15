@@ -24,7 +24,8 @@ public class Avatar extends Sprite {
 	private double prevX, prevY;
 	private int scale;
 	public static final double GRAVITY = 1.98;
-	private boolean atBoundary;
+//	private boolean atBoundary;
+	private final int xVel = 1;
 
 	/**
 	 * 
@@ -41,7 +42,7 @@ public class Avatar extends Sprite {
 		yVel = 0;
 		scale = 1;
 		health = 100;
-		atBoundary = false;
+//		atBoundary = false;
 	}
 	
 	
@@ -50,9 +51,9 @@ public class Avatar extends Sprite {
 	 * 
 	 * @param dir left, right
 	 */
-	public void walk(int xVel) {
+	public void walk(boolean right) {
 		
-		x += xVel * scale;
+		x += xVel  * scale * (right ? 1 : -1);
 	}
 
 	/** Avatar jumps as a result 
@@ -60,7 +61,7 @@ public class Avatar extends Sprite {
 	 */
 	public void jump() {
 		yVel -= 16;
-		atBoundary = false;
+//		atBoundary = false;
 	}
 
 	/**
@@ -73,21 +74,19 @@ public class Avatar extends Sprite {
 		y += yVel * scale;
 		
 		for (Sprite sprite : gameObstacles) {
-			if (super.intersects(sprite) || (atBoundary == true)) {
-				yVel = 0;
-				if (y != prevY) {
-					if (y > prevY) {
-						super.y = sprite.y - super.height;
-					} else if (y < prevY) {
-						super.y = sprite.y + sprite.height;
-					}
+			if (super.intersects(sprite)) {
+				if (y > prevY && y + height > sprite.y && y + height - yVel * scale <= sprite.y) {
+					super.y = sprite.y - height;
+				} else if (y < prevY && y < sprite.y + sprite.height && y - yVel * scale >= sprite.y + sprite.height) {
+					super.y = sprite.y + sprite.height;
 				}
-				if (x > prevX) {
+				if (x > prevX && x + width > sprite.x && x + width - xVel * scale <= sprite.x) {
 					super.x = sprite.x - super.width; 
 					
-				} else if (x < prevX) {
+				} else if (x < prevX && x < sprite.x + sprite.width && x - xVel * scale >= sprite.x + sprite.width) {
 					super.x = sprite.x + sprite.width;
 				}
+				yVel = 0;
 			}
 		}
 		
@@ -183,12 +182,8 @@ public class Avatar extends Sprite {
 		return (scale == 2);
 	}
 	
-	public void moveTo(double x, double y) {
-		this.x = x;
-		this.y = y;
-	}
 	
-	public void setStatus(boolean status) {
-		atBoundary = status;
-	}
+//	public void setStatus(boolean status) {
+//		atBoundary = status;
+//	}
 }

@@ -114,15 +114,15 @@ public class Game extends Screen{
 
 
 		if (surface.isPressed(KeyEvent.VK_A)) {
-			if((player1.x - 10) > 0) {
-				player1.walk(-1);
-			}
+//			if((player1.x - 10) > 0) {
+				player1.walk(false);
+//			}
 		}
 		
 		if (surface.isPressed(KeyEvent.VK_D)) {
-			if((player1.x + 10) < DRAWING_WIDTH) {
-				player1.walk(1);
-			}
+//			if((player1.x + 10) < DRAWING_WIDTH) {
+				player1.walk(true);
+//			}
 		}
 			
 		if (surface.isPressed(KeyEvent.VK_W)) {
@@ -130,31 +130,31 @@ public class Game extends Screen{
 		}
 
 		if (surface.isPressed(KeyEvent.VK_LEFT)) {
-			if((player2.x - 10) > 0) {
-				player2.walk(-1);
-			}
+//			if((player2.x - 10) > 0) {
+				player2.walk(false);
+//			}
 		}
 		if (surface.isPressed(KeyEvent.VK_RIGHT)) {
-			if((player2.x + 10) < DRAWING_WIDTH) {
-				player2.walk(1);
-			}
+//			if((player2.x + 10) < DRAWING_WIDTH) {
+				player2.walk(true);
+//			}
 		}
 		if (surface.isPressed(KeyEvent.VK_UP)) {
 			player2.jump();
 		}
 		
-		if(player1.y > 4*DRAWING_HEIGHT/5) {
-			player1.moveTo(player1.x, (double) 4*DRAWING_HEIGHT/5);
-			player1.setStatus(true);
-		} 
+//		if(player1.y > 4*DRAWING_HEIGHT/5) {
+//			player1.moveTo(player1.x, (double) 4*DRAWING_HEIGHT/5);
+//			player1.setStatus(true);
+//		} 
 		
 		player1.draw(surface);
 		
 		
-		if(player2.y > 4*DRAWING_HEIGHT/5) {
-			player2.moveTo(player2.x, (double) 4*DRAWING_HEIGHT/5);
-			player2.setStatus(true);
-		} 
+//		if(player2.y > 4*DRAWING_HEIGHT/5) {
+//			player2.moveTo(player2.x, (double) 4*DRAWING_HEIGHT/5);
+//			player2.setStatus(true);
+//		} 
 		
 		player2.draw(surface);
 
