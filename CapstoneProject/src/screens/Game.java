@@ -38,15 +38,15 @@ public class Game extends Screen{
 		surface = s;
 		String pre = surface.sketchPath();
 		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 200, 500, 200, 200, Color.RED);
+
 		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 1300, 500, 200, 200, Color.BLUE);
+
 		platforms = new ArrayList<Platform>();
 		bullets = new ArrayList<PaintBlock>();
 		platforms.add(new Platform(1200, 200, 400, 100));
 		platforms.add(new Platform (0,1040,1600,1));
 		platforms.add(new Platform (0, 0, 50, 1200));
 		platforms.add(new Platform (1550, 0, 50, 1200));
-
-		
 	
 		flag = new Flag(10, 10, 100, 100);
 		bombs = new ArrayList<PaintBomb>();
@@ -87,7 +87,7 @@ public class Game extends Screen{
 		player1Score = (player1Score * 10000 / 48000);// Area/ windowSize
 		player2Score = (player2Score * 10000 / 48000);// Area/ windowSize
 		
-		
+
 		ArrayList<Sprite> checkPieces = new ArrayList<Sprite>();
 		checkPieces.addAll(platforms);
 		checkPieces.add(player2);
@@ -114,20 +114,20 @@ public class Game extends Screen{
 
 
 		if (surface.isPressed(KeyEvent.VK_A)) {
-			player1.walk(-2);
+			player1.walk(-10);
 		}
 		if (surface.isPressed(KeyEvent.VK_D)) {
-			player1.walk(2);
+			player1.walk(10);
 		}
 		if (surface.isPressed(KeyEvent.VK_W)) {
 			player1.jump();
 		}
 
 		if (surface.isPressed(KeyEvent.VK_LEFT)) {
-			player2.walk(-2);
+			player2.walk(-10);
 		}
 		if (surface.isPressed(KeyEvent.VK_RIGHT)) {
-			player2.walk(2);
+			player2.walk(10);
 		}
 		if (surface.isPressed(KeyEvent.VK_UP)) {
 			player2.jump();
