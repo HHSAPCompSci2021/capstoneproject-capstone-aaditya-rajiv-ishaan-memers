@@ -25,7 +25,7 @@ public class Avatar extends Sprite {
 	private int scale;
 	public static final double GRAVITY = 1.98;
 //	private boolean atBoundary;
-	private final int xVel = 7;
+	private static int xVel = 7;
 
 	/**
 	 * 
@@ -54,6 +54,12 @@ public class Avatar extends Sprite {
 	public void walk(boolean right) {
 		
 		x += xVel  * scale * (right ? 7 : -7);
+		if (x < 0) {
+			x = 0;
+		}
+		if (x > 1400) {
+			x = 1400;
+		}
 	}
 
 	/** Avatar jumps as a result 
@@ -75,6 +81,7 @@ public class Avatar extends Sprite {
 		y += yVel * scale;
 		if (y < 0) {
 			y = 0;
+			yVel = 0;
 		}
 		
 		
