@@ -56,7 +56,7 @@ public class Avatar extends Sprite {
 	 * 
 	 */
 	public void jump() {
-		yVel -= 1.6;
+		yVel -= 16;
 	}
 
 	/**
@@ -64,10 +64,9 @@ public class Avatar extends Sprite {
 	 * @param gameObstacles the sprites to act on
 	 */
 	public void act(ArrayList<Sprite> gameObstacles) {
-		
 		yVel += GRAVITY; 
 		
-		y += yVel * scale;
+		y += yVel;
 		
 		for (Sprite sprite : gameObstacles) {
 			if (super.intersects(sprite)) {
@@ -139,9 +138,7 @@ public class Avatar extends Sprite {
 			health = 100;
 		}
 	}
-	
-	
-	
+
 	/** Respawns this Avatar back to their home base when they die
 	 * 
 	 */

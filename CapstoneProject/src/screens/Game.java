@@ -36,14 +36,15 @@ public class Game extends Screen{
 	public Game(DrawingSurface s) {
 		super(1600, 1200);
 		surface = s;
-		player1 = new Avatar(null, 0, 0, 0, 0, null); 
-		player2 = new Avatar(null, 0, 0, 0, 0, null);
+		String pre = surface.sketchPath();
+		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 200, 500, 200, 200, Color.RED);
+		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 1300, 500, 200, 200, Color.BLUE);
 		platforms = new ArrayList<Platform>();
 		bullets = new ArrayList<PaintBlock>();
 		platforms.add(new Platform(1200, 200, 400, 100));
 		platforms.add(new Platform (0,1040,1600,1));
-		platforms.add(new Platform (-49, 0, 50, 1040));
-		platforms.add(new Platform (1599, 0, 50, 1040));
+		platforms.add(new Platform (0, 0, 50, 1200));
+		platforms.add(new Platform (1550, 0, 50, 1200));
 
 		
 	
@@ -53,9 +54,7 @@ public class Game extends Screen{
 	}
 
 	public void setup() {
-		String pre = surface.sketchPath();
-		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 200, 500, 200, 200, Color.RED);
-		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 1300, 500, 200, 200, Color.BLUE);
+		
 	}
 
 	public void draw() {

@@ -83,7 +83,6 @@ public class Platform extends Sprite {
 	}
 
 	public ArrayList<PaintBlock> getBorder() {
-		// TODO Auto-generated method stub
 		return border;
 	}
 
