@@ -24,6 +24,7 @@ public class Avatar extends Sprite {
 	private double prevX, prevY;
 	private int scale;
 	public static final double GRAVITY = 1.98;
+	private boolean atBoundary;
 
 	/**
 	 * 
@@ -40,6 +41,7 @@ public class Avatar extends Sprite {
 		yVel = 0;
 		scale = 1;
 		health = 100;
+		atBoundary = false;
 	}
 	
 	
@@ -58,6 +60,7 @@ public class Avatar extends Sprite {
 	 */
 	public void jump() {
 		yVel -= 16;
+		atBoundary = false;
 	}
 
 	/**
@@ -70,9 +73,9 @@ public class Avatar extends Sprite {
 		y += yVel * scale;
 		
 		for (Sprite sprite : gameObstacles) {
-			if (super.intersects(sprite)) {
+			if (super.intersects(sprite) || (atBoundary == true)) {
+				yVel = 0;
 				if (y != prevY) {
-					yVel = 0;
 					if (y > prevY) {
 						super.y = sprite.y - super.height;
 					} else if (y < prevY) {
@@ -183,5 +186,9 @@ public class Avatar extends Sprite {
 	public void moveTo(double x, double y) {
 		this.x = x;
 		this.y = y;
+	}
+	
+	public void setStatus(boolean status) {
+		atBoundary = status;
 	}
 }
