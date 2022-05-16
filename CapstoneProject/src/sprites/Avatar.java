@@ -74,12 +74,12 @@ public class Avatar extends Sprite {
 		for (Sprite sprite : gameObstacles) {
 			if (super.intersects(sprite)) {
 				if (y > prevY && y + height > sprite.y && y + height - yVel * scale <= sprite.y) {
-					super.y = sprite.y - height;
+					y = sprite.y - height;
 				} else if (y < prevY && y < sprite.y + sprite.height && y - yVel * scale >= sprite.y + sprite.height) {
-					super.y = sprite.y + sprite.height;
+					y = sprite.y + sprite.height;
 				}
 				if (x > prevX && x + width > sprite.x && x + width - xVel * scale <= sprite.x) {
-					super.x = sprite.x - super.width; 					
+					x = sprite.x - super.width; 					
 				} else if (x < prevX && x < sprite.x + sprite.width && x + xVel * scale >= sprite.x + sprite.width) {
 					x = sprite.x + sprite.width;
 				}
