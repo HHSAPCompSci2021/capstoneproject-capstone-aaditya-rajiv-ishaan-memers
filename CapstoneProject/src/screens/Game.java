@@ -29,6 +29,7 @@ public class Game extends Screen{
 	ArrayList<PaintBomb> bombs;
 	DrawingSurface surface;
 	private ArrayList<PaintBlock> bullets;
+	private boolean flagTaken;
 	/**
 	 * Constructs a screen representing the interactive game screen.
 	 * @param width The width of the screen.
@@ -52,9 +53,11 @@ public class Game extends Screen{
 		boundaries.add(new Platform (0, 0, 1, 1200));
 		boundaries.add(new Platform (1599, 0, 1, 1200));
 	
-		flag = new Flag(10, 10, 100, 100);
+		flag = new Flag(800, 550, 175, 200);
 		bombs = new ArrayList<PaintBomb>();
 		bombs.add(new PaintBomb(0, 0, 0, null));
+		
+		flagTaken = false;
 	}
 
 	public void setup() {
@@ -113,12 +116,18 @@ public class Game extends Screen{
 			
 
 			if(b.intersects(player1)) {
-				player1.loseHealth();
+				if(player1.loseHealth() && player1.hasFlag()) {
+					flagTaken = false;
+				}
+				
 				toRemove.add(b);
 			} 
 			
 			if(b.intersects(player2)) {
-				player2.loseHealth();
+				if(player2.loseHealth() && player2.hasFlag()) {
+					flagTaken = false;
+				}
+				
 				toRemove.add(b);
 			}
 			
@@ -131,15 +140,18 @@ public class Game extends Screen{
 		
 		if (flag.intersects(player1)) {
 			player1.collectFlag();
+			flagTaken = true;
 		} else if (flag.intersects(player2)){
 			player2.collectFlag();	
+			flagTaken = true;
 		} 
 		
 		surface.textSize(30);
 		surface.text("Player 1 Score: " + player1Score + "\n" + "Player 2 Score: " + player2Score, 1300, 50);
 
-		flag.draw(surface);
-
+		if(!flagTaken) {
+			flag.draw(surface);
+		}
 
 		if (surface.isPressed(KeyEvent.VK_A)) {
 			player1.walk(false);

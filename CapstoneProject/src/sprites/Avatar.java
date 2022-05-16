@@ -136,10 +136,13 @@ public class Avatar extends Sprite {
 
 	
 	
-	public void loseHealth() {
+	public boolean loseHealth() {
 		health -= 1;
 		if (health < 0) {
 			respawn();
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -149,6 +152,7 @@ public class Avatar extends Sprite {
 	public void respawn() {
 		super.moveToLocation(baseX, baseY);
 		health = 10;
+		gun = new PaintGun((int) (x + 200), (int)(y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH);
 	}
 	
 	/** Gets the health of this avatar
@@ -181,6 +185,10 @@ public class Avatar extends Sprite {
 	
 	public boolean isBoosted() {
 		return (scale == 2);
+	}
+	
+	public boolean hasFlag() {
+		return (gun instanceof Flag);
 	}
 	
 }

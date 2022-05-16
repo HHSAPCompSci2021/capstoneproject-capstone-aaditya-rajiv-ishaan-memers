@@ -8,7 +8,7 @@ import processing.core.PImage;
 	@author Rajiv Venkatesh
 	@version 2
 */
-public class Flag extends PaintGun{
+public class Flag extends PaintGun {
 
 	private static int capacity = 10;
 	private static int rTime = 10;
