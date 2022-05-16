@@ -57,7 +57,7 @@ public class PaintGun extends Sprite {
 		super.draw(drawer);
 		this.x = x - 20;
 		this.y = y - 20;
-		// TODO division by zero error when jumping ??
+		
 		if (counter % reloadTime == 0) {
 			if (ammo < maxAmmo) {
 				ammo++;

@@ -27,17 +27,18 @@ public class PaintBlock extends Sprite {
 		super(x, y, length, length);
 		this.c = c;
 		
-		double run = Math.abs(mouseClick.getX() - x);
-		double rise = Math.abs(mouseClick.getY() - y);
+		double run = mouseClick.getX() - x;
+		double rise = mouseClick.getY() - y;
 		
 		double angle = Math.atan(rise/run);
+
+		this.xVel = Math.cos(angle)*VELOCITY;
+		this.yVel = Math.sin(angle)*VELOCITY;
 		
-		double currentSpeed = Math.sqrt(Math.pow(rise, 2) + Math.pow(run, 2));
-//		rise *= velocity/currentSpeed;
-//		run *=  velocity/currentSpeed;
-		
-		this.xVel = Math.cos(angle)*currentSpeed;
-		this.yVel = Math.sin(angle)*currentSpeed;
+		if(run < 0) {
+			xVel *= -1;
+			yVel *= -1;
+		}
 		
 	}
 	
