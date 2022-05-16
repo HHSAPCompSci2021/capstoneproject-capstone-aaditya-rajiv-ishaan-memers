@@ -14,7 +14,7 @@ public class PaintBlock extends Sprite {
 	private Color c;
 	private double xVel, yVel;
 	public static final int LENGTH = 10;
-	public static final int VELOCITY = 5;
+	public static final int VELOCITY = 10;
 	
 	/**
 	 * 
@@ -26,13 +26,18 @@ public class PaintBlock extends Sprite {
 	public PaintBlock(int x, int y, Color c, int length, double velocity, Point2D mouseClick) {
 		super(x, y, length, length);
 		this.c = c;
-		double run = mouseClick.getX() - x;
-		double rise = mouseClick.getY() - y;
+		
+		double run = Math.abs(mouseClick.getX() - x);
+		double rise = Math.abs(mouseClick.getY() - y);
+		
+		double angle = Math.atan(rise/run);
+		
 		double currentSpeed = Math.sqrt(Math.pow(rise, 2) + Math.pow(run, 2));
-		rise *= velocity/currentSpeed;
-		run *=  velocity/currentSpeed;
-		this.xVel = run;
-		this.yVel = rise;
+//		rise *= velocity/currentSpeed;
+//		run *=  velocity/currentSpeed;
+		
+		this.xVel = Math.cos(angle)*currentSpeed;
+		this.yVel = Math.sin(angle)*currentSpeed;
 		
 	}
 	

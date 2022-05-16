@@ -24,8 +24,7 @@ public class Avatar extends Sprite {
 	private double prevX, prevY;
 	private int scale;
 	public static final double GRAVITY = 1.98;
-//	private boolean atBoundary;
-	private final int xVel = 14;
+	private final int xVel = 5;
 
 	/**
 	 * 
@@ -42,7 +41,6 @@ public class Avatar extends Sprite {
 		yVel = 0;
 		scale = 1;
 		health = 100;
-//		atBoundary = false;
 	}
 	
 	
@@ -52,7 +50,6 @@ public class Avatar extends Sprite {
 	 * @param dir left, right
 	 */
 	public void walk(boolean right) {
-		
 		x += xVel  * scale * (right ? 1 : -1);
 	}
 
@@ -63,7 +60,6 @@ public class Avatar extends Sprite {
 	
 		yVel -= 16;
 		
-//		atBoundary = false;
 	}
 
 	/**
@@ -83,10 +79,9 @@ public class Avatar extends Sprite {
 					super.y = sprite.y + sprite.height;
 				}
 				if (x > prevX && x + width > sprite.x && x + width - xVel * scale <= sprite.x) {
-					super.x = sprite.x - super.width; 
-					
-				} else if (x < prevX && x < sprite.x + sprite.width && x - xVel * scale >= sprite.x + sprite.width) {
-					super.x = sprite.x + sprite.width;
+					super.x = sprite.x - super.width; 					
+				} else if (x < prevX && x < sprite.x + sprite.width && x + xVel * scale >= sprite.x + sprite.width) {
+					x = sprite.x + sprite.width;
 				}
 				yVel = 0;
 			}
@@ -186,8 +181,4 @@ public class Avatar extends Sprite {
 		return (scale == 2);
 	}
 	
-	
-//	public void setStatus(boolean status) {
-//		atBoundary = status;
-//	}
 }

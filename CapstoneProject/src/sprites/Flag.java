@@ -10,10 +10,10 @@ import processing.core.PImage;
 */
 public class Flag extends PaintGun{
 
-	private static int capacity;
-	private static int rTime;
-	private static int vel;
-	private static int str;
+	private static int capacity = 10;
+	private static int rTime = 10;
+	private static int vel = 10;
+	private static int str = 10;
 
 	/**
 	 * Constructs a new flag object.
