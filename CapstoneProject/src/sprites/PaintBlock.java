@@ -14,7 +14,8 @@ public class PaintBlock extends Sprite {
 	private Color c;
 	private double xVel, yVel;
 	public static final int LENGTH = 10;
-	public static final int VELOCITY = 10;
+	public static final int VELOCITY = 15;
+	private static final double GRAVITY = 0.098;
 	
 	/**
 	 * 
@@ -58,6 +59,7 @@ public class PaintBlock extends Sprite {
 		marker.rect((float) super.x, (float) super.y, (float) super.width, (float) super.height);
 		marker.pop();
 		super.moveByAmount(xVel, yVel);
+		super.moveByAmount(0, GRAVITY);
 	}
 	
 	/** Changes the color of this block

@@ -55,8 +55,8 @@ public class PaintGun extends Sprite {
 	 */
 	public void draw(PApplet drawer, double x, double y) {
 		super.draw(drawer);
-		this.x = x - 20;
-		this.y = y - 20;
+		this.x = x + 150;
+		this.y = y - 10;
 		
 		if (counter % reloadTime == 0) {
 			if (ammo < maxAmmo) {
