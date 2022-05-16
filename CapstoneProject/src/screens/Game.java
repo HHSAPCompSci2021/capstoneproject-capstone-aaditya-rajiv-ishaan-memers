@@ -24,6 +24,7 @@ public class Game extends Screen{
 	Avatar player1, player2;
 	Double player1Points, player2Points;
 	ArrayList<Platform> platforms;
+	ArrayList<Platform> boundaries;
 	public static Flag flag;
 	ArrayList<PaintBomb> bombs;
 	DrawingSurface surface;
@@ -43,10 +44,13 @@ public class Game extends Screen{
 
 		platforms = new ArrayList<Platform>();
 		bullets = new ArrayList<PaintBlock>();
+		boundaries = new ArrayList<Platform>();
+		
 		platforms.add(new Platform(1200, 200, 400, 100));
-		platforms.add(new Platform (0,1040,1600,1));
-		platforms.add(new Platform (0, 0, 50, 1200));
-		platforms.add(new Platform (1550, 0, 50, 1200));
+		boundaries.add(new Platform(0, 0, 1600, 1));
+		boundaries.add(new Platform (0,1040,1600,1));
+		boundaries.add(new Platform (0, 0, 1, 1200));
+		boundaries.add(new Platform (1599, 0, 1, 1200));
 	
 		flag = new Flag(10, 10, 100, 100);
 		bombs = new ArrayList<PaintBomb>();
@@ -90,12 +94,14 @@ public class Game extends Screen{
 
 		ArrayList<Sprite> checkPieces = new ArrayList<Sprite>();
 		checkPieces.addAll(platforms);
+		checkPieces.addAll(boundaries);
 		checkPieces.add(player2);
 		player1.act(checkPieces);
 				
 		checkPieces = new ArrayList<Sprite>();
 		checkPieces.addAll(platforms);
 		checkPieces.add(player1);
+		checkPieces.addAll(boundaries);
 		player2.act(checkPieces);
 		
 		for (PaintBlock b : bullets) {
@@ -114,15 +120,11 @@ public class Game extends Screen{
 
 
 		if (surface.isPressed(KeyEvent.VK_A)) {
-//			if((player1.x - 10) > 0) {
-				player1.walk(false);
-//			}
+			player1.walk(false);
 		}
 		
 		if (surface.isPressed(KeyEvent.VK_D)) {
-//			if((player1.x + 10) < DRAWING_WIDTH) {
-				player1.walk(true);
-//			}
+			player1.walk(true);
 		}
 			
 		if (surface.isPressed(KeyEvent.VK_W)) {
@@ -130,31 +132,19 @@ public class Game extends Screen{
 		}
 
 		if (surface.isPressed(KeyEvent.VK_LEFT)) {
-//			if((player2.x - 10) > 0) {
-				player2.walk(false);
-//			}
+			player2.walk(false);
 		}
+		
 		if (surface.isPressed(KeyEvent.VK_RIGHT)) {
-//			if((player2.x + 10) < DRAWING_WIDTH) {
-				player2.walk(true);
-//			}
+			player2.walk(true);
+		
 		}
 		if (surface.isPressed(KeyEvent.VK_UP)) {
 			player2.jump();
 		}
 		
-//		if(player1.y > 4*DRAWING_HEIGHT/5) {
-//			player1.moveTo(player1.x, (double) 4*DRAWING_HEIGHT/5);
-//			player1.setStatus(true);
-//		} 
 		
 		player1.draw(surface);
-		
-		
-//		if(player2.y > 4*DRAWING_HEIGHT/5) {
-//			player2.moveTo(player2.x, (double) 4*DRAWING_HEIGHT/5);
-//			player2.setStatus(true);
-//		} 
 		
 		player2.draw(surface);
 
