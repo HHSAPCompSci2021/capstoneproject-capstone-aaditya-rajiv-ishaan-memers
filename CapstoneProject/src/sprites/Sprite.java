@@ -2,6 +2,7 @@ package sprites;
 
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -55,6 +56,7 @@ public class Sprite extends Rectangle2D.Double {
 			g.rect((float)x,(float)y,(float)width,(float)height);
 		}
 	}
+
 	
 	
 	

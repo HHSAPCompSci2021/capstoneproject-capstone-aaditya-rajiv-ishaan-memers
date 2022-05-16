@@ -11,7 +11,8 @@ import processing.core.PApplet;
 	@version 2
 */
 public class PaintGun extends Sprite {
-	private int ammo, maxAmmo, reloadTime, velocity, stroke, counter;
+	private int ammo, maxAmmo, velocity, stroke, counter;
+	private final int reloadTime = 5;
 	
 	/**
 	 * 
@@ -24,11 +25,10 @@ public class PaintGun extends Sprite {
 	 * @param vel the muzzle velocity of bullets from this gun
 	 * @param str the size of "splotches" on the ground from this
 	 */
-	public PaintGun(int x, int y, int width, int height, int capacity, int rTime, int vel, int strokeLength) {
+	public PaintGun(int x, int y, int width, int height, int capacity, int vel, int strokeLength) {
 		super(x, y, width, height);
 		this.maxAmmo = capacity;
 		this.ammo = capacity;
-		this.reloadTime = rTime;
 		this.velocity = vel;
 		this.stroke = strokeLength;
 	}
@@ -57,6 +57,7 @@ public class PaintGun extends Sprite {
 		super.draw(drawer);
 		this.x = x - 20;
 		this.y = y - 20;
+		// TODO division by zero error when jumping ??
 		if (counter % reloadTime == 0) {
 			if (ammo < maxAmmo) {
 				ammo++;

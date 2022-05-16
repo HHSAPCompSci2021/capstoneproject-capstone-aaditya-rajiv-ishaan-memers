@@ -47,6 +47,7 @@ public class Game extends Screen{
 		platforms.add(new Platform (0,1040,1600,1));
 		platforms.add(new Platform (0, 0, 50, 1200));
 		platforms.add(new Platform (1550, 0, 50, 1200));
+		platforms.add(new Platform(0, 0, 1600, 50));
 	
 		flag = new Flag(10, 10, 100, 100);
 		bombs = new ArrayList<PaintBomb>();
@@ -84,6 +85,8 @@ public class Game extends Screen{
 			player1Score += p.numBlocksWithColor(player1.getColor());
 			player2Score += p.numBlocksWithColor(player2.getColor());
 		}
+		
+		
 		
 		player1Score = (player1Score * 10000 / 48000); // change from hard-coded vals
 		player2Score = (player2Score * 10000 / 48000);
