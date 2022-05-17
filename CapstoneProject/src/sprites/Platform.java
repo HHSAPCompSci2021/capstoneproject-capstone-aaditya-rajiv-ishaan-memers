@@ -14,8 +14,7 @@ public class Platform extends Sprite {
 	
 	private ArrayList<PaintBlock> border;
 	
-	/** Constructs a platform for drawing on the game screen
-	 * 
+	/** Constructs a platform for drawing on the game screen 
 	 * @pre width and height are multiples of 10
 	 * @param x the x-coordinate of the upper left corner of the platform
 	 * @param y the y-coordinate of the upper left corner of the platform
@@ -66,8 +65,6 @@ public class Platform extends Sprite {
 		}
 		return total;
 	}
-	
-	
 	
 	/** Draws the platform on the screen
 	 * 

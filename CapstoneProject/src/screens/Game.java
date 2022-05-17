@@ -48,8 +48,6 @@ public class Game extends Screen{
 		bullets = new ArrayList<PaintBlock>();
 		boundaries = new ArrayList<Platform>();
 		
-//		platforms.add(new Platform(1200, 1000, 400, 50));
-//		platforms.add(new Platform(0, 1000, 400, 50));
 		platforms.add(new Platform(1200, 400, 400, 50));
 
 		platforms.add(new Platform(0, 400, 400, 50));
@@ -82,6 +80,7 @@ public class Game extends Screen{
 		
 		int player1Score = 0;
 		int player2Score = 0;
+		int numBlocks = 0;
 		
 		for(Platform p : platforms) {
 			ArrayList<PaintBlock> toRemove = new ArrayList<PaintBlock>();
@@ -105,12 +104,13 @@ public class Game extends Screen{
 			p.draw(surface);
 			player1Score += p.numBlocksWithColor(player1.getColor());
 			player2Score += p.numBlocksWithColor(player2.getColor());
-		}
-		
-		
-		
-	
+			numBlocks += p.getBorder().size();
+		}	
 
+		player1Score /= numBlocks;
+		player2Score /= numBlocks;
+		
+		
 		ArrayList<Sprite> checkPieces = new ArrayList<Sprite>();
 		checkPieces.addAll(platforms);
 		checkPieces.addAll(boundaries);
