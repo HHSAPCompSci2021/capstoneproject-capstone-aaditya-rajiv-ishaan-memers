@@ -15,7 +15,6 @@ public class PaintBlock extends Sprite {
 	private double xVel, yVel;
 	public static final int LENGTH = 10;
 	public static final int VELOCITY = 15;
-	private static final double GRAVITY = 1.98;
 	
 	/**
 	 * 
@@ -31,15 +30,20 @@ public class PaintBlock extends Sprite {
 		double run = mouseClick.getX() - x;
 		double rise = mouseClick.getY() - y;
 		
-		double angle = Math.atan(rise/run);
+		double angle = Math.abs(Math.atan(rise/run));
 
-		this.xVel = Math.cos(angle)*VELOCITY;
-		this.yVel = Math.sin(angle)*VELOCITY;
-		
-		if(run < 0) {
-			xVel *= -1;
-			yVel *= -1;
+		if(mouseClick.getX() < x) {
+			this.xVel = -Math.cos(angle)*VELOCITY;
+		} else {
+			this.xVel = Math.cos(angle)*VELOCITY;
 		}
+		
+		if(mouseClick.getY() < y) {
+			this.yVel = -Math.sin(angle)*VELOCITY;
+		} else {
+			this.yVel = Math.sin(angle)*VELOCITY;
+		}
+		
 		
 	}
 	

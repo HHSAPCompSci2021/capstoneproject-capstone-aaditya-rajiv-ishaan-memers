@@ -12,6 +12,7 @@ import processing.core.PApplet;
 */
 public class PaintGun extends Sprite {
 	private int ammo, maxAmmo, velocity, stroke, counter;
+	private boolean onRight;
 	private final int reloadTime = 5;
 	
 	/**
@@ -31,6 +32,7 @@ public class PaintGun extends Sprite {
 		this.ammo = capacity;
 		this.velocity = vel;
 		this.stroke = strokeLength;
+		onRight = true;
 	}
 
 	/**
@@ -41,9 +43,21 @@ public class PaintGun extends Sprite {
 	 */
 	public PaintBlock shoot(Point2D click, Color ownerColor) {
 		if(ammo > 0) {
-			PaintBlock bullet = new PaintBlock((int) x, (int) y, 60, ownerColor, stroke, velocity, click);
-			double angle = bullet.getAngle();
-			super.setRotation(angle);
+			if(click.getX() < x) {
+				onRight = false;
+			} else {
+				onRight = true;
+			}
+			
+			PaintBlock bullet;
+			
+			if(onRight) {
+				bullet = new PaintBlock((int) (x+width), (int) y, 60, ownerColor, stroke, velocity, click);	
+			} else {
+				bullet = new PaintBlock((int) x, (int) y, 60, ownerColor, stroke, velocity, click);
+					
+			}
+			
 			ammo--;
 			return bullet;
 		}
@@ -57,7 +71,12 @@ public class PaintGun extends Sprite {
 	 */
 	public void draw(PApplet drawer, double x, double y) {
 		super.draw(drawer);
-		this.x = x + 150;
+		if(onRight) {
+			this.x = x + 150;
+		} else {
+			this.x = x - 10;
+		}
+		
 		this.y = y - 10;
 		
 		if (counter % reloadTime == 0) {
