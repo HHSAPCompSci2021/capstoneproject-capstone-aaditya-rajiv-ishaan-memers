@@ -62,7 +62,7 @@ public class Avatar extends Sprite {
 	 */
 	public void jump() {
 	
-		yVel -= 42;
+		yVel -= 50;
 		
 	}
 
