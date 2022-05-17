@@ -43,7 +43,7 @@ public class Avatar extends Sprite {
 		playerColor = color;
 		yVel = 0;
 		scale = 1;
-		health = 1;
+		health = 100;
 	}
 	
 	
@@ -138,7 +138,8 @@ public class Avatar extends Sprite {
 	
 	public boolean loseHealth() {
 		health -= 10;
-		if (health == 0) {
+		if (health <= 0) {
+			health = 100;
 			respawn();
 			return true;
 		} else {
@@ -151,7 +152,6 @@ public class Avatar extends Sprite {
 	 */
 	public void respawn() {
 		super.moveToLocation(baseX, baseY);
-		health = 3;
 		gun = new PaintGun((int) (x + 200), (int)(y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH);
 	}
 	
