@@ -101,9 +101,13 @@ public class Game extends Screen{
 			p.draw(surface);
 			player1Score += p.numBlocksWithColor(player1.getColor());
 			player2Score += p.numBlocksWithColor(player2.getColor());
+			
 			numBlocks += p.getBorder().size();
 		}	
-
+		
+		player1Score *= 1000;
+		player2Score *= 1000;
+		
 		player1Score /= numBlocks;
 		player2Score /= numBlocks;
 		
