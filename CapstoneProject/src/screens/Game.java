@@ -106,8 +106,7 @@ public class Game extends Screen{
 		
 		
 		
-		player1Score = (player1Score * 10000 / (1600 * 1200)); // change from hard-coded vals
-		player2Score = (player2Score * 10000 / (1600 * 1200));
+	
 
 		ArrayList<Sprite> checkPieces = new ArrayList<Sprite>();
 		checkPieces.addAll(platforms);
