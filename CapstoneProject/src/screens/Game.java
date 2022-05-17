@@ -183,7 +183,9 @@ public class Game extends Screen{
 		}
 			
 		if (surface.isPressed(KeyEvent.VK_W)) {
-			player1.jump();
+			if (player1.onPlatform()) {
+				player1.jump();
+			}
 		}
 
 		if (surface.isPressed(KeyEvent.VK_LEFT)) {
@@ -195,7 +197,9 @@ public class Game extends Screen{
 		
 		}
 		if (surface.isPressed(KeyEvent.VK_UP)) {
-			player2.jump();
+			if (player2.onPlatform()) {
+				player2.jump();
+			}
 		}
 		
 		
