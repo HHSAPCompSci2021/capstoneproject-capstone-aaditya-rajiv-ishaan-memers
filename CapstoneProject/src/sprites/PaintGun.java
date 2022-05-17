@@ -41,7 +41,9 @@ public class PaintGun extends Sprite {
 	 */
 	public PaintBlock shoot(Point2D click, Color ownerColor) {
 		if(ammo > 0) {
-			PaintBlock bullet = new PaintBlock((int) x, (int) y, ownerColor, stroke, velocity, click);
+			PaintBlock bullet = new PaintBlock((int) x, (int) y, 60, ownerColor, stroke, velocity, click);
+			double angle = bullet.getAngle();
+			super.setRotation(angle);
 			ammo--;
 			return bullet;
 		}

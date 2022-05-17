@@ -39,15 +39,16 @@ public class Game extends Screen{
 		super(1600, 1200);
 		surface = s;
 		String pre = surface.sketchPath();
-		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 200, 0, 200, 200, Color.RED);
+		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 200, 840, 200, 200, Color.RED);
 
-		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 1300, 0, 200, 200, Color.BLUE);
+		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 1300, 840, 200, 200, Color.BLUE);
 
 		platforms = new ArrayList<Platform>();
 		bullets = new ArrayList<PaintBlock>();
 		boundaries = new ArrayList<Platform>();
 		
-		platforms.add(new Platform(1000, 400, 400, 100));
+		platforms.add(new Platform(1000, 350, 400, 100));
+		platforms.add(new Platform(600, 350, 400, 100));
 		boundaries.add(new Platform(0, 0, 1600, 1));
 		boundaries.add(new Platform (0,1040,1600,1));
 		boundaries.add(new Platform (0, 0, 1, 1200));
@@ -71,12 +72,14 @@ public class Game extends Screen{
 		int player2Score = 0;
 		
 		for(Platform p : platforms) {
+			ArrayList<PaintBlock> toRemove = new ArrayList<PaintBlock>();
 			for (PaintBlock bullet : bullets) {
 				p.paint(bullet);
-				if (p.insidePlatform(bullet)) {
-					bullets.remove(bullet);
+				if (p.contains(bullet)) {
+					toRemove.add(bullet);
 				}
 			}
+			bullets.removeAll(toRemove);
 			if (player1.onPaint(p)) {
 				player1.boost();
 			} else if (player1.isBoosted()) {
