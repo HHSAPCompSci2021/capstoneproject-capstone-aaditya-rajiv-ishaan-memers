@@ -1,6 +1,7 @@
 
 package sprites;
 import java.awt.Color;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
@@ -49,8 +50,10 @@ public class Platform extends Sprite {
 		}
 	}
 	
-	public boolean insidePlatform(PaintBlock bullet) {
-		return (contains(bullet.x, bullet.y) && contains(bullet.x + bullet.width, bullet.y) && contains(bullet.x + width, bullet.y + height) && contains(bullet.x, bullet.y + height));
+	public boolean contains(PaintBlock bullet) {
+		Rectangle2D rect = new Rectangle2D.Double(x + PaintBlock.LENGTH, y + PaintBlock.LENGTH, width - 2 * PaintBlock.LENGTH, height - 2 * PaintBlock.LENGTH);
+		return (rect.contains(bullet.x, bullet.y) && rect.contains(bullet.x + bullet.width, bullet.y) &&
+				rect.contains(bullet.x + bullet.width, bullet.y + bullet.height) && rect.contains(bullet.x, bullet.y + bullet.height));
 	}
 	
 	

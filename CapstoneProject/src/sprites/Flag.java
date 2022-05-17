@@ -11,7 +11,6 @@ import processing.core.PImage;
 public class Flag extends PaintGun {
 
 	private static int capacity = 10;
-	private static int rTime = 10;
 	private static int vel = 10;
 	private static int str = 10;
 
@@ -26,11 +25,11 @@ public class Flag extends PaintGun {
 		super(x, y, width, height, capacity, vel, str);
 	}
 	
-	public void draw(PApplet drawer) {
+	public void draw(PApplet drawer, int x, int y) {
 		drawer.fill(0, 0, 0);
-		drawer.rect(800, 550, 25, 200);
+		drawer.rect(x, y, 25, 200);
 		drawer.fill(255, 0, 0);
-		drawer.rect(825, 550, 150, 75);
+		drawer.rect(x+25, y, 150, 75);
 	}
 
 }
