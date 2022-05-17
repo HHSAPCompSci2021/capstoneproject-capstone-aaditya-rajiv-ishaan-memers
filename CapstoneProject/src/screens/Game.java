@@ -53,6 +53,16 @@ public class Game extends Screen{
 		platforms.add(new Platform(0, 400, 400, 50));
 
 		platforms.add(new Platform(600, 250, 400, 50));
+		
+		platforms.add(new Platform(600, 550, 400, 50));
+		
+		platforms.add(new Platform(1200, 700, 400, 50));
+
+		platforms.add(new Platform(0, 700, 400, 50));
+		
+		platforms.add(new Platform(600, 850, 400, 50));
+
+
 
 
 
@@ -186,7 +196,9 @@ public class Game extends Screen{
 		}
 			
 		if (surface.isPressed(KeyEvent.VK_W)) {
-			player1.jump();
+			if (player1.onPlatform()) {
+				player1.jump();
+			}
 		}
 
 		if (surface.isPressed(KeyEvent.VK_LEFT)) {
@@ -198,7 +210,9 @@ public class Game extends Screen{
 		
 		}
 		if (surface.isPressed(KeyEvent.VK_UP)) {
-			player2.jump();
+			if (player2.onPlatform()) {
+				player2.jump();
+			}
 		}
 		
 		

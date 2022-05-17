@@ -25,6 +25,7 @@ public class Avatar extends Sprite {
 	private int scale;
 	public static final double GRAVITY = 1.98;
 	private final int xVel = 5;
+	private boolean onPlatform;
 
 	/**
 	 * 
@@ -61,7 +62,7 @@ public class Avatar extends Sprite {
 	 */
 	public void jump() {
 	
-		yVel -= 16;
+		yVel -= 25;
 		
 	}
 
@@ -73,23 +74,24 @@ public class Avatar extends Sprite {
 		yVel += GRAVITY; 
 		y += yVel * scale;
 		
-		
+		onPlatform = false;
 		for (Sprite sprite : gameObstacles) {
 			if (super.intersects(sprite)) {
 				if (y > prevY && y + height > sprite.y && y + height - yVel * scale <= sprite.y) {
+					onPlatform = true;
 					y = sprite.y - height;
 				} else if (y < prevY && y < sprite.y + sprite.height && y - yVel * scale >= sprite.y + sprite.height) {
 					y = sprite.y + sprite.height;
-				}
+				} 
 				if (x > prevX && x + width > sprite.x && x + width - xVel * scale <= sprite.x) {
 					x = sprite.x - super.width; 					
 				} else if (x < prevX && x < sprite.x + sprite.width && x + xVel * scale >= sprite.x + sprite.width) {
 					x = sprite.x + sprite.width;
 				}
 				yVel = 0;
-			}
+			} 
 		}
-		
+	
 		prevX = x;
 		prevY = y;
 		
@@ -162,6 +164,11 @@ public class Avatar extends Sprite {
 	 */
 	public int getHealth() {
 		return health;
+	}
+	
+	public boolean onPlatform() {
+		return onPlatform;
+		
 	}
 	
 	/** Gets the color of this avatar
