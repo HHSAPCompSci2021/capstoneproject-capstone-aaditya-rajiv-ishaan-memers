@@ -137,6 +137,9 @@ public class Avatar extends Sprite {
 	}
 	
 	public boolean loseHealth() {
+		if (hasFlag()) {
+			health -= 20;
+		}
 		health -= 10;
 		if (health <= 0) {
 			health = 100;
