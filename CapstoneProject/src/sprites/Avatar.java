@@ -74,17 +74,15 @@ public class Avatar extends Sprite {
 		yVel += GRAVITY; 
 		y += yVel * scale;
 		
-		boolean noIntersection = true;
+		onPlatform = false;
 		for (Sprite sprite : gameObstacles) {
 			if (super.intersects(sprite)) {
-				noIntersection = false;
 				if (y > prevY && y + height > sprite.y && y + height - yVel * scale <= sprite.y) {
 					onPlatform = true;
 					y = sprite.y - height;
 				} else if (y < prevY && y < sprite.y + sprite.height && y - yVel * scale >= sprite.y + sprite.height) {
-					onPlatform = false;
 					y = sprite.y + sprite.height;
-				}
+				} 
 				if (x > prevX && x + width > sprite.x && x + width - xVel * scale <= sprite.x) {
 					x = sprite.x - super.width; 					
 				} else if (x < prevX && x < sprite.x + sprite.width && x + xVel * scale >= sprite.x + sprite.width) {
@@ -93,10 +91,7 @@ public class Avatar extends Sprite {
 				yVel = 0;
 			} 
 		}
-		if (noIntersection) {
-			onPlatform = false;
-		}
-		
+	
 		prevX = x;
 		prevY = y;
 		
