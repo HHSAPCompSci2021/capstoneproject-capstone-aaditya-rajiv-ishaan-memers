@@ -73,6 +73,10 @@ public class PaintGun extends Sprite {
 	 */
 	public void draw(PApplet drawer, double x, double y) {
 		super.draw(drawer);
+		reload();
+	}
+	
+	private void reload() {
 		if(onRight) {
 			this.x = x + 150;
 		} else {
@@ -88,9 +92,6 @@ public class PaintGun extends Sprite {
 		}
 		counter++;
 	}
-	
-	
-	
 	
 	
 
