@@ -21,15 +21,16 @@ import sprites.Sprite;
  */
 public class Game extends Screen{
 
-	Avatar player1, player2;
-	Double player1Points, player2Points;
-	ArrayList<Platform> platforms;
-	ArrayList<Platform> boundaries;
+	private Avatar player1, player2;
+	private Double player1Points, player2Points;
+	private ArrayList<Platform> platforms;
+	private ArrayList<Platform> boundaries;
 	public static Flag flag;
-	ArrayList<PaintBomb> bombs;
-	DrawingSurface surface;
+	private ArrayList<PaintBomb> bombs;
+	public DrawingSurface surface;
 	private ArrayList<PaintBlock> bullets;
 	private boolean flagTaken;
+	
 	/**
 	 * Constructs a screen representing the interactive game screen.
 	 * @param width The width of the screen.
@@ -39,16 +40,16 @@ public class Game extends Screen{
 		super(1600, 1200);
 		surface = s;
 		String pre = surface.sketchPath();
-		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 200, 840, 200, 200, Color.RED);
+		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 200, 0, 200, 200, Color.RED);
 
-		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 1300, 840, 200, 200, Color.BLUE);
+		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 1300, 0, 200, 200, Color.BLUE);
 
 		platforms = new ArrayList<Platform>();
 		bullets = new ArrayList<PaintBlock>();
 		boundaries = new ArrayList<Platform>();
 		
 		platforms.add(new Platform(1000, 350, 400, 100));
-		platforms.add(new Platform(600, 350, 400, 100));
+		platforms.add(new Platform(300, 600, 400, 100));
 		boundaries.add(new Platform(0, 0, 1600, 1));
 		boundaries.add(new Platform (0,1040,1600,1));
 		boundaries.add(new Platform (0, 0, 1, 1200));
@@ -131,6 +132,7 @@ public class Game extends Screen{
 					flagTaken = false;
 				}
 				
+				System.out.println("Health: " + player2.getHealth());
 				toRemove.add(b);
 			}
 			
@@ -151,10 +153,18 @@ public class Game extends Screen{
 		
 		surface.textSize(30);
 		surface.text("Player 1 Score: " + player1Score + "\n" + "Player 2 Score: " + player2Score, 1300, 50);
-
+		
 		if(!flagTaken) {
-			flag.draw(surface);
+			flag.draw(surface, 800, 550);	
+		} else {
+			if(player1.hasFlag()) {
+				flag.draw(surface, (int)player1.x, (int)player1.y);
+			} else {
+				flag.draw(surface, (int)player2.x, (int)player2.y);
+			}
+			
 		}
+		
 
 		if (surface.isPressed(KeyEvent.VK_A)) {
 			player1.walk(false);

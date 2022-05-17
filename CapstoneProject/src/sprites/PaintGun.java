@@ -13,7 +13,7 @@ import processing.core.PApplet;
 public class PaintGun extends Sprite {
 	private int ammo, maxAmmo, velocity, stroke, counter;
 	private boolean onRight;
-	private final int reloadTime = 5;
+	private final int reloadTime = 60;
 	
 	/**
 	 * 
@@ -42,6 +42,7 @@ public class PaintGun extends Sprite {
 	 * @return A PaintBlock bullet.
 	 */
 	public PaintBlock shoot(Point2D click, Color ownerColor) {
+		System.out.println("Ammo: " + ammo);
 		if(ammo > 0) {
 			if(click.getX() < x) {
 				onRight = false;
@@ -59,10 +60,11 @@ public class PaintGun extends Sprite {
 			}
 			
 			ammo--;
+			
 			return bullet;
 		}
-		return null;
 		
+		return null;
 	}
 	
 	/**
@@ -80,8 +82,8 @@ public class PaintGun extends Sprite {
 		this.y = y - 10;
 		
 		if (counter % reloadTime == 0) {
-			if (ammo < maxAmmo) {
-				ammo++;
+			if (ammo == 0) {
+				ammo = maxAmmo;
 			}
 		}
 		counter++;

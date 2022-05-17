@@ -103,8 +103,10 @@ public class Avatar extends Sprite {
 	 */
 	public void draw(PApplet drawer) {
 	 	super.draw(drawer);
-	 	gun.draw(drawer, this.x, this.y);
-	 	
+	 	if(!hasFlag())
+	 		gun.draw(drawer, this.x, this.y);
+	 	else
+	 		gun.draw(drawer, (int)this.x, (int)this.y);
 	}
 	
 	/** Throws a bomb
@@ -133,12 +135,10 @@ public class Avatar extends Sprite {
 		}
 		return false;
 	}
-
-	
 	
 	public boolean loseHealth() {
 		health -= 1;
-		if (health < 0) {
+		if (health == 0) {
 			respawn();
 			return true;
 		} else {
@@ -151,7 +151,7 @@ public class Avatar extends Sprite {
 	 */
 	public void respawn() {
 		super.moveToLocation(baseX, baseY);
-		health = 10;
+		health = 3;
 		gun = new PaintGun((int) (x + 200), (int)(y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH);
 	}
 	
