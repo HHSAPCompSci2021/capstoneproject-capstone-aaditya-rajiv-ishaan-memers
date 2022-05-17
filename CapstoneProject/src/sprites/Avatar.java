@@ -137,7 +137,7 @@ public class Avatar extends Sprite {
 	}
 	
 	public boolean loseHealth() {
-		health -= 1;
+		health -= 10;
 		if (health == 0) {
 			respawn();
 			return true;
