@@ -11,7 +11,7 @@ import processing.core.PImage;
 public class Flag extends PaintGun {
 
 	private static int capacity = 10;
-	private static int vel = 10;
+	private static int vel = 7;
 	private static int str = 10;
 
 	/**

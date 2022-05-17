@@ -72,7 +72,9 @@ public class PaintGun extends Sprite {
 	 * @param drawer The PApplet to draw onto.
 	 */
 	public void draw(PApplet drawer, double x, double y) {
-		super.draw(drawer);
+		if(!(this instanceof Flag))
+			super.draw(drawer);
+		
 		if(onRight) {
 			this.x = x + 150;
 		} else {
