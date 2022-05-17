@@ -55,6 +55,9 @@ public class Game extends Screen{
 		platforms.add(new Platform(0, 400, 400, 50));
 
 		platforms.add(new Platform(600, 250, 400, 50));
+		
+		platforms.add(new Platform(600, 550, 400, 50));
+
 
 
 
