@@ -40,27 +40,27 @@ public class Game extends Screen{
 		super(1600, 1200);
 		surface = s;
 		String pre = surface.sketchPath();
-		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 100, 600, 200, 200, Color.RED);
+		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 100, 800, 200, 200, Color.RED);
 
-		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 1300, 600, 200, 200, Color.BLUE);
+		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 1300, 800, 200, 200, Color.BLUE);
 
 		platforms = new ArrayList<Platform>();
 		bullets = new ArrayList<PaintBlock>();
 		boundaries = new ArrayList<Platform>();
 		
-		platforms.add(new Platform(1200, 400, 400, 50));
+		platforms.add(new Platform(1300, 400, 300, 50));
 
-		platforms.add(new Platform(0, 400, 400, 50));
+		platforms.add(new Platform(0, 400, 300, 50));
 
-		platforms.add(new Platform(600, 250, 400, 50));
+		platforms.add(new Platform(700, 250, 200, 50));
 		
-		platforms.add(new Platform(600, 550, 400, 50));
+		platforms.add(new Platform(700, 550, 200, 50));
 		
 		platforms.add(new Platform(1200, 700, 400, 50));
 
 		platforms.add(new Platform(0, 700, 400, 50));
 		
-		platforms.add(new Platform(600, 850, 400, 50));
+		platforms.add(new Platform(700, 850, 200, 50));
 
 
 
