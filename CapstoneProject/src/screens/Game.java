@@ -22,7 +22,6 @@ import sprites.Sprite;
 public class Game extends Screen{
 
 	private Avatar player1, player2;
-	private Double player1Points, player2Points;
 	private ArrayList<Platform> platforms;
 	private ArrayList<Platform> boundaries;
 	public static Flag flag;
