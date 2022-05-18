@@ -50,15 +50,15 @@ public class Game extends Screen{
 		
 		platforms.add(new Platform(650, 250, 250, 50));
 		
-		platforms.add(new Platform(1100, 350, 200, 50));
+		platforms.add(new Platform(1100, 375, 200, 50));
 
-		platforms.add(new Platform(300, 350, 200, 50));
+		platforms.add(new Platform(300, 375, 200, 50));
 		
-		platforms.add(new Platform(625, 500, 325, 50));
+		platforms.add(new Platform(700, 500, 200 , 50));
 		
 		platforms.add(new Platform(0, 600, 300, 50));
 		
-		platforms.add(new Platform(600, 800, 350, 50));
+		platforms.add(new Platform(600, 750, 350, 50));
 		
 		platforms.add(new Platform(1300, 600, 300, 50));
 
