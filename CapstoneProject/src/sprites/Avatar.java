@@ -25,8 +25,10 @@ public class Avatar extends Sprite {
 	private double prevX, prevY;
 	private int scale;
 	public static final double GRAVITY = 1.98;
-	private final int xVel = 5;
+	private final int xVel = 10;
 	private boolean onPlatform;
+	private int flagCaptures;
+	private int numDeaths;
 
 	/**
 	 * 
@@ -46,6 +48,8 @@ public class Avatar extends Sprite {
 		yVel = 0;
 		scale = 1;
 		health = 100;
+		flagCaptures = 0;
+		numDeaths = 0;
 	}
 	
 	
@@ -157,6 +161,7 @@ public class Avatar extends Sprite {
 	public void respawn() {
 		super.moveToLocation(baseX, baseY);
 		gun = new PaintGun((int) (x + 200), (int)(y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH);
+		numDeaths++;
 	}
 	
 	/** Gets the health of this avatar
@@ -202,5 +207,17 @@ public class Avatar extends Sprite {
 	
 	public Point getBase() {
 		return new Point(baseX, baseY);
+	}
+	
+	public int getCaptures() {
+		return flagCaptures;
+	}
+	
+	public void touchdown() {
+		flagCaptures++;
+	}
+	
+	public int getNumDeaths() {
+		return numDeaths;
 	}
 }
