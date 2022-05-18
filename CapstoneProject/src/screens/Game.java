@@ -170,16 +170,24 @@ public class Game extends Screen{
 			flagTaken = true;
 		} 
 		
-		surface.textSize(30);
-		surface.text("Player 1 Score: " + player1Score + "\n" + "Player 2 Score: " + player2Score, 1300, 50);
-		
 		if(!flagTaken) {
 			flag.draw(surface, 800, 550);	
 		} else {
 			if(player1.hasFlag()) {
 				flag.draw(surface, (int)player1.x, (int)player1.y);
+				
+				if((Math.abs(player1.x - player1.getBase().x) < 100) && ((Math.abs(player1.y - player1.getBase().y) < 50))) {
+					flagTaken = false;
+					player1Score += 200;
+				}
+				
 			} else {
 				flag.draw(surface, (int)player2.x, (int)player2.y);
+				
+				if((Math.abs(player2.x - player2.getBase().x) < 100) && ((Math.abs(player2.y - player2.getBase().y) < 50))) {
+					flagTaken = false;
+					player2Score += 200;
+				}
 			}
 			
 		}
@@ -213,6 +221,8 @@ public class Game extends Screen{
 			}
 		}
 		
+		surface.textSize(30);
+		surface.text("Player 1 Score: " + player1Score + "\n" + "Player 2 Score: " + player2Score, 1300, 50);
 		
 		player1.draw(surface);
 		

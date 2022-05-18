@@ -1,6 +1,7 @@
 
 package sprites;
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -199,4 +200,7 @@ public class Avatar extends Sprite {
 		return (gun instanceof Flag);
 	}
 	
+	public Point getBase() {
+		return new Point(baseX, baseY);
+	}
 }
