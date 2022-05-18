@@ -176,7 +176,7 @@ public class Game extends Screen{
 				
 				if((Math.abs(player1.x - player1.getBase().x) < 100) && ((Math.abs(player1.y - player1.getBase().y) < 50))) {
 					flagTaken = false;
-					player1Score += 200;
+					player1.touchdown();
 				}
 				
 			} else {
@@ -184,13 +184,18 @@ public class Game extends Screen{
 				
 				if((Math.abs(player2.x - player2.getBase().x) < 100) && ((Math.abs(player2.y - player2.getBase().y) < 50))) {
 					flagTaken = false;
-					player2Score += 200;
+					player2.touchdown();
 				}
 			}
 			
 		}
 		
-
+		player1Score += (player1.getCaptures() * 200);
+		player1Score -= (player1.getNumDeaths() * 200);
+		
+		player2Score += (player2.getCaptures() * 200);
+		player2Score -= (player2.getNumDeaths() * 200);
+		
 		if (surface.isPressed(KeyEvent.VK_A)) {
 			player1.walk(false);
 		}
@@ -219,14 +224,16 @@ public class Game extends Screen{
 			}
 		}
 		
+	
+		surface.push();
+		surface.fill(Color.WHITE.getRGB());
 		surface.textSize(30);
 		surface.text("Player 1 Score: " + player1Score + "\n" + "Player 2 Score: " + player2Score, 1300, 50);
+		surface.pop();
 		
 		player1.draw(surface);
 		
 		player2.draw(surface);
-
-
 
 	}
 
