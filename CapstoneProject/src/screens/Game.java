@@ -25,7 +25,6 @@ import sprites.Sprite;
 public class Game extends Screen implements NetworkListener {
 
 	private Avatar player1, player2;
-	private Double player1Points, player2Points;
 	private ArrayList<Platform> platforms;
 	private ArrayList<Platform> boundaries;
 	public static Flag flag;
@@ -43,9 +42,9 @@ public class Game extends Screen implements NetworkListener {
 		super(1600, 1200);
 		surface = s;
 		String pre = surface.sketchPath();
-		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 100, 600, 200, 200, Color.RED);
+		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 100, 840, 200, 200, Color.RED);
 
-		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 1300, 600, 200, 200, Color.BLUE);
+		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 1300, 840, 200, 200, Color.BLUE);
 
 		platforms = new ArrayList<Platform>();
 		bullets = new ArrayList<PaintBlock>();
@@ -53,15 +52,15 @@ public class Game extends Screen implements NetworkListener {
 		
 		platforms.add(new Platform(650, 250, 250, 50));
 		
-		platforms.add(new Platform(1100, 350, 200, 50));
+		platforms.add(new Platform(1150, 325, 200, 50));
 
-		platforms.add(new Platform(300, 350, 200, 50));
+		platforms.add(new Platform(250, 325, 200, 50));
 		
-		platforms.add(new Platform(625, 500, 325, 50));
+		platforms.add(new Platform(700, 500, 150 , 50));
 		
 		platforms.add(new Platform(0, 600, 300, 50));
 		
-		platforms.add(new Platform(600, 800, 350, 50));
+		platforms.add(new Platform(600, 750, 350, 50));
 		
 		platforms.add(new Platform(1300, 600, 300, 50));
 
@@ -72,7 +71,7 @@ public class Game extends Screen implements NetworkListener {
 		boundaries.add(new Platform (0, 0, 1, 1200));
 		boundaries.add(new Platform (1599, 0, 1, 1200));
 	
-		flag = new Flag(800, 550, 175, 200);
+		flag = new Flag(750, 50, 175, 200);
 		bombs = new ArrayList<PaintBomb>();
 		bombs.add(new PaintBomb(0, 0, 0, null));
 		
@@ -174,7 +173,7 @@ public class Game extends Screen implements NetworkListener {
 		} 
 		
 		if(!flagTaken) {
-			flag.draw(surface, 800, 550);	
+			flag.draw(surface);	
 		} else {
 			if(player1.hasFlag()) {
 				flag.draw(surface, (int)player1.x, (int)player1.y);
