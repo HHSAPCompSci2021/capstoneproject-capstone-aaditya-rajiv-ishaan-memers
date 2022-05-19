@@ -17,7 +17,7 @@ import sprites.Sprite;
 */
 public class Avatar extends Sprite {
 	private PaintGun gun;
-	private PaintBomb bombHeld;
+	private PaintBomb bomb;
 	private Color playerColor;
 	private int health;
 	private int baseX, baseY;
@@ -85,15 +85,17 @@ public class Avatar extends Sprite {
 				if (y > prevY && y + height > sprite.y && y + height - yVel * scale <= sprite.y) {
 					onPlatform = true;
 					y = sprite.y - height;
+					yVel = 0;
 				} else if (y < prevY && y < sprite.y + sprite.height && y - yVel * scale >= sprite.y + sprite.height) {
 					y = sprite.y + sprite.height;
+					yVel = 0;
 				} 
 				if (x > prevX && x + width > sprite.x && x + width - xVel * scale <= sprite.x) {
 					x = sprite.x - super.width; 					
 				} else if (x < prevX && x < sprite.x + sprite.width && x + xVel * scale >= sprite.x + sprite.width) {
 					x = sprite.x + sprite.width;
 				}
-				yVel = 0;
+			
 			} 
 		}
 	
@@ -122,8 +124,8 @@ public class Avatar extends Sprite {
 	 * @param mouseClick the location of the throw
 	 */
 	public void throwBomb(Point2D mouseClick) {
-		bombHeld.launch(mouseClick);
-		bombHeld = null;
+		bomb.launch(mouseClick);
+		bomb = null;
  	}
 	
 	/**
@@ -230,5 +232,9 @@ public class Avatar extends Sprite {
 			return true;
 		}
 		return false;
+	}
+	
+	public PaintBomb getBomb() {
+		return bomb;
 	}
 }
