@@ -4,7 +4,11 @@ package core;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import networking.frontend.NetworkDataObject;
+import networking.frontend.NetworkListener;
+import networking.frontend.NetworkMessenger;
 import processing.core.PApplet;
+import screens.CreateRoom;
 import screens.Game;
 import screens.MainMenu;
 import screens.Screen;
@@ -15,6 +19,7 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 	public float ratioX, ratioY;
 		
 	private ArrayList<Integer> keys;
+	
 	
 	private Screen activeScreen;
 	private ArrayList<Screen> screens;
@@ -30,8 +35,11 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		MainMenu screen1 = new MainMenu(this);
 		screens.add(screen1);
 		
-		Game screen2 = new Game(this);
+		CreateRoom screen2 = new CreateRoom(this);
 		screens.add(screen2);
+		
+		Game screen3 = new Game(this);
+		screens.add(screen3);
 		
 		activeScreen = screens.get(0);
 	}
@@ -97,6 +105,7 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 	@Override
 	public void switchScreen(int i) {
 		activeScreen = screens.get(i);
+		System.out.println(activeScreen);
 	}
 
 }
