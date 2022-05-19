@@ -210,7 +210,10 @@ public class Avatar extends Sprite {
 	}
 	
 	public int getCaptures() {
-		return flagCaptures;
+		if (flagCaptures <= 1) {
+			return flagCaptures;
+		}
+		return 1;
 	}
 	
 	public void touchdown() {
@@ -219,5 +222,12 @@ public class Avatar extends Sprite {
 	
 	public int getNumDeaths() {
 		return numDeaths;
+	}
+	
+	public boolean captured() {
+		if (getCaptures() == 1) {
+			return true;
+		}
+		return false;
 	}
 }

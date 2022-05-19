@@ -190,11 +190,13 @@ public class Game extends Screen{
 			}
 			
 		}
-		
-		player1Score += (player1.getCaptures() * 200);
+		if (!(player1.captured() && player2.captured())) {
+
+		 player1Score += (player1.getCaptures() * 200);
+		 player2Score += (player2.getCaptures() * 200);
+		}
 		player1Score -= (player1.getNumDeaths() * 200);
 		
-		player2Score += (player2.getCaptures() * 200);
 		player2Score -= (player2.getNumDeaths() * 200);
 		
 		if (surface.isPressed(KeyEvent.VK_A)) {
