@@ -158,7 +158,6 @@ public class Game extends Screen implements NetworkListener {
 					flagTaken = false;
 				}
 				
-				System.out.println("Health: " + player2.getHealth());
 				toRemove.add(b);
 			}
 			
@@ -178,7 +177,7 @@ public class Game extends Screen implements NetworkListener {
 		} 
 		
 		if(!flagTaken) {
-			flag.draw(surface, surface.displayWidth/2-125, 50);	
+			flag.draw(surface, surface.displayWidth/2+ 125, 50);	
 		} else {
 			if(player1.hasFlag()) {
 				flag.draw(surface, (int)player1.x, (int)player1.y);
