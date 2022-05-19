@@ -71,7 +71,8 @@ public class Game extends Screen{
 	
 		flag = new Flag(750, 50, 175, 200);
 		bombs = new ArrayList<PaintBomb>();
-		bombs.add(new PaintBomb(0, 0, 0, null));
+		bombs.add(player1.getBomb());
+		bombs.add(player2.getBomb());
 		
 		flagTaken = false;
 	}
@@ -171,7 +172,7 @@ public class Game extends Screen{
 		} 
 		
 		if(!flagTaken) {
-			flag.draw(surface);	
+			flag.draw(surface, surface.displayWidth/2-125, 50);	
 		} else {
 			if(player1.hasFlag()) {
 				flag.draw(surface, (int)player1.x, (int)player1.y);

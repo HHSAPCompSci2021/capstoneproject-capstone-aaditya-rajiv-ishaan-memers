@@ -17,7 +17,7 @@ import sprites.Sprite;
 */
 public class Avatar extends Sprite {
 	private PaintGun gun;
-	private PaintBomb bombHeld;
+	private PaintBomb bomb;
 	private Color playerColor;
 	private int health;
 	private int baseX, baseY;
@@ -29,7 +29,7 @@ public class Avatar extends Sprite {
 	private boolean onPlatform;
 	private int flagCaptures;
 	private int numDeaths;
-
+	private boolean canThrow;
 	/**
 	 * 
 	 * @param x x-coord of starting location of the Avatar
@@ -50,6 +50,8 @@ public class Avatar extends Sprite {
 		health = 100;
 		flagCaptures = 0;
 		numDeaths = 0;
+		canThrow = true;
+		bomb = new PaintBomb(this, x, y, playerColor);
 	}
 	
 	
@@ -78,6 +80,7 @@ public class Avatar extends Sprite {
 	public void act(ArrayList<Sprite> gameObstacles) {
 		yVel += GRAVITY; 
 		y += yVel * scale;
+		boolean intersected = false;
 		
 		onPlatform = false;
 		for (Sprite sprite : gameObstacles) {
@@ -93,10 +96,15 @@ public class Avatar extends Sprite {
 				} else if (x < prevX && x < sprite.x + sprite.width && x + xVel * scale >= sprite.x + sprite.width) {
 					x = sprite.x + sprite.width;
 				}
-				yVel = 0;
+				if (y > 840) {
+					System.out.println("Falling off");
+				}
+				intersected = true;
 			} 
 		}
-	
+		if (intersected) {
+			yVel = 0;
+		}
 		prevX = x;
 		prevY = y;
 		
@@ -122,8 +130,8 @@ public class Avatar extends Sprite {
 	 * @param mouseClick the location of the throw
 	 */
 	public void throwBomb(Point2D mouseClick) {
-		bombHeld.launch(mouseClick);
-		bombHeld = null;
+		bomb.launch(mouseClick);
+		canThrow = false;
  	}
 	
 	/**
@@ -219,5 +227,13 @@ public class Avatar extends Sprite {
 	
 	public int getNumDeaths() {
 		return numDeaths;
+	}
+	
+	public PaintBomb getBomb() {
+		return bomb;
+	}
+	
+	public boolean hasBomb() {
+		return canThrow;
 	}
 }
