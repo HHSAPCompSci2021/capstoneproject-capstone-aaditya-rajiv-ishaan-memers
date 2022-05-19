@@ -137,6 +137,7 @@ public class Avatar extends Sprite {
 	public boolean onPaint(Platform p) {
 		for (PaintBlock block : p.getBorder()) {
 			if (intersects(block) && block.getColor() != null && block.getColor().equals(getColor())) {
+				System.out.println("ON PAINT TRUE");
 				return true;
 			}
 		}

@@ -4,6 +4,8 @@ package core;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import g4p_controls.GButton;
+import g4p_controls.GEvent;
 import networking.frontend.NetworkDataObject;
 import networking.frontend.NetworkListener;
 import networking.frontend.NetworkMessenger;
@@ -14,7 +16,7 @@ import screens.MainMenu;
 import screens.Screen;
 import screens.ScreenSwitcher;
 
-public class DrawingSurface extends PApplet implements ScreenSwitcher {
+public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkListener {
 
 	public float ratioX, ratioY;
 		
@@ -107,5 +109,23 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher {
 		activeScreen = screens.get(i);
 		System.out.println(activeScreen);
 	}
+	
+	public void handleButtonEvents(GButton button, GEvent event) {
+		activeScreen.handleButtonEvents(button, event);
+	}
 
+	@Override
+	public void connectedToServer(NetworkMessenger nm) {
+		// TODO Auto-generated method stub
+		screens.get(2).setNetworkMessenger(nm);
+		
+	}
+
+	@Override
+	public void networkMessageReceived(NetworkDataObject ndo) {
+		// TODO Auto-generated method stub
+		
+	}
 }
+
+

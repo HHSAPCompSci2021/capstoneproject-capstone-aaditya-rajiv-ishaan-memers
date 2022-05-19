@@ -10,6 +10,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import core.DrawingSurface;
+import g4p_controls.GButton;
+import g4p_controls.GEvent;
 
 
 public class MainMenu extends Screen {
@@ -52,6 +54,13 @@ public class MainMenu extends Screen {
 		} else if (button2.contains(p)) {
 			surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
 		}
+	}
+
+
+	@Override
+	public void handleButtonEvents(GButton button, GEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

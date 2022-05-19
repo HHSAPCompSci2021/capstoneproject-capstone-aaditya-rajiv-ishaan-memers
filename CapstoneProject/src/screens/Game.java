@@ -6,6 +6,8 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import core.DrawingSurface;
+import g4p_controls.GButton;
+import g4p_controls.GEvent;
 import networking.frontend.NetworkDataObject;
 import networking.frontend.NetworkListener;
 import networking.frontend.NetworkMessenger;
@@ -258,6 +260,12 @@ public class Game extends Screen implements NetworkListener {
 
 	@Override
 	public void networkMessageReceived(NetworkDataObject ndo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void handleButtonEvents(GButton button, GEvent event) {
 		// TODO Auto-generated method stub
 		
 	}

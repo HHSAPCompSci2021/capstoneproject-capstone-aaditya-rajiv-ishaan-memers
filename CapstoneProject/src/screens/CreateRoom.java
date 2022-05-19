@@ -3,15 +3,22 @@
   @version 3
 */package screens;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Arrays;
+
+import core.DrawingSurface;
 import g4p_controls.*;
+import networking.backend.PeerDiscovery;
+import networking.backend.SchoolClient;
+import networking.backend.SchoolServer;
 import networking.frontend.NetworkDataObject;
 import networking.frontend.NetworkListener;
 import networking.frontend.NetworkMessenger;
-import processing.core.PApplet;
 
 public class CreateRoom extends Screen {
 	
-	private PApplet surface;
+	private DrawingSurface surface;
 	
 	private GLabel nameLabel;
 	private GTextField nameField;
@@ -20,6 +27,17 @@ public class CreateRoom extends Screen {
 	private GCustomSlider slider;
 	
 	private GButton createButton;
+	
+	private static final int TCP_PORT = 4444;
+
+	private InetAddress myIP;
+	private PeerDiscovery discover;
+	private SchoolServer ss;
+	private SchoolClient sc;
+	
+	private String programID;
+	private NetworkListener clientProgram;
+		
 
 
 	/** Constructs the GameRoom screen
@@ -27,9 +45,11 @@ public class CreateRoom extends Screen {
 	 * @param width the width of the screen
 	 * @param height the height of the screen
 	 */
-	public CreateRoom(PApplet surface) {
+	public CreateRoom(DrawingSurface surface) {
 		super(1600, 1200);
 		this.surface = surface;
+		this.clientProgram = surface;
+		this.programID = "APCS-Capstone-PaintBattle";
 	}
 	
 	
@@ -86,11 +106,83 @@ public class CreateRoom extends Screen {
 	
 	public void handleButtonEvents(GButton button, GEvent event) {
 		// Create the control window?
-		if (button == createButton && event == GEvent.CLICKED && nameField.getText().length() > 0) {
+		System.out.println("event running");
+		if (button == createButton && event == GEvent.CLICKED && nameField.getText().length() > 0) {			
+			System.out.println("button clicked");
+			try {
+				myIP = InetAddress.getLocalHost();
+				System.out.println("Your Hostname/IP address is " + myIP);
+			} catch (UnknownHostException e) {
+				e.printStackTrace ();
+				System.out.println("Error getting your IP address!");
+			}
+			ss = new SchoolServer(programID, myIP);
+			ss.setMaxConnections(2);
+			ss.waitForConnections(TCP_PORT);
+			System.out.println("\nTCP server running on " + TCP_PORT);
+			if (discover != null)
+				discover.setDiscoverable(true);
+			connect(myIP);
+			while (ss.getConnectedHosts().length != 2) {
+				continue;
+			}
+			surface.switchScreen(1)	;
+		
 			
 		} 
 		
 	}
+	
+	private class NetworkMessageHandler implements NetworkListener {
+		@Override
+		public void networkMessageReceived(NetworkDataObject ndo) {
+			
+			if (ndo.messageType.equals(NetworkDataObject.CLIENT_LIST)) {
+				System.out.println("\nClient list updated.");
+//				connectedList.setListData(Arrays.copyOf(ndo.message, ndo.message.length, InetAddress[].class));
+				System.out.println(Arrays.copyOf(ndo.message, ndo.message.length, InetAddress[].class));
+			} else if (ndo.messageType.equals(NetworkDataObject.DISCONNECT)) {
+				System.out.println("\nDisconnected from " + ndo.dataSource);
+			}
+
+		}
+
+		@Override
+		public void connectedToServer(NetworkMessenger nm) {
+			// TODO Auto-generated method stub
+		}
+	}
+	
+	private void disconnect() {
+		if (sc != null) {
+			sc.disconnect();
+			sc = null;
+		}
+	}
+	
+	
+	
+	private void connect(InetAddress host) {
+		if (host != null) {
+			disconnect();
+			sc = new SchoolClient(programID, myIP);
+			boolean success = sc.connect(host,TCP_PORT);
+			if (!success) {
+				System.out.println("\nCould not connect to "+host+" on " + TCP_PORT);
+				sc.disconnect();
+				sc = null;
+			} else {
+				System.out.println("\nConnected to "+host+" on " + TCP_PORT);
+				sc.addNetworkListener(clientProgram);
+				sc.addNetworkListener(new NetworkMessageHandler());
+				clientProgram.connectedToServer(sc);
+//				setButtons(false);
+			}
+		}
+	}
+
+	
+
 	
 	
 	
