@@ -6,6 +6,9 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import core.DrawingSurface;
+import networking.frontend.NetworkDataObject;
+import networking.frontend.NetworkListener;
+import networking.frontend.NetworkMessenger;
 import sprites.Avatar;
 import sprites.Flag;
 import sprites.PaintBlock;
@@ -19,7 +22,7 @@ import sprites.Sprite;
  * @author Ishaan Singh and Aaditya Raj
  *
  */
-public class Game extends Screen{
+public class Game extends Screen implements NetworkListener {
 
 	private Avatar player1, player2;
 	private Double player1Points, player2Points;
@@ -244,6 +247,18 @@ public class Game extends Screen{
 		if (bullet != null) {
 			bullets.add(bullet);
 		}
+	}
+
+	@Override
+	public void connectedToServer(NetworkMessenger nm) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void networkMessageReceived(NetworkDataObject ndo) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
