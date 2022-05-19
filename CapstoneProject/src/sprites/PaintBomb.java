@@ -17,6 +17,7 @@ public class PaintBomb extends Sprite {
 	private boolean isThrown;
 	private Color c;
 	private Avatar owner;
+	private static final int RADIUS = 8;
 
 	
 	/** Constructs a new PaintBomb objects
@@ -26,11 +27,12 @@ public class PaintBomb extends Sprite {
 	 * @param r the radius of the paintbomb
 	 * @param c the color of this PaintBomb
 	 */
-	public PaintBomb(int x, int y, int r, Color c) {
-		super(x, y, r, r);
-		this.explosionRadius = r;
+	public PaintBomb(Avatar a, int x, int y, Color c) {
+		super(x, y, RADIUS, RADIUS);
+		this.explosionRadius = RADIUS*8;
 		this.c = c;
 		isThrown = false;
+		owner = a;
 	}
 	
 	/** Scatters Paintbombs with the specified radius
@@ -63,10 +65,6 @@ public class PaintBomb extends Sprite {
 			isThrown = true;
 		}
 		
-	}
-	
-	public void setOwner(Avatar a) {
-		owner = a;
 	}
 	
 	public void draw(PApplet drawer) {
