@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
+import screens.NetworkManagementPanel;
 
 public class Main {
 
@@ -26,6 +27,7 @@ public class Main {
 		
 		
 		canvas.requestFocus();
+		
 	}
 
 }
