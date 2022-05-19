@@ -33,6 +33,8 @@ public class Game extends Screen implements NetworkListener {
 	private ArrayList<PaintBomb> bombs;
 	public DrawingSurface surface;
 	private ArrayList<PaintBlock> bullets;
+	private int player1Score, player2Score;
+
 	private boolean flagTaken;
 	
 	/**
@@ -237,7 +239,10 @@ public class Game extends Screen implements NetworkListener {
 		surface.push();
 		surface.fill(Color.WHITE.getRGB());
 		surface.textSize(30);
-		surface.text("Player 1 Score: " + player1Score + "\n" + "Player 2 Score: " + player2Score, 1300, 50);
+		this.player1Score = player1Score;
+		this.player2Score = player2Score;
+		
+		surface.text("Player 1 Score: " + this.player1Score + "\n" + "Player 2 Score: " + this.player2Score, 1300, 50);
 		surface.pop();
 		
 		player1.draw(surface);
@@ -251,6 +256,14 @@ public class Game extends Screen implements NetworkListener {
 		if (bullet != null) {
 			bullets.add(bullet);
 		}
+	}
+	
+	public int getPlayer1Score() {
+		return player1Score;
+	}
+	
+	public int getPlayer2Score() {
+		return player2Score;
 	}
 
 	@Override
