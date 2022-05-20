@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Queue;
 
 import core.DrawingSurface;
 import g4p_controls.GButton;
@@ -36,6 +37,11 @@ public class Game extends Screen implements NetworkListener {
 	private int player1Score, player2Score;
 
 	private boolean flagTaken;
+	
+	private static final String messageTypeInit = "CREATE_CURSOR";
+	private static final String messageTypeMove = "MOUSE_MOVE";
+	private static final String messageTypePress = "MOUSE_PRESS";
+	private static final String messageTypeColor = "COLOR_SWITCH";
 	
 	/**
 	 * Constructs a screen representing the interactive game screen.
@@ -253,6 +259,79 @@ public class Game extends Screen implements NetworkListener {
 		
 		player2.draw(surface);
 
+	}
+	
+	public void processNetworkMessages() {
+		if (nm == null) {
+			return;
+		}
+		
+		Queue<NetworkDataObject> queue = nm.getQueuedMessages();
+		
+		while (!queue.isEmpty()) {
+			NetworkDataObject ndo = queue.poll();
+
+			String host = ndo.getSourceIP();
+
+//			if (ndo.messageType.equals(NetworkDataObject.MESSAGE)) {
+//				if (ndo.message[0].equals(messageTypeMove)) {
+//					
+//						for (Cursor c : cursors) {
+//							if (c.host.equals(host)) {
+//								c.x = (Integer)ndo.message[1];
+//								c.y = (Integer)ndo.message[2];
+//							}
+//						}
+//					
+//				} else if (ndo.message[0].equals(messageTypePress)) {
+//					
+//						for (Cursor c : cursors) {
+//							if (c.host.equals(host)) {
+//								c.x = (Integer)ndo.message[1];
+//								c.y = (Integer)ndo.message[2];
+//								c.makeTrailCopy();
+//							}
+//						}
+//					
+//				} else if (ndo.message[0].equals(messageTypeInit)) {
+//					
+//						for (Cursor c : cursors) {
+//							if (c.host.equals(host))
+//								return;
+//						}
+//						Cursor c = new Cursor();
+//						c.x = (Integer)ndo.message[1];
+//						c.y = (Integer)ndo.message[2];
+//						c.color = (Color)ndo.message[3];
+//						c.host = host;
+//						cursors.add(c);
+//					
+//				} else if (ndo.message[0].equals(messageTypeColor)) {
+//					
+//						for (Cursor c : cursors) {
+//							if (c.host.equals(host)) {
+//								c.color = (Color)ndo.message[1];
+//							}
+//						}
+//					
+//				}
+//			} else if (ndo.messageType.equals(NetworkDataObject.CLIENT_LIST)) {
+//				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, me.x, me.y, me.color);
+//				
+//			} else if (ndo.messageType.equals(NetworkDataObject.DISCONNECT)) {
+//				
+//					if (ndo.dataSource.equals(ndo.serverHost)) {
+//						cursors.clear();
+//						cursors.add(me);
+//					} else {
+//						for (int i = cursors.size()-1; i >= 0; i--)
+//							if (cursors.get(i).host.equals(host))
+//								cursors.remove(i);
+//					}
+//				
+//			}
+
+		}
 	}
 
 	public void mousePressed(int mouseX, int mouseY) {

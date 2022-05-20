@@ -102,7 +102,8 @@ public class JoinRoom extends Screen {
 		// TODO Auto-generated method stub
 		
 		System.out.println("event running");
-		if (button == joinButton && event == GEvent.CLICKED && nameField.getText().length() > 0 && hostField.getText().length() > 0) {			
+		if (button == joinButton && event == GEvent.CLICKED && !nameField.getText().isEmpty() && nameField.getText().contains(" ") && hostField.getText().length() > 0) {			
+			System.out.println(nameField.getText());
 			System.out.println("button clicked");
 			try {
 				myIP = InetAddress.getLocalHost();
