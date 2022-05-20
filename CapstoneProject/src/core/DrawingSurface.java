@@ -23,9 +23,18 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 		
 	private ArrayList<Integer> keys;
 	
+
+	public final int RIGHT_SIDE = 1;
+	public final int LEFT_SIDE = 0;
+	public int perspective;
+	
 	
 	private Screen activeScreen;
 	private ArrayList<Screen> screens;
+
+	public String playerUsername;
+
+	private String opponentUsername;
 
 	
 	public DrawingSurface() {
@@ -112,6 +121,9 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 	public void switchScreen(int i) {
 		activeScreen = screens.get(i);
 		System.out.println(activeScreen);
+		if (i == ScreenSwitcher.GAME_SCREEN) {
+			((Game) activeScreen).setActivePlayer(perspective);
+		}
 	}
 	
 	public void handleButtonEvents(GButton button, GEvent event) {
@@ -124,11 +136,25 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 		screens.get(3).setNetworkMessenger(nm);
 		
 	}
+	
+	public void setPerspective(int perspective) {
+		this.perspective = perspective;
+	}
 
 	@Override
 	public void networkMessageReceived(NetworkDataObject ndo) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void setPlayerUsername(String text) {
+		// TODO Auto-generated method stub
+		this.playerUsername = text;
+	}
+
+	public void setOpponentUsername(String opponentUsername) {
+		// TODO Auto-generated method stub
+		this.opponentUsername = opponentUsername;
 	}
 }
 
