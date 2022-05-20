@@ -60,17 +60,20 @@ public class Game extends Screen implements NetworkListener {
 		bullets = new ArrayList<PaintBlock>();
 		boundaries = new ArrayList<Platform>();
 		
-		platforms.add(new Platform(650, 250, 250, 50));
+		platforms.add(new Platform(650, 225, 250, 50));
 		
-		platforms.add(new Platform(1150, 325, 200, 50));
+		platforms.add(new Platform(1175, 325, 200, 50));
 
-		platforms.add(new Platform(250, 325, 200, 50));
+		platforms.add(new Platform(225, 325, 200, 50));
 		
-		platforms.add(new Platform(700, 500, 150 , 50));
+		platforms.add(new Platform(500, 500, 150 , 50));
+		
+		platforms.add(new Platform(900, 500, 150 , 50));
+
 		
 		platforms.add(new Platform(0, 600, 300, 50));
 		
-		platforms.add(new Platform(600, 750, 350, 50));
+		platforms.add(new Platform(600, 800, 350, 50));
 		
 		platforms.add(new Platform(1300, 600, 300, 50));
 
