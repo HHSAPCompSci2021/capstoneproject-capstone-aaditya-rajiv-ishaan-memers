@@ -75,7 +75,7 @@ public class Game extends Screen implements NetworkListener {
 		boundaries.add(new Platform (0, 0, 1, 1200));
 		boundaries.add(new Platform (1599, 0, 1, 1200));
 	
-		flag = new Flag(750, 50, 175, 200);
+		flag = new Flag(730, 50, 90, 100);
 		bombs = new ArrayList<PaintBomb>();
 		bombs.add(player1.getBomb());
 		bombs.add(player2.getBomb());
@@ -104,8 +104,10 @@ public class Game extends Screen implements NetworkListener {
 			}
 			bullets.removeAll(toRemove);
 			if (player1.onPaint(p)) {
+				System.out.println("BOOSTED");
 				player1.boost();
 			} else if (player1.isBoosted()) {
+				System.out.println("UNBOOSTED");
 				player1.undoSpeedBoost();
 			}
 			if (player2.onPaint(p)) {
@@ -146,7 +148,7 @@ public class Game extends Screen implements NetworkListener {
 			
 
 			if(b.intersects(player1)) {
-				if(player1.loseHealth() && player1.hasFlag()) {
+				if(player1.loseHealth() && !player1.hasFlag()) {
 					flagTaken = false;
 				}
 				
@@ -154,7 +156,7 @@ public class Game extends Screen implements NetworkListener {
 			} 
 			
 			if(b.intersects(player2)) {
-				if(player2.loseHealth() && player2.hasFlag()) {
+				if(player2.loseHealth() && !player2.hasFlag()) {
 					flagTaken = false;
 				}
 				
@@ -177,7 +179,7 @@ public class Game extends Screen implements NetworkListener {
 		} 
 		
 		if(!flagTaken) {
-			flag.draw(surface, surface.displayWidth/2+ 125, 50);	
+			flag.draw(surface);	
 		} else {
 			if(player1.hasFlag()) {
 				flag.draw(surface, (int)player1.x, (int)player1.y);

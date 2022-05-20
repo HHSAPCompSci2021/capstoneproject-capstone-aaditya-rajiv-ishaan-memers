@@ -40,14 +40,14 @@ public class Avatar extends Sprite {
 	 */
 	public Avatar(PImage image, int x, int y, int w, int h, Color color) {
 		super(image, x, y, w, h);
-		gun = new PaintGun(x + w, y + 150, w/4, h/2, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH);
+		gun = new PaintGun(x + w, y + 150, w/4, h/2, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH * 2);
 		
 		baseX = x;
 		baseY = y;
 		playerColor = color;
 		yVel = 0;
 		scale = 1;
-		health = 1;
+		health = 100;
 		flagCaptures = 0;
 		numDeaths = 0;
 	}
@@ -138,6 +138,7 @@ public class Avatar extends Sprite {
 	
 	public boolean onPaint(Platform p) {
 		for (PaintBlock block : p.getBorder()) {
+			System.out.println(intersects(block));
 			if (intersects(block) && block.getColor() != null && block.getColor().equals(getColor())) {
 				System.out.println("ON PAINT TRUE");
 				return true;
