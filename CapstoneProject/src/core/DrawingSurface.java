@@ -12,6 +12,7 @@ import networking.frontend.NetworkMessenger;
 import processing.core.PApplet;
 import screens.CreateRoom;
 import screens.Game;
+import screens.JoinRoom;
 import screens.MainMenu;
 import screens.Screen;
 import screens.ScreenSwitcher;
@@ -40,8 +41,11 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 		CreateRoom screen2 = new CreateRoom(this);
 		screens.add(screen2);
 		
-		Game screen3 = new Game(this);
+		JoinRoom screen3 = new JoinRoom(this);
 		screens.add(screen3);
+		
+		Game screen4 = new Game(this);
+		screens.add(screen4);
 		
 		activeScreen = screens.get(0);
 	}
@@ -117,7 +121,7 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 	@Override
 	public void connectedToServer(NetworkMessenger nm) {
 		// TODO Auto-generated method stub
-		screens.get(2).setNetworkMessenger(nm);
+		screens.get(3).setNetworkMessenger(nm);
 		
 	}
 
