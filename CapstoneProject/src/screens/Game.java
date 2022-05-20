@@ -60,16 +60,16 @@ public class Game extends Screen implements NetworkListener {
 
 		platforms.add(new Platform(225, 325, 200, 50));
 		
-		platforms.add(new Platform(500, 500, 150 , 50));
+		platforms.add(new Platform(500, 500, 100 , 50));
 		
-		platforms.add(new Platform(900, 500, 150 , 50));
+		platforms.add(new Platform(950, 500, 100 , 50));
 
 		
-		platforms.add(new Platform(0, 600, 300, 50));
+		platforms.add(new Platform(0, 675, 250, 50));
 		
 		platforms.add(new Platform(600, 800, 350, 50));
 		
-		platforms.add(new Platform(1300, 600, 300, 50));
+		platforms.add(new Platform(1350, 675, 250, 50));
 
 		
 		
