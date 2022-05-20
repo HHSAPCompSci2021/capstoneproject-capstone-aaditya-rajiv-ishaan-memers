@@ -73,7 +73,7 @@ public class Game extends Screen implements NetworkListener {
 		
 		platforms.add(new Platform(0, 675, 250, 50));
 		
-		platforms.add(new Platform(600, 800, 350, 50));
+		platforms.add(new Platform(600, 750, 350, 50));
 		
 		platforms.add(new Platform(1350, 675, 250, 50));
 
@@ -363,7 +363,7 @@ public class Game extends Screen implements NetworkListener {
 
 	@Override
 	public void handleButtonEvents(GButton button, GEvent event) {
-		// TODO Auto-generated method stub
+		surface.switchScreen(ScreenSwitcher.WIN_SCREEN)	;
 		
 	}
 
