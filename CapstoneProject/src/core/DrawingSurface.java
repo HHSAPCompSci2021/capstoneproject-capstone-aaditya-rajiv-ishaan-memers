@@ -16,6 +16,7 @@ import screens.JoinRoom;
 import screens.MainMenu;
 import screens.Screen;
 import screens.ScreenSwitcher;
+import screens.WinScreen;
 
 public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkListener {
 
@@ -55,6 +56,9 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 		
 		Game screen4 = new Game(this);
 		screens.add(screen4);
+		
+		WinScreen screen5 = new WinScreen(this, screen4);
+		screens.add(screen5);
 		
 		activeScreen = screens.get(0);
 	}
