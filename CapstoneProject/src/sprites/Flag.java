@@ -26,9 +26,12 @@ public class Flag extends PaintGun {
 	}
 	
 	public void draw(PApplet drawer, int x, int y) {
+		super.moveToLocation(x, y);
 		drawer.fill(0, 0, 0);
-		drawer.rect(x, y, 25, 200);
+		drawer.rect((float)this.x, (float)this.y, 25, 200);
 		drawer.fill(255, 0, 0);
-		drawer.rect(x+25, y, 150, 75);
+		drawer.rect((float)(this.x + 25), (float)(this.y), 150, 75);
 	}
+	
+	
 }

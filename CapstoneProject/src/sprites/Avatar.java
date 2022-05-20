@@ -47,7 +47,7 @@ public class Avatar extends Sprite {
 		playerColor = color;
 		yVel = 0;
 		scale = 1;
-		health = 100;
+		health = 1;
 		flagCaptures = 0;
 		numDeaths = 0;
 	}
@@ -163,7 +163,9 @@ public class Avatar extends Sprite {
 	 */
 	public void respawn() {
 		super.moveToLocation(baseX, baseY);
+		System.out.println("In respawn " + (gun instanceof Flag) );
 		gun = new PaintGun((int) (x + 200), (int)(y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH);
+		System.out.println("In respawn " + (gun instanceof Flag) );
 		numDeaths++;
 	}
 	
