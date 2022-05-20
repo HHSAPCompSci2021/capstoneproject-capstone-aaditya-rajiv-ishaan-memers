@@ -138,7 +138,6 @@ public class Avatar extends Sprite {
 	
 	public boolean onPaint(Platform p) {
 		for (PaintBlock block : p.getBorder()) {
-			System.out.println(intersects(block));
 			if (intersects(block) && block.getColor() != null && block.getColor().equals(getColor())) {
 				System.out.println("ON PAINT TRUE");
 				return true;
@@ -164,9 +163,7 @@ public class Avatar extends Sprite {
 	 */
 	public void respawn() {
 		super.moveToLocation(baseX, baseY);
-		System.out.println("In respawn " + (gun instanceof Flag) );
 		gun = new PaintGun((int) (x + 200), (int)(y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH);
-		System.out.println("In respawn " + (gun instanceof Flag) );
 		numDeaths++;
 	}
 	
