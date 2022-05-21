@@ -32,7 +32,7 @@ public class Game extends Screen implements NetworkListener {
 	private ArrayList<Platform> boundaries;
 	public static Flag flag;
 	private ArrayList<PaintBomb> bombs;
-	public DrawingSurface surface;
+	private DrawingSurface surface;
 	private ArrayList<PaintBlock> bullets;
 	private int player1Score, player2Score;
 	private int timer;
@@ -108,7 +108,7 @@ public class Game extends Screen implements NetworkListener {
 		int numBlocks = 0;
 		
 		if(timer > maxTime) {
-			switchScreen(3);
+			surface.switchScreen(ScreenSwitcher.WIN_SCREEN);
 		}
 		
 		for(Platform p : platforms) {
@@ -204,17 +204,20 @@ public class Game extends Screen implements NetworkListener {
 					flag.reset();
 					player1.touchdown();
 					player2.reset();
+					flag.draw(surface);
+				} else {
+					flag.draw(surface, (int)player1.x, (int)player1.y);
 				}
-				
-				flag.draw(surface, (int)player1.x, (int)player1.y);
 			} else {
 				if((Math.abs(player2.x - player2.getBase().x) < 100) && ((Math.abs(player2.y - player2.getBase().y) < 50))) {
 					flagTaken = false;
-					flag.reset();
 					player1.reset();
 					player2.touchdown();
+					flag.reset();
+					flag.draw(surface);
+				} else {
+					flag.draw(surface, (int)player2.x, (int)player2.y);
 				}
-				flag.draw(surface, (int)player2.x, (int)player2.y);
 			}	
 		}
 		
@@ -228,7 +231,7 @@ public class Game extends Screen implements NetworkListener {
 		if (surface.isPressed(KeyEvent.VK_A)) {
 			player1.walk(false);
 		}
-		
+	
 		if (surface.isPressed(KeyEvent.VK_D)) {
 			player1.walk(true);
 		}
@@ -380,7 +383,6 @@ public class Game extends Screen implements NetworkListener {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 
 

@@ -43,7 +43,7 @@ public class Flag extends PaintGun {
 	}
 	
 	public void reset() {
-		this.x = baseX;
-		this.y = baseY;
+		super.x = baseX;
+		super.y = baseY;
 	}
 }

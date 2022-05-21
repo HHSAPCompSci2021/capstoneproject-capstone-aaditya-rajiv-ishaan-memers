@@ -225,7 +225,8 @@ public class Avatar extends Sprite {
 	
 	public void touchdown() {
 		flagCaptures++;
-		reset();
+		super.moveToLocation(baseX, baseY);
+		gun = new PaintGun((int) (x + 200), (int)(y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH);
 	}
 	
 	public int getNumDeaths() {
