@@ -10,9 +10,9 @@ import processing.core.PImage;
 */
 public class Flag extends PaintGun {
 
-	private static int capacity = 10;
-	private static int vel = 7;
-	private static int str = 10;
+	private final static int capacity = 2;
+	private final static int vel = 15;
+	private final static int str = (int) (PaintBlock.LENGTH * 2.75);
 	private int baseX;
 	private int baseY;
 

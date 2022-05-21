@@ -80,6 +80,11 @@ public class PaintBlock extends Sprite {
 	public double getAngle() {
 		return Math.atan(yVel/xVel);
 	}
+
+	public double getStroke() {
+		// TODO Auto-generated method stub
+		return width;
+	}
 	
 	
 }

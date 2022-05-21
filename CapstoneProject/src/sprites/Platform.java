@@ -50,7 +50,7 @@ public class Platform extends Sprite {
 	}
 	
 	public boolean contains(PaintBlock bullet) {
-		Rectangle2D rect = new Rectangle2D.Double(x + PaintBlock.LENGTH/2, y + PaintBlock.LENGTH/2, width - 2 * PaintBlock.LENGTH/2, height - 2 * PaintBlock.LENGTH/2);
+		Rectangle2D rect = new Rectangle2D.Double(x + bullet.getStroke()/4, y + bullet.getStroke()/4, width - bullet.getStroke()/2, height - bullet.getStroke()/2);
 		return (rect.contains(bullet.x, bullet.y) && rect.contains(bullet.x + bullet.width, bullet.y) &&
 				rect.contains(bullet.x + bullet.width, bullet.y + bullet.height) && rect.contains(bullet.x, bullet.y + bullet.height));
 	}

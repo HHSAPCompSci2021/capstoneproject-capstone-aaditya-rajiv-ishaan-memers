@@ -90,6 +90,24 @@ public class PaintGun extends Sprite {
 		}
 		counter++;
 	}
+
+	public PaintBlock shoot(Point2D start , Point2D end, Color playerColor) {
+		// TODO Auto-generated method stub
+		System.out.println("Ammo: " + ammo);
+		if(ammo > 0) {
+			
+			PaintBlock bullet;
+			
+				bullet = new PaintBlock((int) start.getX(), (int) start.getY(), 60, playerColor, stroke, velocity, end);
+					
+			
+			ammo--;
+			
+			return bullet;
+		}
+		
+		return null;
+	}
 	
 	
 	

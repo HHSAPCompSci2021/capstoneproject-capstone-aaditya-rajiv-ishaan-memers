@@ -40,10 +40,6 @@ public class Game extends Screen implements NetworkListener {
 	private boolean flagTaken;
 	private int maxTime;
 	
-	private static final String messageTypeInit = "CREATE_CURSOR";
-	private static final String messageTypeMove = "z";
-	private static final String messageTypePress = "MOUSE_PRESS";
-	private static final String messageTypeColor = "COLOR_SWITCH";
 	
 	/**
 	 * Constructs a screen representing the interactive game screen.
@@ -164,7 +160,7 @@ public class Game extends Screen implements NetworkListener {
 			b.draw(surface);
 			
 
-			if(b.intersects(player1)) {
+			if(b.intersects(player1) && b.getColor() != player1.getColor()) {
 				if(player1.loseHealth(player2) && !player1.hasFlag()) {
 					flagTaken = false;
 				}
@@ -172,7 +168,7 @@ public class Game extends Screen implements NetworkListener {
 				toRemove.add(b);
 			} 
 			
-			if(b.intersects(player2)) {
+			if(b.intersects(player2) && b.getColor() != player2.getColor()) {
 				if(player2.loseHealth(player1) && !player2.hasFlag()) {
 					flagTaken = false;
 				}
@@ -180,9 +176,6 @@ public class Game extends Screen implements NetworkListener {
 				toRemove.add(b);
 			}
 			
-			if(b.intersects(flag)) {
-				toRemove.add(b);
-			}
 		}
 		
 		bullets.removeAll(toRemove);

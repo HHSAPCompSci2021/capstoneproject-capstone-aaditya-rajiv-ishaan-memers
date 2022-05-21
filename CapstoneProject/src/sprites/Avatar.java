@@ -135,7 +135,10 @@ public class Avatar extends Sprite {
 	 * @param point
 	 */
 	public PaintBlock shoot(Point2D point) {
-		return gun.shoot(point, playerColor);
+		if (! (gun instanceof Flag)) {
+			return gun.shoot(point, playerColor);
+		}
+		return gun.shoot(new Point2D.Double(getCenterX(), getCenterY()), point, playerColor);
 	}
 
 	public boolean onPaint(Platform p) {
@@ -171,7 +174,7 @@ public class Avatar extends Sprite {
 	 */
 	public void respawn() {
 		super.moveToLocation(baseX, baseY);
-		gun = new PaintGun((int) (x + 200), (int) (y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH);
+		gun = new PaintGun((int) (x + 200), (int) (y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH * 2);
 		numDeaths++;
 	}
 
