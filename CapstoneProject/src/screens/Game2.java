@@ -158,7 +158,7 @@ public class Game2 extends Screen implements NetworkListener {
 			
 
 			if(b.intersects(player1)) {
-				if(player1.loseHealth() && !player1.hasFlag()) {
+				if(player1.loseHealth(player2) && !player1.hasFlag()) {
 					flagTaken = false;
 				}
 				
@@ -166,7 +166,7 @@ public class Game2 extends Screen implements NetworkListener {
 			} 
 			
 			if(b.intersects(player2)) {
-				if(player2.loseHealth() && !player2.hasFlag()) {
+				if(player2.loseHealth(player1) && !player2.hasFlag()) {
 					flagTaken = false;
 				}
 				
