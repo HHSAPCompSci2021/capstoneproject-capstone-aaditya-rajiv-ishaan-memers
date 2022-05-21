@@ -37,6 +37,8 @@ public class CreateRoom extends Screen {
 	
 	private String programID;
 	private NetworkListener clientProgram;
+
+	private String opponentUsername;
 		
 
 
@@ -134,8 +136,10 @@ public class CreateRoom extends Screen {
 	}
 	
 	private class NetworkMessageHandler implements NetworkListener {
+
 		@Override
 		public void networkMessageReceived(NetworkDataObject ndo) {
+			
 			
 			if (ndo.messageType.equals(NetworkDataObject.CLIENT_LIST)) {
 				System.out.println("\nClient list updated.");
@@ -143,6 +147,10 @@ public class CreateRoom extends Screen {
 				System.out.println(Arrays.copyOf(ndo.message, ndo.message.length, InetAddress[].class));
 			} else if (ndo.messageType.equals(NetworkDataObject.DISCONNECT)) {
 				System.out.println("\nDisconnected from " + ndo.dataSource);
+			} else if (ndo.messageType.equals(NetworkDataObject.MESSAGE)) {
+				if (ndo.message[0] == "USERNAME") {
+					opponentUsername = (String) ndo.message[1];
+				}
 			}
 
 		}
@@ -176,10 +184,19 @@ public class CreateRoom extends Screen {
 				sc.addNetworkListener(clientProgram);
 				sc.addNetworkListener(new NetworkMessageHandler());
 				clientProgram.connectedToServer(sc);
-//				setButtons(false);
+				sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
+				while (opponentUsername == null) {
+					continue;
+				}
+				surface.setPerspective(surface.LEFT_SIDE);
+				surface.setPlayerUsername(nameField.getText());
+				surface.setOpponentUsername(opponentUsername);
+				surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
 			}
 		}
 	}
+
+
 
 	
 

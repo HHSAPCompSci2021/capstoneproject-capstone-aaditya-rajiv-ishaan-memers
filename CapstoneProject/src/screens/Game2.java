@@ -25,9 +25,10 @@ import sprites.Sprite;
  * @author Ishaan Singh and Aaditya Raj
  *
  */
-public class Game extends Screen implements NetworkListener {
+public class Game2 extends Screen implements NetworkListener {
 
 	private Avatar player1, player2;
+	private Avatar activePlayer;
 	private ArrayList<Platform> platforms;
 	private ArrayList<Platform> boundaries;
 	public static Flag flag;
@@ -35,22 +36,20 @@ public class Game extends Screen implements NetworkListener {
 	public DrawingSurface surface;
 	private ArrayList<PaintBlock> bullets;
 	private int player1Score, player2Score;
-	private int timer;
 
 	private boolean flagTaken;
-	private int maxTime;
 	
 	private static final String messageTypeInit = "CREATE_CURSOR";
-	private static final String messageTypeMove = "z";
-	private static final String messageTypePress = "MOUSE_PRESS";
-	private static final String messageTypeColor = "COLOR_SWITCH";
+	private static final String messageTypeMove = "PLAYER_MOVEMENT";
+	private static final String messageTypeShoot = "SHOOT_BULLET";
+	private static final String messageTypePlatform = "PLATFORM_PAINT";
 	
 	/**
 	 * Constructs a screen representing the interactive game screen.
 	 * @param width The width of the screen.
 	 * @param 0 The 0 of the screen.
 	 */
-	public Game(DrawingSurface s) {
+	public Game2(DrawingSurface s) {
 		super(1600, 1200);
 		surface = s;
 		String pre = surface.sketchPath();
@@ -68,16 +67,16 @@ public class Game extends Screen implements NetworkListener {
 
 		platforms.add(new Platform(225, 325, 200, 50));
 		
-		platforms.add(new Platform(500, 500, 100 , 50));
+		platforms.add(new Platform(500, 500, 150 , 50));
 		
-		platforms.add(new Platform(950, 500, 100 , 50));
+		platforms.add(new Platform(900, 500, 150 , 50));
 
 		
-		platforms.add(new Platform(0, 675, 250, 50));
+		platforms.add(new Platform(0, 600, 300, 50));
 		
-		platforms.add(new Platform(600, 750, 350, 50));
+		platforms.add(new Platform(600, 800, 350, 50));
 		
-		platforms.add(new Platform(1350, 675, 250, 50));
+		platforms.add(new Platform(1300, 600, 300, 50));
 
 		
 		
@@ -92,8 +91,6 @@ public class Game extends Screen implements NetworkListener {
 		bombs.add(player2.getBomb());
 		
 		flagTaken = false;
-		timer = 0;
-		maxTime = 6000;
 	}
 
 	public void setup() {
@@ -106,10 +103,6 @@ public class Game extends Screen implements NetworkListener {
 		int player1Score = 0;
 		int player2Score = 0;
 		int numBlocks = 0;
-		
-		if(timer > maxTime) {
-			switchScreen(3);
-		}
 		
 		for(Platform p : platforms) {
 			ArrayList<PaintBlock> toRemove = new ArrayList<PaintBlock>();
@@ -199,59 +192,59 @@ public class Game extends Screen implements NetworkListener {
 			flag.draw(surface);	
 		} else {
 			if(player1.hasFlag()) {
+				flag.draw(surface, (int)player1.x, (int)player1.y);
+				
 				if((Math.abs(player1.x - player1.getBase().x) < 100) && ((Math.abs(player1.y - player1.getBase().y) < 50))) {
 					flagTaken = false;
-					flag.reset();
 					player1.touchdown();
-					player2.reset();
 				}
 				
-				flag.draw(surface, (int)player1.x, (int)player1.y);
 			} else {
+				flag.draw(surface, (int)player2.x, (int)player2.y);
+				
 				if((Math.abs(player2.x - player2.getBase().x) < 100) && ((Math.abs(player2.y - player2.getBase().y) < 50))) {
 					flagTaken = false;
-					flag.reset();
-					player1.reset();
 					player2.touchdown();
 				}
-				flag.draw(surface, (int)player2.x, (int)player2.y);
-			}	
+			}
+			
 		}
-		
-		player1Score += (player1.getCaptures() * 200);
-		player2Score += (player2.getCaptures() * 200);
-	
+		if (!(player1.captured() && player2.captured())) {
+
+		 player1Score += (player1.getCaptures() * 200);
+		 player2Score += (player2.getCaptures() * 200);
+		}
 		player1Score -= (player1.getNumDeaths() * 200);
 		
 		player2Score -= (player2.getNumDeaths() * 200);
 		
 		if (surface.isPressed(KeyEvent.VK_A)) {
-			player1.walk(false);
+			activePlayer.walk(false);
 		}
 		
 		if (surface.isPressed(KeyEvent.VK_D)) {
-			player1.walk(true);
+			activePlayer.walk(true);
 		}
 			
 		if (surface.isPressed(KeyEvent.VK_W)) {
-			if (player1.onPlatform()) {
-				player1.jump();
+			if (activePlayer.onPlatform()) {
+				activePlayer.jump();
 			}
 		}
 
-		if (surface.isPressed(KeyEvent.VK_LEFT)) {
-			player2.walk(false);
-		}
-		
-		if (surface.isPressed(KeyEvent.VK_RIGHT)) {
-			player2.walk(true);
-		
-		}
-		if (surface.isPressed(KeyEvent.VK_UP)) {
-			if (player2.onPlatform()) {
-				player2.jump();
-			}
-		}
+//		if (surface.isPressed(KeyEvent.VK_LEFT)) {
+//			player2.walk(false);
+//		}
+//		
+//		if (surface.isPressed(KeyEvent.VK_RIGHT)) {
+//			player2.walk(true);
+//		
+//		}
+//		if (surface.isPressed(KeyEvent.VK_UP)) {
+//			if (player2.onPlatform()) {
+//				player2.jump();
+//			}
+//		}
 		
 	
 		surface.push();
@@ -267,7 +260,6 @@ public class Game extends Screen implements NetworkListener {
 		
 		player2.draw(surface);
 
-		timer++;
 	}
 	
 	public void processNetworkMessages() {
@@ -344,7 +336,7 @@ public class Game extends Screen implements NetworkListener {
 	}
 
 	public void mousePressed(int mouseX, int mouseY) {
-		PaintBlock bullet = player1.shoot(new Point2D.Double(mouseX, mouseY));
+		PaintBlock bullet = activePlayer.shoot(new Point2D.Double(mouseX, mouseY));
 		if (bullet != null) {
 			bullets.add(bullet);
 		}
@@ -372,13 +364,24 @@ public class Game extends Screen implements NetworkListener {
 
 	@Override
 	public void handleButtonEvents(GButton button, GEvent event) {
-		surface.switchScreen(ScreenSwitcher.WIN_SCREEN)	;
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setPerspective(int perspective) {
+		// TODO Auto-generated method stub
 		
 	}
 
 	public void setActivePlayer(int perspective) {
 		// TODO Auto-generated method stub
-		
+		if (perspective == surface.RIGHT_SIDE) {
+			activePlayer = player2;
+		} else if (perspective == surface.LEFT_SIDE) {
+			activePlayer = player1;
+		} else {
+			activePlayer = player1;
+		}
 	}
 
 

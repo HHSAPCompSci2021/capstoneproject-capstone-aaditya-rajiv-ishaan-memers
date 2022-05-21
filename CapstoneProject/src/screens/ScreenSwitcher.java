@@ -6,6 +6,7 @@ public interface ScreenSwitcher {
 	public static final int CREATE_ROOM = 1;
 	public static final int JOIN_ROOM = 2;
 	public static final int GAME_SCREEN = 3;
+	public static final int WIN_SCREEN = 4;
 
 	
 	/**

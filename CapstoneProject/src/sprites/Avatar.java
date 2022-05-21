@@ -67,7 +67,7 @@ public class Avatar extends Sprite {
 	 */
 	public void jump() {
 	
-		yVel -= 50;
+		yVel -= 40;
 		
 	}
 
@@ -138,7 +138,7 @@ public class Avatar extends Sprite {
 	
 	public boolean onPaint(Platform p) {
 		for (PaintBlock block : p.getBorder()) {
-			if (intersects(block) && block.getColor() != null && block.getColor().equals(getColor())) {
+			if (intersects(block) && block.getColor() != null && getColor() != null && block.getColor().equals(getColor())) {
 				System.out.println("ON PAINT TRUE");
 				return true;
 			}
