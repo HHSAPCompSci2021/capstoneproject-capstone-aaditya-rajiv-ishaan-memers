@@ -35,8 +35,10 @@ public class Game extends Screen implements NetworkListener {
 	public DrawingSurface surface;
 	private ArrayList<PaintBlock> bullets;
 	private int player1Score, player2Score;
+	private int timer;
 
 	private boolean flagTaken;
+	private int maxTime;
 	
 	private static final String messageTypeInit = "CREATE_CURSOR";
 	private static final String messageTypeMove = "MOUSE_MOVE";
@@ -90,6 +92,8 @@ public class Game extends Screen implements NetworkListener {
 		bombs.add(player2.getBomb());
 		
 		flagTaken = false;
+		timer = 0;
+		maxTime = 6000;
 	}
 
 	public void setup() {
@@ -102,6 +106,10 @@ public class Game extends Screen implements NetworkListener {
 		int player1Score = 0;
 		int player2Score = 0;
 		int numBlocks = 0;
+		
+		if(timer > maxTime) {
+			switchScreen(3);
+		}
 		
 		for(Platform p : platforms) {
 			ArrayList<PaintBlock> toRemove = new ArrayList<PaintBlock>();
@@ -191,28 +199,28 @@ public class Game extends Screen implements NetworkListener {
 			flag.draw(surface);	
 		} else {
 			if(player1.hasFlag()) {
-				flag.draw(surface, (int)player1.x, (int)player1.y);
-				
 				if((Math.abs(player1.x - player1.getBase().x) < 100) && ((Math.abs(player1.y - player1.getBase().y) < 50))) {
 					flagTaken = false;
+					flag.reset();
 					player1.touchdown();
+					player2.reset();
 				}
 				
+				flag.draw(surface, (int)player1.x, (int)player1.y);
 			} else {
-				flag.draw(surface, (int)player2.x, (int)player2.y);
-				
 				if((Math.abs(player2.x - player2.getBase().x) < 100) && ((Math.abs(player2.y - player2.getBase().y) < 50))) {
 					flagTaken = false;
+					flag.reset();
+					player1.reset();
 					player2.touchdown();
 				}
-			}
-			
+				flag.draw(surface, (int)player2.x, (int)player2.y);
+			}	
 		}
-		if (!(player1.captured() && player2.captured())) {
-
-		 player1Score += (player1.getCaptures() * 200);
-		 player2Score += (player2.getCaptures() * 200);
-		}
+		
+		player1Score += (player1.getCaptures() * 200);
+		player2Score += (player2.getCaptures() * 200);
+	
 		player1Score -= (player1.getNumDeaths() * 200);
 		
 		player2Score -= (player2.getNumDeaths() * 200);
@@ -259,6 +267,7 @@ public class Game extends Screen implements NetworkListener {
 		
 		player2.draw(surface);
 
+		timer++;
 	}
 	
 	public void processNetworkMessages() {

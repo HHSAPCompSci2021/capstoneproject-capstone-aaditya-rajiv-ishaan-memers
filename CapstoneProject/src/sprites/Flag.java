@@ -13,6 +13,8 @@ public class Flag extends PaintGun {
 	private static int capacity = 10;
 	private static int vel = 7;
 	private static int str = 10;
+	private int baseX;
+	private int baseY;
 
 	/**
 	 * Constructs a new flag object.
@@ -23,6 +25,8 @@ public class Flag extends PaintGun {
 	 */
 	public Flag(int x, int y, int width, int height) {
 		super(x, y, width, height, capacity, vel, str);
+		baseX = x;
+		baseY = y;
 	}
 	
 	public void draw(PApplet drawer, int x, int y) {
@@ -38,7 +42,8 @@ public class Flag extends PaintGun {
 				(float) (6*width/7d), (float) (height/2d));
 	}
 	
-	
-	
-	
+	public void reset() {
+		this.x = baseX;
+		this.y = baseY;
+	}
 }

@@ -167,6 +167,10 @@ public class Avatar extends Sprite {
 		numDeaths++;
 	}
 	
+	public void reset() {
+		super.moveToLocation(baseX, baseY);
+	}
+	
 	/** Gets the health of this avatar
 	 * 
 	 * @return the health
@@ -193,7 +197,7 @@ public class Avatar extends Sprite {
 	}
 	
 	public void boost() {
-		scale = 2;
+		scale *= 2;
 	}
 	
 	public void undoSpeedBoost() {
@@ -221,6 +225,7 @@ public class Avatar extends Sprite {
 	
 	public void touchdown() {
 		flagCaptures++;
+		reset();
 	}
 	
 	public int getNumDeaths() {
