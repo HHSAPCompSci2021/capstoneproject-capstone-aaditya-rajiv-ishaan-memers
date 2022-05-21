@@ -174,7 +174,7 @@ public class Avatar extends Sprite {
 		gun = new PaintGun((int) (x + 200), (int) (y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH);
 		numDeaths++;
 	}
-<<<<<<< Updated upstream
+
 	
 	public void reset() {
 		super.moveToLocation(baseX, baseY);
