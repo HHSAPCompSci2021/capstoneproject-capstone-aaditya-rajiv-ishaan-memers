@@ -1,8 +1,12 @@
 package screens;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.apache.commons.validator.routines.InetAddressValidator;
 
@@ -29,18 +33,26 @@ public class JoinRoom extends Screen {
 	private GLabel hostLabel;
 	private GTextField hostField;
 	
+	private GButton discoverButton;
+	
 	private GButton joinButton;
 	
 	private static final int TCP_PORT = 4444;
+	private static final int BROADCAST_PORT = 4444;
+
+	private static final long DISCOVER_TIMEOUT = 20000;
 
 	private InetAddress myIP;
 	private SchoolClient sc;
+	private PeerDiscovery discover;
 	
 	private String opponentUsername;
 
 	
 	private String programID;
 	private NetworkListener clientProgram;
+
+	private Timer refreshTimer;
 
 
 
@@ -49,6 +61,15 @@ public class JoinRoom extends Screen {
 		this.surface = surface;
 		this.clientProgram = surface;
 		this.programID = "APCS-Capstone-PaintBattle";
+		refreshTimer = new Timer();
+		try {
+			discover = new PeerDiscovery(InetAddress.getByName("255.255.255.255"),BROADCAST_PORT);
+			System.out.println("\nBroadcast discovery server running on " + BROADCAST_PORT);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			System.out.println("\nError starting broadcast discovery server on port " + BROADCAST_PORT + "\nCannot discover or be discovered.");
+			discoverButton.setEnabled(false);
+		}
 	}
 	
 	public void setup() {
@@ -78,7 +99,12 @@ public class JoinRoom extends Screen {
 		hostField.setEnabled(false);
 		hostField.setVisible(false);
 		
-		joinButton = new GButton(surface, 300, 400, 200, 100, "Join!");
+		
+		discoverButton = new GButton(surface, 300, 400, 200, 50, "Discover!");
+		discoverButton.setEnabled(false);
+		discoverButton.setVisible(false);
+		
+		joinButton = new GButton(surface, 300, 450, 200, 50, "Join!");
 		joinButton.setEnabled(false);
 		joinButton.setVisible(false);	
 	}
@@ -95,6 +121,8 @@ public class JoinRoom extends Screen {
 		hostField.setVisible(true);
 		joinButton.setEnabled(true);
 		joinButton.setVisible(true);
+		discoverButton.setEnabled(true);
+		discoverButton.setVisible(true);
 
 	}
 
@@ -126,8 +154,25 @@ public class JoinRoom extends Screen {
 			surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
 		
 			
-		} 
+		} else if (button == discoverButton) {
+			try {
+				System.out.println("\nSending broadcast packet...");
+				discover.sendDiscoveryPacket();
+				refreshTimer.schedule(new ShowHosts(), DISCOVER_TIMEOUT);
+			} catch (IOException e1) {
+				System.out.println("\nError sending discovery packet.");
+				e1.printStackTrace();
+			} 
+		}
 		
+	}
+	
+	private class ShowHosts extends TimerTask {
+		public void run() {
+			if (discover.getPeers().length > 0) {
+				System.out.println(discover.getPeers()[0].getHostAddress());
+			}
+		}
 	}
 	
 	private class NetworkMessageHandler implements NetworkListener {
