@@ -178,10 +178,7 @@ public class Avatar extends Sprite {
 		numDeaths++;
 	}
 
-	
-	public void reset() {
-		super.moveToLocation(baseX, baseY);
-	}
+
 	
 	/** Gets the health of this avatar
 =======
@@ -244,7 +241,7 @@ public class Avatar extends Sprite {
 	public void touchdown() {
 		flagCaptures++;
 		super.moveToLocation(baseX, baseY);
-		gun = new PaintGun((int) (x + 200), (int)(y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH);
+		gun = new PaintGun((int) (x + 200), (int)(y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH * 2);
 	}
 
 	public int getNumDeaths() {

@@ -35,7 +35,7 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 
 	public String playerUsername;
 
-	private String opponentUsername;
+	public String opponentUsername;
 
 	
 	public DrawingSurface() {
@@ -57,7 +57,7 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 		Game screen4 = new Game(this);
 		screens.add(screen4);
 		
-		WinScreen screen5 = new WinScreen(this, screen4);
+		WinScreen screen5 = new WinScreen(this);
 		screens.add(screen5);
 		
 		activeScreen = screens.get(0);
@@ -127,6 +127,10 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 		System.out.println(activeScreen);
 		if (i == ScreenSwitcher.GAME_SCREEN) {
 			((Game) activeScreen).setActivePlayer(perspective);
+		}
+		if (i == ScreenSwitcher.WIN_SCREEN) {
+			((WinScreen) activeScreen).setPlayerScore(((Game) screens.get(ScreenSwitcher.GAME_SCREEN)).getActivePlayerScore());
+			((WinScreen) activeScreen).setOpponentScore(((Game) screens.get(ScreenSwitcher.GAME_SCREEN)).getOpponentScore());
 		}
 	}
 	

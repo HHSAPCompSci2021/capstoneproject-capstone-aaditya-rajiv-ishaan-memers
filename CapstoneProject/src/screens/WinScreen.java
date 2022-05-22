@@ -8,20 +8,21 @@ public class WinScreen extends Screen {
 
 	private DrawingSurface surface;
 	private Game game;
-
-	public WinScreen(DrawingSurface drawingSurface, Game game) {
+	private int opponentScore;
+	private int playerScore;
+	
+	public WinScreen(DrawingSurface drawingSurface) {
 		super(1600, 1200);
 		surface = drawingSurface;
-		this.game = game;
 	}
 	
 	public void draw() {
 		
 		surface.image(surface.loadImage("img/victory.png"), 1, 0);
-		if (game.getPlayer1Score() > game.getPlayer2Score()) {
-			surface.text("Player 1 won the game", DRAWING_WIDTH/2, DRAWING_HEIGHT/2);
-		} else if (game.getPlayer2Score() > game.getPlayer1Score()) {
-			surface.text("Player 2 won the game", DRAWING_WIDTH/2, DRAWING_HEIGHT/2);
+		if (playerScore > opponentScore) {
+			surface.text(surface.playerUsername + " won the game", DRAWING_WIDTH/2, DRAWING_HEIGHT/2);
+		} else if (opponentScore > playerScore) {
+			surface.text(surface.opponentUsername + " won the game", DRAWING_WIDTH/2, DRAWING_HEIGHT/2);
 		}
 		else 
 			surface.text("It's a tie game", DRAWING_WIDTH/2, DRAWING_HEIGHT/2);
@@ -31,6 +32,18 @@ public class WinScreen extends Screen {
 	public void handleButtonEvents(GButton button, GEvent event) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public void setPlayerScore(int activePlayerScore) {
+		// TODO Auto-generated method stub
+		this.playerScore = activePlayerScore;
+		
+	}
+
+	public void setOpponentScore(int opponentScore) {
+		// TODO Auto-generated method stub
+		this.opponentScore = opponentScore;
+		
 	}
 
 }

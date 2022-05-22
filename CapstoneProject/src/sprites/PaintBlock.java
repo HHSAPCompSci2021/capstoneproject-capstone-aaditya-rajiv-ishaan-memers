@@ -33,15 +33,15 @@ public class PaintBlock extends Sprite {
 		double angle = Math.abs(Math.atan(rise/run));
 
 		if(mouseClick.getX() < x) {
-			this.xVel = -Math.cos(angle)*VELOCITY;
+			this.xVel = -Math.cos(angle)*velocity;
 		} else {
-			this.xVel = Math.cos(angle)*VELOCITY;
+			this.xVel = Math.cos(angle)*velocity;
 		}
 		
 		if(mouseClick.getY() < y) {
-			this.yVel = -Math.sin(angle)*VELOCITY;
+			this.yVel = -Math.sin(angle)*velocity;
 		} else {
-			this.yVel = Math.sin(angle)*VELOCITY;
+			this.yVel = Math.sin(angle)*velocity;
 		}
 		
 		

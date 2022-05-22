@@ -9,7 +9,6 @@ import java.util.Arrays;
 
 import core.DrawingSurface;
 import g4p_controls.*;
-import networking.backend.PeerDiscovery;
 import networking.backend.SchoolClient;
 import networking.backend.SchoolServer;
 import networking.frontend.NetworkDataObject;
@@ -31,7 +30,6 @@ public class CreateRoom extends Screen {
 	private static final int TCP_PORT = 4444;
 
 	private InetAddress myIP;
-	private PeerDiscovery discover;
 	private SchoolServer ss;
 	private SchoolClient sc;
 	
@@ -122,8 +120,6 @@ public class CreateRoom extends Screen {
 			ss.setMaxConnections(2);
 			ss.waitForConnections(TCP_PORT);
 			System.out.println("\nTCP server running on " + TCP_PORT);
-			if (discover != null)
-				discover.setDiscoverable(true);
 			connect(myIP);
 			while (ss.getConnectedHosts().length != 2) {
 				continue;

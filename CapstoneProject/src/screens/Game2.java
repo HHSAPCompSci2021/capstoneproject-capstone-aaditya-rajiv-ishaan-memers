@@ -20,7 +20,7 @@ import sprites.Platform;
 import sprites.Sprite;
 
 /**
- * Represents the interactive game screen.
+ * Represents the interactive game screen. WITH NETWORKING
  *
  * @author Ishaan Singh and Aaditya Raj
  *
@@ -39,10 +39,9 @@ public class Game2 extends Screen implements NetworkListener {
 
 	private boolean flagTaken;
 	
-	private static final String messageTypeInit = "CREATE_CURSOR";
 	private static final String messageTypeMove = "PLAYER_MOVEMENT";
 	private static final String messageTypeShoot = "SHOOT_BULLET";
-	private static final String messageTypePlatform = "PLATFORM_PAINT";
+	private static final String messageTypeJump = "PLAYER_JUMP";
 	
 	/**
 	 * Constructs a screen representing the interactive game screen.
@@ -52,6 +51,9 @@ public class Game2 extends Screen implements NetworkListener {
 	public Game2(DrawingSurface s) {
 		super(1600, 1200);
 		surface = s;
+	}
+
+	public void setup() {
 		String pre = surface.sketchPath();
 		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 100, 840, 200, 200, Color.RED);
 
@@ -91,10 +93,6 @@ public class Game2 extends Screen implements NetworkListener {
 		bombs.add(player2.getBomb());
 		
 		flagTaken = false;
-	}
-
-	public void setup() {
-		
 	}
 
 	public void draw() {
@@ -220,31 +218,20 @@ public class Game2 extends Screen implements NetworkListener {
 		
 		if (surface.isPressed(KeyEvent.VK_A)) {
 			activePlayer.walk(false);
+			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeMove, activePlayer.getX(), activePlayer.getY()});
 		}
 		
 		if (surface.isPressed(KeyEvent.VK_D)) {
 			activePlayer.walk(true);
+			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeMove, activePlayer.getX(), activePlayer.getY()});
 		}
 			
 		if (surface.isPressed(KeyEvent.VK_W)) {
 			if (activePlayer.onPlatform()) {
 				activePlayer.jump();
+				nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeJump});
 			}
 		}
-
-//		if (surface.isPressed(KeyEvent.VK_LEFT)) {
-//			player2.walk(false);
-//		}
-//		
-//		if (surface.isPressed(KeyEvent.VK_RIGHT)) {
-//			player2.walk(true);
-//		
-//		}
-//		if (surface.isPressed(KeyEvent.VK_UP)) {
-//			if (player2.onPlatform()) {
-//				player2.jump();
-//			}
-//		}
 		
 	
 		surface.push();
@@ -259,6 +246,8 @@ public class Game2 extends Screen implements NetworkListener {
 		player1.draw(surface);
 		
 		player2.draw(surface);
+		
+		processNetworkMessages();
 
 	}
 	
@@ -271,66 +260,28 @@ public class Game2 extends Screen implements NetworkListener {
 		
 		while (!queue.isEmpty()) {
 			NetworkDataObject ndo = queue.poll();
+			
+			Avatar player = (activePlayer == player1 ? player2 : player1);
+			
+			if (ndo.messageType.equals(NetworkDataObject.MESSAGE)) {
+				if (ndo.message[0].equals(messageTypeMove)) {
+					player.moveToLocation((int) ndo.message[1], (int) ndo.message[2]);
+				} else if (ndo.message[0].equals(messageTypeShoot)) {
+					PaintBlock bullet = player.shoot(new Point2D.Double((int) ndo.message[1], (int) ndo.message[2]));
+					if (bullet != null) {
+						bullets.add(bullet);
+					}
+				} else if (ndo.message[0].equals(messageTypeJump)) {
+					player.jump();
+				}  else if (ndo.messageType.equals(NetworkDataObject.DISCONNECT)) {
+						this.setup();
+						surface.switchScreen(ScreenSwitcher.WIN_SCREEN);
+						
+				}
+			}
 
-			String host = ndo.getSourceIP();
 
-//			if (ndo.messageType.equals(NetworkDataObject.MESSAGE)) {
-//				if (ndo.message[0].equals(messageTypeMove)) {
-//					
-//						for (Cursor c : cursors) {
-//							if (c.host.equals(host)) {
-//								c.x = (Integer)ndo.message[1];
-//								c.y = (Integer)ndo.message[2];
-//							}
-//						}
-//					
-//				} else if (ndo.message[0].equals(messageTypePress)) {
-//					
-//						for (Cursor c : cursors) {
-//							if (c.host.equals(host)) {
-//								c.x = (Integer)ndo.message[1];
-//								c.y = (Integer)ndo.message[2];
-//								c.makeTrailCopy();
-//							}
-//						}
-//					
-//				} else if (ndo.message[0].equals(messageTypeInit)) {
-//					
-//						for (Cursor c : cursors) {
-//							if (c.host.equals(host))
-//								return;
-//						}
-//						Cursor c = new Cursor();
-//						c.x = (Integer)ndo.message[1];
-//						c.y = (Integer)ndo.message[2];
-//						c.color = (Color)ndo.message[3];
-//						c.host = host;
-//						cursors.add(c);
-//					
-//				} else if (ndo.message[0].equals(messageTypeColor)) {
-//					
-//						for (Cursor c : cursors) {
-//							if (c.host.equals(host)) {
-//								c.color = (Color)ndo.message[1];
-//							}
-//						}
-//					
-//				}
-//			} else if (ndo.messageType.equals(NetworkDataObject.CLIENT_LIST)) {
-//				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeInit, me.x, me.y, me.color);
-//				
-//			} else if (ndo.messageType.equals(NetworkDataObject.DISCONNECT)) {
-//				
-//					if (ndo.dataSource.equals(ndo.serverHost)) {
-//						cursors.clear();
-//						cursors.add(me);
-//					} else {
-//						for (int i = cursors.size()-1; i >= 0; i--)
-//							if (cursors.get(i).host.equals(host))
-//								cursors.remove(i);
-//					}
-//				
-//			}
+			
 
 		}
 	}
@@ -339,6 +290,7 @@ public class Game2 extends Screen implements NetworkListener {
 		PaintBlock bullet = activePlayer.shoot(new Point2D.Double(mouseX, mouseY));
 		if (bullet != null) {
 			bullets.add(bullet);
+			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeShoot, mouseX, mouseY});
 		}
 	}
 	
@@ -348,6 +300,10 @@ public class Game2 extends Screen implements NetworkListener {
 	
 	public int getPlayer2Score() {
 		return player2Score;
+	}
+	
+	public int getActivePlayerScore() {
+		return (activePlayer == player1 ? player1Score : player2Score);
 	}
 
 	@Override
