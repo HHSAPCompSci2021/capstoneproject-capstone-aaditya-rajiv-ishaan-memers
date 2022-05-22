@@ -103,7 +103,7 @@ public class JoinRoom extends Screen {
 		// TODO Auto-generated method stub
 		
 		System.out.println("event running");
-		if (button == joinButton && event == GEvent.CLICKED && !nameField.getText().isEmpty() && nameField.getText().contains(" ") && hostField.getText().length() > 0) {			
+		if (button == joinButton && event == GEvent.CLICKED && !nameField.getText().isEmpty() && !nameField.getText().contains(" ") && !hostField.getText().isEmpty() && !hostField.getText().contains(" ")) {			
 			System.out.println(nameField.getText());
 			System.out.println("button clicked");
 			try {
@@ -115,6 +115,15 @@ public class JoinRoom extends Screen {
 			}
 			
 			connect(hostField.getText());
+			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
+			while (opponentUsername == null) {
+				continue;
+			}
+			surface.setPerspective(surface.RIGHT_SIDE);
+			surface.setPlayerUsername(nameField.getText());
+			surface.setOpponentUsername(opponentUsername);
+			this.setup();
+			surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
 		
 			
 		} 
@@ -184,15 +193,6 @@ public class JoinRoom extends Screen {
 				sc.addNetworkListener(clientProgram);
 				sc.addNetworkListener(new NetworkMessageHandler());
 				clientProgram.connectedToServer(sc);
-				sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
-				while (opponentUsername == null) {
-					continue;
-				}
-				surface.setPerspective(surface.RIGHT_SIDE);
-				surface.setPlayerUsername(nameField.getText());
-				surface.setOpponentUsername(opponentUsername);
-				this.setup();
-				surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
 			}
 		}
 	}
