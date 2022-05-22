@@ -1,8 +1,11 @@
 package screens;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.apache.commons.validator.routines.InetAddressValidator;
 
@@ -12,9 +15,7 @@ import g4p_controls.GButton;
 import g4p_controls.GEvent;
 import g4p_controls.GLabel;
 import g4p_controls.GTextField;
-import networking.backend.PeerDiscovery;
 import networking.backend.SchoolClient;
-import networking.backend.SchoolServer;
 import networking.frontend.NetworkDataObject;
 import networking.frontend.NetworkListener;
 import networking.frontend.NetworkMessenger;
@@ -29,9 +30,13 @@ public class JoinRoom extends Screen {
 	private GLabel hostLabel;
 	private GTextField hostField;
 	
+	private GButton discoverButton;
+	
 	private GButton joinButton;
 	
 	private static final int TCP_PORT = 4444;
+
+	private static final long DISCOVER_TIMEOUT = 10000;
 
 	private InetAddress myIP;
 	private SchoolClient sc;
@@ -42,6 +47,10 @@ public class JoinRoom extends Screen {
 	private String programID;
 	private NetworkListener clientProgram;
 
+	private Timer refreshTimer;
+
+	private boolean disabled;
+
 
 
 	public JoinRoom(DrawingSurface surface) {
@@ -49,6 +58,7 @@ public class JoinRoom extends Screen {
 		this.surface = surface;
 		this.clientProgram = surface;
 		this.programID = "APCS-Capstone-PaintBattle";
+		refreshTimer = new Timer();
 	}
 	
 	public void setup() {
@@ -78,23 +88,33 @@ public class JoinRoom extends Screen {
 		hostField.setEnabled(false);
 		hostField.setVisible(false);
 		
-		joinButton = new GButton(surface, 300, 400, 200, 100, "Join!");
+		
+		discoverButton = new GButton(surface, 300, 400, 200, 50, "Discover!");
+		discoverButton.setEnabled(false);
+		discoverButton.setVisible(false);
+		
+		joinButton = new GButton(surface, 300, 450, 200, 50, "Join!");
 		joinButton.setEnabled(false);
 		joinButton.setVisible(false);	
 	}
 	
 	public void draw() {
 		surface.background(255,100,0);
-		nameLabel.setEnabled(true);
-		nameLabel.setVisible(true);
-		nameField.setEnabled(true);
-		nameField.setVisible(true);
-		hostLabel.setEnabled(true);
-		hostLabel.setVisible(true);
-		hostField.setEnabled(true);
-		hostField.setVisible(true);
-		joinButton.setEnabled(true);
-		joinButton.setVisible(true);
+		if (!disabled) {
+			nameLabel.setEnabled(true);
+			nameLabel.setVisible(true);
+			nameField.setEnabled(true);
+			nameField.setVisible(true);
+			hostLabel.setEnabled(true);
+			hostLabel.setVisible(true);
+			hostField.setEnabled(true);
+			hostField.setVisible(true);
+			joinButton.setEnabled(true);
+			joinButton.setVisible(true);
+			discoverButton.setEnabled(true);
+			discoverButton.setVisible(true);
+		}
+		
 
 	}
 
@@ -115,19 +135,40 @@ public class JoinRoom extends Screen {
 			}
 			
 			connect(hostField.getText());
-			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
-			while (opponentUsername == null) {
-				continue;
-			}
+//			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
+//			while (opponentUsername == null) {
+//				continue;
+//			}
 			surface.setPerspective(surface.RIGHT_SIDE);
 			surface.setPlayerUsername(nameField.getText());
 			surface.setOpponentUsername(opponentUsername);
-			this.setup();
+			disabled = true;
 			surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
+			this.setup();
+
 		
 			
-		} 
+		} else if (button == discoverButton) {
+			try {
+				System.out.println("\nSending broadcast packet...");
+				DrawingSurface.discover.sendDiscoveryPacket();
+				refreshTimer.schedule(new ShowHosts(), DISCOVER_TIMEOUT);
+			} catch (IOException e1) {
+				System.out.println("\nError sending discovery packet.");
+				e1.printStackTrace();
+			} 
+		}
 		
+	}
+	
+	private class ShowHosts extends TimerTask {
+		public void run() {
+			if (DrawingSurface.discover.getPeers().length > 0) {
+				System.out.println(DrawingSurface.discover.getPeers()[0].getHostAddress());
+			} else {
+				System.out.println("Could not find hosts");			
+			}
+		}
 	}
 	
 	private class NetworkMessageHandler implements NetworkListener {

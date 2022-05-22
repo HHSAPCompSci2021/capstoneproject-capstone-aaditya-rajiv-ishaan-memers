@@ -2,10 +2,13 @@ package core;
 
 
 import java.awt.Point;
+import java.io.IOException;
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 import g4p_controls.GButton;
 import g4p_controls.GEvent;
+import networking.backend.PeerDiscovery;
 import networking.frontend.NetworkDataObject;
 import networking.frontend.NetworkListener;
 import networking.frontend.NetworkMessenger;
@@ -36,6 +39,10 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 	public String playerUsername;
 
 	public String opponentUsername;
+	
+	private static final int BROADCAST_PORT = 4444;
+	
+	public static PeerDiscovery discover;
 
 	
 	public DrawingSurface() {
@@ -61,6 +68,14 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 		screens.add(screen5);
 		
 		activeScreen = screens.get(0);
+		
+		try {
+			discover = new PeerDiscovery(InetAddress.getByName("255.255.255.255"),BROADCAST_PORT);
+			System.out.println("\nBroadcast discovery server running on " + BROADCAST_PORT);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			System.out.println("\nError starting broadcast discovery server on port " + BROADCAST_PORT + "\nCannot discover or be discovered.");
+		}
 	}
 	
 	public void setup() {

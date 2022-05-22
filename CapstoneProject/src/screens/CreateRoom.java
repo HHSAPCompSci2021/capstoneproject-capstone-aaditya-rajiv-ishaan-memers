@@ -3,12 +3,14 @@
   @version 3
 */package screens;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 
 import core.DrawingSurface;
 import g4p_controls.*;
+import networking.backend.PeerDiscovery;
 import networking.backend.SchoolClient;
 import networking.backend.SchoolServer;
 import networking.frontend.NetworkDataObject;
@@ -37,6 +39,8 @@ public class CreateRoom extends Screen {
 	private NetworkListener clientProgram;
 
 	private String opponentUsername;
+
+	private boolean disabled;
 		
 
 
@@ -91,16 +95,19 @@ public class CreateRoom extends Screen {
 	}
 	public void draw() {
 		surface.background(255,100,0);
-		nameLabel.setEnabled(true);
-		nameLabel.setVisible(true);
-		nameField.setEnabled(true);
-		nameField.setVisible(true);
-		sliderLabel.setEnabled(true);
-		sliderLabel.setVisible(true);
-		slider.setEnabled(true);
-		slider.setVisible(true);
-		createButton.setEnabled(true);
-		createButton.setVisible(true);
+		if (!disabled) {
+			nameLabel.setEnabled(true);
+			nameLabel.setVisible(true);
+			nameField.setEnabled(true);
+			nameField.setVisible(true);
+			sliderLabel.setEnabled(true);
+			sliderLabel.setVisible(true);
+			slider.setEnabled(true);
+			slider.setVisible(true);
+			createButton.setEnabled(true);
+			createButton.setVisible(true);
+		}
+		
 	}
 
 	
@@ -120,26 +127,25 @@ public class CreateRoom extends Screen {
 			ss.setMaxConnections(2);
 			ss.waitForConnections(TCP_PORT);
 			System.out.println("\nTCP server running on " + TCP_PORT);
+			if (DrawingSurface.discover != null)
+				DrawingSurface.discover.setDiscoverable(true);
 			connect(myIP);
 			while (ss.getConnectedHosts().length != 2) {
-				System.out.println("FINDING OPPONENT");
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+//				System.out.println("FINDING OPPONENT");
 				continue;
 			}
-			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
-			while (opponentUsername == null) {
-				System.out.println("GETTING USERNAME");
-				continue;
-			}
+//			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
+//			while (opponentUsername == null) {
+//				System.out.println("GETTING USERNAME");
+//				continue;
+//			}
 			surface.setPerspective(surface.LEFT_SIDE);
 			surface.setPlayerUsername(nameField.getText());
 			surface.setOpponentUsername(opponentUsername);
-			this.setup();
+			disabled = true;
 			surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
+			this.setup();
+
 		
 			
 		} 

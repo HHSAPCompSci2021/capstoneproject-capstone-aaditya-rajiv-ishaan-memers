@@ -275,9 +275,9 @@ public class Game extends Screen implements NetworkListener {
 			
 			if (ndo.messageType.equals(NetworkDataObject.MESSAGE)) {
 				if (ndo.message[0].equals(messageTypeMove)) {
-					player.moveToLocation((int) ndo.message[1], (int) ndo.message[2]);
+					player.moveToLocation((double) ndo.message[1], (double) ndo.message[2]);
 				} else if (ndo.message[0].equals(messageTypeShoot)) {
-					PaintBlock bullet = player.shoot(new Point2D.Double((int) ndo.message[1], (int) ndo.message[2]));
+					PaintBlock bullet = player.shoot(new Point2D.Double((double) ndo.message[1], (double) ndo.message[2]));
 					if (bullet != null) {
 						bullets.add(bullet);
 					}
