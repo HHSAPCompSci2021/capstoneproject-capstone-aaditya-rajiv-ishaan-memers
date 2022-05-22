@@ -49,6 +49,8 @@ public class JoinRoom extends Screen {
 
 	private Timer refreshTimer;
 
+	private boolean disabled;
+
 
 
 	public JoinRoom(DrawingSurface surface) {
@@ -98,7 +100,7 @@ public class JoinRoom extends Screen {
 	
 	public void draw() {
 		surface.background(255,100,0);
-		if (!nameLabel.isEnabled()) {
+		if (!disabled) {
 			nameLabel.setEnabled(true);
 			nameLabel.setVisible(true);
 			nameField.setEnabled(true);
@@ -140,8 +142,10 @@ public class JoinRoom extends Screen {
 			surface.setPerspective(surface.RIGHT_SIDE);
 			surface.setPlayerUsername(nameField.getText());
 			surface.setOpponentUsername(opponentUsername);
-			this.setup();
+			disabled = true;
 			surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
+			this.setup();
+
 		
 			
 		} else if (button == discoverButton) {

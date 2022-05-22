@@ -39,6 +39,8 @@ public class CreateRoom extends Screen {
 	private NetworkListener clientProgram;
 
 	private String opponentUsername;
+
+	private boolean disabled;
 		
 
 
@@ -93,7 +95,7 @@ public class CreateRoom extends Screen {
 	}
 	public void draw() {
 		surface.background(255,100,0);
-		if (!nameLabel.isEnabled()) {
+		if (!disabled) {
 			nameLabel.setEnabled(true);
 			nameLabel.setVisible(true);
 			nameField.setEnabled(true);
@@ -140,8 +142,10 @@ public class CreateRoom extends Screen {
 			surface.setPerspective(surface.LEFT_SIDE);
 			surface.setPlayerUsername(nameField.getText());
 			surface.setOpponentUsername(opponentUsername);
-			this.setup();
+			disabled = true;
 			surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
+			this.setup();
+
 		
 			
 		} 
