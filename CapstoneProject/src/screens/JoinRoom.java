@@ -34,8 +34,6 @@ public class JoinRoom extends Screen {
 	private static final int TCP_PORT = 4444;
 
 	private InetAddress myIP;
-	private PeerDiscovery discover;
-	private SchoolServer ss;
 	private SchoolClient sc;
 	
 	private String opponentUsername;
@@ -193,6 +191,7 @@ public class JoinRoom extends Screen {
 				surface.setPerspective(surface.RIGHT_SIDE);
 				surface.setPlayerUsername(nameField.getText());
 				surface.setOpponentUsername(opponentUsername);
+				this.setup();
 				surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
 			}
 		}

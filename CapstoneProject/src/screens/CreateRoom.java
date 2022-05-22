@@ -187,6 +187,7 @@ public class CreateRoom extends Screen {
 				surface.setPerspective(surface.LEFT_SIDE);
 				surface.setPlayerUsername(nameField.getText());
 				surface.setOpponentUsername(opponentUsername);
+				this.setup();
 				surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
 			}
 		}
