@@ -226,18 +226,18 @@ public class Game extends Screen implements NetworkListener {
 		
 		if (surface.isPressed(KeyEvent.VK_A)) {
 			activePlayer.walk(false);
-//			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeMove, activePlayer.getX(), activePlayer.getY()});
+			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeMove, activePlayer.getX(), activePlayer.getY()});
 		}
 		
 		if (surface.isPressed(KeyEvent.VK_D)) {
-			activePlayer.walk(true);
-//			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeMove, activePlayer.getX(), activePlayer.getY()});
+			activePlayer.walk(true);			
+			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeMove, activePlayer.getX(), activePlayer.getY()});
 		}
 			
 		if (surface.isPressed(KeyEvent.VK_W)) {
 			if (activePlayer.onPlatform()) {
 				activePlayer.jump();
-//				nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeJump});
+				nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeJump});
 			}
 		}
 		

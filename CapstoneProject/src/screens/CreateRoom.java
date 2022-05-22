@@ -124,7 +124,7 @@ public class CreateRoom extends Screen {
 			while (ss.getConnectedHosts().length != 2) {
 				continue;
 			}
-			surface.switchScreen(1)	;
+			surface.switchScreen(1);
 		
 			
 		} 
@@ -181,9 +181,12 @@ public class CreateRoom extends Screen {
 				sc.addNetworkListener(new NetworkMessageHandler());
 				clientProgram.connectedToServer(sc);
 				sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
+				
+				System.out.println("Waiting for opponent...");
 				while (opponentUsername == null) {
 					continue;
 				}
+
 				surface.setPerspective(surface.LEFT_SIDE);
 				surface.setPlayerUsername(nameField.getText());
 				surface.setOpponentUsername(opponentUsername);
