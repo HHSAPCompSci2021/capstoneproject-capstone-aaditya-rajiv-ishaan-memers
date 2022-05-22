@@ -101,18 +101,21 @@ public class JoinRoom extends Screen {
 	
 	public void draw() {
 		surface.background(255,100,0);
-		nameLabel.setEnabled(true);
-		nameLabel.setVisible(true);
-		nameField.setEnabled(true);
-		nameField.setVisible(true);
-		hostLabel.setEnabled(true);
-		hostLabel.setVisible(true);
-		hostField.setEnabled(true);
-		hostField.setVisible(true);
-		joinButton.setEnabled(true);
-		joinButton.setVisible(true);
-		discoverButton.setEnabled(true);
-		discoverButton.setVisible(true);
+		if (!nameLabel.isEnabled()) {
+			nameLabel.setEnabled(true);
+			nameLabel.setVisible(true);
+			nameField.setEnabled(true);
+			nameField.setVisible(true);
+			hostLabel.setEnabled(true);
+			hostLabel.setVisible(true);
+			hostField.setEnabled(true);
+			hostField.setVisible(true);
+			joinButton.setEnabled(true);
+			joinButton.setVisible(true);
+			discoverButton.setEnabled(true);
+			discoverButton.setVisible(true);
+		}
+		
 
 	}
 
