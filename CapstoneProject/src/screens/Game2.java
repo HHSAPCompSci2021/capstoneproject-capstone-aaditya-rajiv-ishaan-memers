@@ -207,11 +207,10 @@ public class Game2 extends Screen implements NetworkListener {
 			}
 			
 		}
-		if (!(player1.captured() && player2.captured())) {
 
-		 player1Score += (player1.getCaptures() * 200);
-		 player2Score += (player2.getCaptures() * 200);
-		}
+		player1Score += (player1.getCaptures() * 200);
+		player2Score += (player2.getCaptures() * 200);
+		 
 		player1Score -= (player1.getNumDeaths() * 200);
 		
 		player2Score -= (player2.getNumDeaths() * 200);

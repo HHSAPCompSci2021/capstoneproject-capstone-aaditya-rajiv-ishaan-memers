@@ -43,7 +43,7 @@ public class Avatar extends Sprite {
 	 */
 	public Avatar(PImage image, int x, int y, int w, int h, Color color) {
 		super(image, x, y, w, h);
-		gun = new PaintGun(x + w, y + 150, w / 4, h / 2, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH * 2);
+		gun = new PaintGun(x + w, y + 150, w/4, h/2, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH * 2);
 
 		baseX = x;
 		baseY = y;
@@ -232,10 +232,7 @@ public class Avatar extends Sprite {
 	}
 
 	public int getCaptures() {
-		if (flagCaptures <= 1) {
-			return flagCaptures;
-		}
-		return 1;
+		return flagCaptures;
 	}
 
 	public void touchdown() {
@@ -248,12 +245,6 @@ public class Avatar extends Sprite {
 		return numDeaths;
 	}
 
-	public boolean captured() {
-		if (getCaptures() == 1) {
-			return true;
-		}
-		return false;
-	}
 
 	public PaintBomb getBomb() {
 		return bomb;
