@@ -93,16 +93,19 @@ public class CreateRoom extends Screen {
 	}
 	public void draw() {
 		surface.background(255,100,0);
-		nameLabel.setEnabled(true);
-		nameLabel.setVisible(true);
-		nameField.setEnabled(true);
-		nameField.setVisible(true);
-		sliderLabel.setEnabled(true);
-		sliderLabel.setVisible(true);
-		slider.setEnabled(true);
-		slider.setVisible(true);
-		createButton.setEnabled(true);
-		createButton.setVisible(true);
+		if (!nameLabel.isEnabled()) {
+			nameLabel.setEnabled(true);
+			nameLabel.setVisible(true);
+			nameField.setEnabled(true);
+			nameField.setVisible(true);
+			sliderLabel.setEnabled(true);
+			sliderLabel.setVisible(true);
+			slider.setEnabled(true);
+			slider.setVisible(true);
+			createButton.setEnabled(true);
+			createButton.setVisible(true);
+		}
+		
 	}
 
 	
@@ -129,11 +132,11 @@ public class CreateRoom extends Screen {
 //				System.out.println("FINDING OPPONENT");
 				continue;
 			}
-			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
-			while (opponentUsername == null) {
-				System.out.println("GETTING USERNAME");
-				continue;
-			}
+//			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
+//			while (opponentUsername == null) {
+//				System.out.println("GETTING USERNAME");
+//				continue;
+//			}
 			surface.setPerspective(surface.LEFT_SIDE);
 			surface.setPlayerUsername(nameField.getText());
 			surface.setOpponentUsername(opponentUsername);
