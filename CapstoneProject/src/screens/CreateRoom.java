@@ -123,6 +123,11 @@ public class CreateRoom extends Screen {
 			connect(myIP);
 			while (ss.getConnectedHosts().length != 2) {
 				System.out.println("FINDING OPPONENT");
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 				continue;
 			}
 			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
