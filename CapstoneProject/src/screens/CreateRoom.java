@@ -107,7 +107,7 @@ public class CreateRoom extends Screen {
 	public void handleButtonEvents(GButton button, GEvent event) {
 		// Create the control window?
 		System.out.println("event running");
-		if (button == createButton && event == GEvent.CLICKED && nameField.getText().length() > 0) {			
+		if (button == createButton && event == GEvent.CLICKED && nameField.getText().length() > 0 && !nameField.getText().contains(" ")) {			
 			System.out.println("button clicked");
 			try {
 				myIP = InetAddress.getLocalHost();
@@ -122,9 +122,19 @@ public class CreateRoom extends Screen {
 			System.out.println("\nTCP server running on " + TCP_PORT);
 			connect(myIP);
 			while (ss.getConnectedHosts().length != 2) {
+				System.out.println("FINDING OPPONENT");
 				continue;
 			}
-			surface.switchScreen(1)	;
+			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
+			while (opponentUsername == null) {
+				System.out.println("GETTING USERNAME");
+				continue;
+			}
+			surface.setPerspective(surface.LEFT_SIDE);
+			surface.setPlayerUsername(nameField.getText());
+			surface.setOpponentUsername(opponentUsername);
+			this.setup();
+			surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
 		
 			
 		} 
@@ -180,15 +190,6 @@ public class CreateRoom extends Screen {
 				sc.addNetworkListener(clientProgram);
 				sc.addNetworkListener(new NetworkMessageHandler());
 				clientProgram.connectedToServer(sc);
-				sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
-				while (opponentUsername == null) {
-					continue;
-				}
-				surface.setPerspective(surface.LEFT_SIDE);
-				surface.setPlayerUsername(nameField.getText());
-				surface.setOpponentUsername(opponentUsername);
-				this.setup();
-				surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
 			}
 		}
 	}
