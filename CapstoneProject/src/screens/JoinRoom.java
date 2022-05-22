@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,9 +15,7 @@ import g4p_controls.GButton;
 import g4p_controls.GEvent;
 import g4p_controls.GLabel;
 import g4p_controls.GTextField;
-import networking.backend.PeerDiscovery;
 import networking.backend.SchoolClient;
-import networking.backend.SchoolServer;
 import networking.frontend.NetworkDataObject;
 import networking.frontend.NetworkListener;
 import networking.frontend.NetworkMessenger;
@@ -39,7 +36,7 @@ public class JoinRoom extends Screen {
 	
 	private static final int TCP_PORT = 4444;
 
-	private static final long DISCOVER_TIMEOUT = 20000;
+	private static final long DISCOVER_TIMEOUT = 10000;
 
 	private InetAddress myIP;
 	private SchoolClient sc;
@@ -133,10 +130,10 @@ public class JoinRoom extends Screen {
 			}
 			
 			connect(hostField.getText());
-			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
-			while (opponentUsername == null) {
-				continue;
-			}
+//			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
+//			while (opponentUsername == null) {
+//				continue;
+//			}
 			surface.setPerspective(surface.RIGHT_SIDE);
 			surface.setPlayerUsername(nameField.getText());
 			surface.setOpponentUsername(opponentUsername);
@@ -161,6 +158,8 @@ public class JoinRoom extends Screen {
 		public void run() {
 			if (DrawingSurface.discover.getPeers().length > 0) {
 				System.out.println(DrawingSurface.discover.getPeers()[0].getHostAddress());
+			} else {
+				System.out.println("Could not find hosts");			
 			}
 		}
 	}
