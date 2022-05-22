@@ -38,13 +38,11 @@ public class JoinRoom extends Screen {
 	private GButton joinButton;
 	
 	private static final int TCP_PORT = 4444;
-	private static final int BROADCAST_PORT = 4444;
 
 	private static final long DISCOVER_TIMEOUT = 20000;
 
 	private InetAddress myIP;
 	private SchoolClient sc;
-	private PeerDiscovery discover;
 	
 	private String opponentUsername;
 
@@ -62,14 +60,6 @@ public class JoinRoom extends Screen {
 		this.clientProgram = surface;
 		this.programID = "APCS-Capstone-PaintBattle";
 		refreshTimer = new Timer();
-		try {
-			discover = new PeerDiscovery(InetAddress.getByName("255.255.255.255"),BROADCAST_PORT);
-			System.out.println("\nBroadcast discovery server running on " + BROADCAST_PORT);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-			System.out.println("\nError starting broadcast discovery server on port " + BROADCAST_PORT + "\nCannot discover or be discovered.");
-			discoverButton.setEnabled(false);
-		}
 	}
 	
 	public void setup() {
@@ -157,7 +147,7 @@ public class JoinRoom extends Screen {
 		} else if (button == discoverButton) {
 			try {
 				System.out.println("\nSending broadcast packet...");
-				discover.sendDiscoveryPacket();
+				DrawingSurface.discover.sendDiscoveryPacket();
 				refreshTimer.schedule(new ShowHosts(), DISCOVER_TIMEOUT);
 			} catch (IOException e1) {
 				System.out.println("\nError sending discovery packet.");
@@ -169,8 +159,8 @@ public class JoinRoom extends Screen {
 	
 	private class ShowHosts extends TimerTask {
 		public void run() {
-			if (discover.getPeers().length > 0) {
-				System.out.println(discover.getPeers()[0].getHostAddress());
+			if (DrawingSurface.discover.getPeers().length > 0) {
+				System.out.println(DrawingSurface.discover.getPeers()[0].getHostAddress());
 			}
 		}
 	}

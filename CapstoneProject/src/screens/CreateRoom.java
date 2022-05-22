@@ -31,8 +31,6 @@ public class CreateRoom extends Screen {
 	
 	private static final int TCP_PORT = 4444;
 
-	private static final int BROADCAST_PORT = 4444;
-
 	private InetAddress myIP;
 	private SchoolServer ss;
 	private SchoolClient sc;
@@ -41,8 +39,6 @@ public class CreateRoom extends Screen {
 	private NetworkListener clientProgram;
 
 	private String opponentUsername;
-
-	private PeerDiscovery discover;
 		
 
 
@@ -56,13 +52,6 @@ public class CreateRoom extends Screen {
 		this.surface = surface;
 		this.clientProgram = surface;
 		this.programID = "APCS-Capstone-PaintBattle";
-		try {
-			discover = new PeerDiscovery(InetAddress.getByName("255.255.255.255"),BROADCAST_PORT);
-			System.out.println("\nBroadcast discovery server running on " + BROADCAST_PORT);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-			System.out.println("\nError starting broadcast discovery server on port " + BROADCAST_PORT + "\nCannot discover or be discovered.");
-		}
 	}
 	
 	
@@ -133,8 +122,8 @@ public class CreateRoom extends Screen {
 			ss.setMaxConnections(2);
 			ss.waitForConnections(TCP_PORT);
 			System.out.println("\nTCP server running on " + TCP_PORT);
-			if (discover != null)
-				discover.setDiscoverable(true);
+			if (DrawingSurface.discover != null)
+				DrawingSurface.discover.setDiscoverable(true);
 			connect(myIP);
 			while (ss.getConnectedHosts().length != 2) {
 //				System.out.println("FINDING OPPONENT");
