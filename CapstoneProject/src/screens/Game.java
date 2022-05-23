@@ -40,6 +40,7 @@ public class Game extends Screen implements NetworkListener {
 	private boolean flagTaken;
 	private int maxTime;
 	private Avatar activePlayer;
+
 	
 	private static final String messageTypeMove = "PLAYER_MOVEMENT";
 	private static final String messageTypeShoot = "SHOOT_BULLET";
@@ -61,9 +62,9 @@ public class Game extends Screen implements NetworkListener {
 
 	public void setup() {
 		String pre = surface.sketchPath();
-		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 100, 840, 200, 200, Color.RED);
+		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"),surface.loadImage(pre + "/" + "img/paintGunImage.png"), 100, 840, 200, 200, Color.RED);
 
-		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 1300, 840, 200, 200, Color.BLUE);
+		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"),surface.loadImage(pre + "/" + "img/paintGunImage.png"), 1300, 840, 200, 200, Color.BLUE);
 
 		platforms = new ArrayList<Platform>();
 		bullets = new ArrayList<PaintBlock>();

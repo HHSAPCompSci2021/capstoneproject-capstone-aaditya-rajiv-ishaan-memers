@@ -32,6 +32,7 @@ public class Avatar extends Sprite {
 	private boolean onPlatform;
 	private int flagCaptures;
 	private int numDeaths;
+	private PImage paintGunImage;
 
 	/**
 	 * 
@@ -41,9 +42,10 @@ public class Avatar extends Sprite {
 	 * @param h     height of Avatar
 	 * @param color red/blue for one of the two characters in the game
 	 */
-	public Avatar(PImage avatarImage, int x, int y, int w, int h, Color color) {
+	public Avatar(PImage avatarImage, PImage paintGunImage, int x, int y, int w, int h, Color color) {
 		super(avatarImage, x, y, w, h);
-		gun = new PaintGun(x + w, y + 150, w/4, h/2, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH * 2);
+		this.paintGunImage = paintGunImage;
+		gun = new PaintGun(paintGunImage, x + w, y + 150, w/4, h/2, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH * 2);
 
 		baseX = x;
 		baseY = y;
@@ -54,6 +56,8 @@ public class Avatar extends Sprite {
 		flagCaptures = 0;
 		numDeaths = 0;
 	}
+	
+	
 
 	/**
 	 * 
@@ -175,7 +179,7 @@ public class Avatar extends Sprite {
 	 */
 	public void respawn() {
 		super.moveToLocation(baseX, baseY);
-		gun = new PaintGun((int) (x + 200), (int) (y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH * 2);
+		gun = new PaintGun(paintGunImage,(int) (x + 200), (int) (y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH * 2);
 		numDeaths++;
 	}
 
@@ -239,7 +243,7 @@ public class Avatar extends Sprite {
 	public void touchdown() {
 		flagCaptures++;
 		super.moveToLocation(baseX, baseY);
-		gun = new PaintGun((int) (x + 200), (int)(y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH * 2);
+		gun = new PaintGun(paintGunImage, (int) (x + 200), (int)(y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH * 2);
 	}
 
 	public int getNumDeaths() {

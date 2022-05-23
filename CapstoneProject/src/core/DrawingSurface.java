@@ -43,6 +43,9 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 	private static final int BROADCAST_PORT = 4444;
 	
 	public static PeerDiscovery discover;
+	
+	public String pre = sketchPath();
+
 
 	
 	public DrawingSurface() {
