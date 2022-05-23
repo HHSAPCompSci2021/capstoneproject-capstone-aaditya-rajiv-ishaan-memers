@@ -3,14 +3,12 @@
   @version 3
 */package screens;
 
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 
 import core.DrawingSurface;
 import g4p_controls.*;
-import networking.backend.PeerDiscovery;
 import networking.backend.SchoolClient;
 import networking.backend.SchoolServer;
 import networking.frontend.NetworkDataObject;
@@ -34,13 +32,14 @@ public class CreateRoom extends Screen {
 	private InetAddress myIP;
 	private SchoolServer ss;
 	private SchoolClient sc;
+	private GGroup group;
+	boolean isActive;
 	
 	private String programID;
 	private NetworkListener clientProgram;
 
 	private String opponentUsername;
 
-	private boolean disabled;
 		
 
 
@@ -54,7 +53,9 @@ public class CreateRoom extends Screen {
 		this.surface = surface;
 		this.clientProgram = surface;
 		this.programID = "APCS-Capstone-PaintBattle";
+		isActive = true;
 	}
+	
 	
 	
 	public void setup() {
@@ -63,21 +64,15 @@ public class CreateRoom extends Screen {
 		nameLabel.setTextAlign(GAlign.CENTER, null);
 		nameLabel.setOpaque(true);
 		nameLabel.setText("Enter Username!");
-		nameLabel.setEnabled(false);
-		nameLabel.setVisible(false);
 		
 		nameField = new GTextField(surface, 300, 175, 200, 50);
 		nameField.setPromptText("Enter Username...");
-		nameField.setEnabled(false);
-		nameField.setVisible(false);
 		
 		sliderLabel = new GLabel(surface, 300, 275, 200, 25);
 		sliderLabel.setAlpha(190);
 		sliderLabel.setTextAlign(GAlign.CENTER, null);
 		sliderLabel.setOpaque(true);
 		sliderLabel.setText("Enter Time Limit!");
-		sliderLabel.setEnabled(false);
-		sliderLabel.setVisible(false);
 		
 		slider = new GCustomSlider(surface, 250, 300, 300, 50, null);
 		// show          opaque  ticks value limits
@@ -86,26 +81,24 @@ public class CreateRoom extends Screen {
 		slider.setLimits(0.5f, 0.5f, 10.0f);
 		slider.setNbrTicks(20);
 		slider.setStickToTicks(true);  //false by default 		// show          opaque  ticks value limits
-		slider.setEnabled(false);
-		slider.setVisible(false);
 		
 		createButton = new GButton(surface, 300, 400, 200, 100, "Create Room");
-		createButton.setEnabled(false);
-		createButton.setVisible(false);
+		
+		group = new GGroup(surface);
+		group.addControl(nameLabel);
+		group.addControl(nameField);
+		group.addControl(sliderLabel);
+		group.addControl(slider);
+		group.addControl(createButton);
+		
+		group.fadeOut(0, 0);
 	}
+	
 	public void draw() {
 		surface.background(255,100,0);
-		if (!disabled) {
-			nameLabel.setEnabled(true);
-			nameLabel.setVisible(true);
-			nameField.setEnabled(true);
-			nameField.setVisible(true);
-			sliderLabel.setEnabled(true);
-			sliderLabel.setVisible(true);
-			slider.setEnabled(true);
-			slider.setVisible(true);
-			createButton.setEnabled(true);
-			createButton.setVisible(true);
+		if(isActive) {
+			group.fadeIn(0, 0);
+			group.setEnabled(true);
 		}
 		
 	}
@@ -127,27 +120,25 @@ public class CreateRoom extends Screen {
 			ss.setMaxConnections(2);
 			ss.waitForConnections(TCP_PORT);
 			System.out.println("\nTCP server running on " + TCP_PORT);
-			if (DrawingSurface.discover != null)
-				DrawingSurface.discover.setDiscoverable(true);
 			connect(myIP);
 			while (ss.getConnectedHosts().length != 2) {
-//				System.out.println("FINDING OPPONENT");
+				System.out.println("FINDING OPPONENT");
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 				continue;
 			}
-//			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
-//			while (opponentUsername == null) {
-//				System.out.println("GETTING USERNAME");
-//				continue;
-//			}
+			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
 			surface.setPerspective(surface.LEFT_SIDE);
 			surface.setPlayerUsername(nameField.getText());
 			surface.setOpponentUsername(opponentUsername);
-			disabled = true;
-			surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
-			this.setup();
-
-		
 			
+			isActive = false;
+			group.fadeOut(0, 0);
+			group.setEnabled(false);
+			surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
 		} 
 		
 	}
@@ -203,14 +194,5 @@ public class CreateRoom extends Screen {
 				clientProgram.connectedToServer(sc);
 			}
 		}
-	}
-
-
-
-	
-
-	
-	
-	
-	
+	}	
 }
