@@ -115,6 +115,9 @@ public class Game extends Screen implements NetworkListener {
 			surface.switchScreen(ScreenSwitcher.WIN_SCREEN);
 		}
 		
+		
+		player1.fall();
+		player2.fall();
 		for(Platform p : platforms) {
 			ArrayList<PaintBlock> toRemove = new ArrayList<PaintBlock>();
 			for (PaintBlock bullet : bullets) {
@@ -128,13 +131,14 @@ public class Game extends Screen implements NetworkListener {
 			if (player1.onPaint(p)) {
 				System.out.println("BOOSTED");
 				player1.boost();
-			} else if (player1.isBoosted()) {
+			} 
+			else if (player1.intersects(p) && player1.isBoosted()) {
 				System.out.println("UNBOOSTED");
 				player1.undoSpeedBoost();
 			}
 			if (player2.onPaint(p)) {
 				player2.boost();
-			} else if (player2.isBoosted()){
+			} else if (player2.intersects(p) && player2.isBoosted()){
 				player2.undoSpeedBoost();
 			}
 			p.draw(surface);
