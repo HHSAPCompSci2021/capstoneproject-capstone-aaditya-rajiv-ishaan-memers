@@ -134,7 +134,7 @@ public class CreateRoom extends Screen {
 //				}
 				continue;
 			}
-			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
+//			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
 			surface.setPerspective(surface.LEFT_SIDE);
 			surface.setPlayerUsername(nameField.getText());
 			surface.setOpponentUsername(opponentUsername);
