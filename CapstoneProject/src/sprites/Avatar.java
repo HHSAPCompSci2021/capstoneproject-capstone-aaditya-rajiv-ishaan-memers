@@ -41,8 +41,8 @@ public class Avatar extends Sprite {
 	 * @param h     height of Avatar
 	 * @param color red/blue for one of the two characters in the game
 	 */
-	public Avatar(PImage image, int x, int y, int w, int h, Color color) {
-		super(image, x, y, w, h);
+	public Avatar(PImage avatarImage, int x, int y, int w, int h, Color color) {
+		super(avatarImage, x, y, w, h);
 		gun = new PaintGun(x + w, y + 150, w/4, h/2, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH * 2);
 
 		baseX = x;
