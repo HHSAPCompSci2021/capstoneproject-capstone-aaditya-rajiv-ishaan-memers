@@ -169,7 +169,6 @@ public class Avatar extends Sprite {
 		}
 		System.out.println(health);
 		if (health <= 0) {
-			health = 70;
 			respawn();
 			return true;
 		} else {
@@ -182,6 +181,7 @@ public class Avatar extends Sprite {
 	 * 
 	 */
 	public void respawn() {
+		health = 70;
 		super.moveToLocation(baseX, baseY);
 		gun = new PaintGun(paintGunImage,(int) (x + 200), (int) (y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH * 2);
 		numDeaths++;

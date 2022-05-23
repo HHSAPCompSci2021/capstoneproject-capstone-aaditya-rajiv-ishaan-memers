@@ -13,6 +13,7 @@ import core.DrawingSurface;
 import g4p_controls.GAlign;
 import g4p_controls.GButton;
 import g4p_controls.GEvent;
+import g4p_controls.GGroup;
 import g4p_controls.GLabel;
 import g4p_controls.GTextField;
 import networking.backend.SchoolClient;
@@ -40,6 +41,8 @@ public class JoinRoom extends Screen {
 
 	private InetAddress myIP;
 	private SchoolClient sc;
+	private GGroup group;
+	boolean isActive;
 	
 	private String opponentUsername;
 
@@ -59,6 +62,7 @@ public class JoinRoom extends Screen {
 		this.clientProgram = surface;
 		this.programID = "APCS-Capstone-PaintBattle";
 		refreshTimer = new Timer();
+		isActive = true;
 	}
 	
 	public void setup() {
@@ -95,28 +99,30 @@ public class JoinRoom extends Screen {
 		
 		joinButton = new GButton(surface, 300, 450, 200, 50, "Join!");
 		joinButton.setEnabled(false);
-		joinButton.setVisible(false);	
+		joinButton.setVisible(false);
+		
+		group = new GGroup(surface);
+		group.addControl(nameLabel);
+		group.addControl(nameField);
+		group.addControl(hostLabel);
+		group.addControl(hostField);
+		group.addControl(discoverButton);
+		group.addControl(joinButton);
+		
+		group.fadeOut(0, 0);
 	}
 	
 	public void draw() {
-		surface.background(255,100,0);
-		if (!disabled) {
-			nameLabel.setEnabled(true);
-			nameLabel.setVisible(true);
-			nameField.setEnabled(true);
-			nameField.setVisible(true);
-			hostLabel.setEnabled(true);
-			hostLabel.setVisible(true);
-			hostField.setEnabled(true);
-			hostField.setVisible(true);
-			joinButton.setEnabled(true);
-			joinButton.setVisible(true);
-			discoverButton.setEnabled(true);
-			discoverButton.setVisible(true);
+    	surface.background(255,100,0);
+		if (isActive) {
+			group.fadeIn(0, 0);
+			group.setEnabled(true);
+			group.setVisible(true);
 		}
 		
 
 	}
+
 
 	@Override
 	public void handleButtonEvents(GButton button, GEvent event) {
@@ -135,7 +141,7 @@ public class JoinRoom extends Screen {
 			}
 			
 			connect(hostField.getText());
-//			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
+			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
 //			while (opponentUsername == null) {
 //				continue;
 //			}
@@ -143,8 +149,12 @@ public class JoinRoom extends Screen {
 			surface.setPlayerUsername(nameField.getText());
 			surface.setOpponentUsername(opponentUsername);
 			disabled = true;
+			
+			isActive = false;
+			group.fadeOut(0, 0);
+			group.setEnabled(false);
 			surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
-			this.setup();
+			
 
 		
 			
