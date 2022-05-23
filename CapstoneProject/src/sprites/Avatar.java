@@ -32,6 +32,7 @@ public class Avatar extends Sprite {
 	private boolean onPlatform;
 	private int flagCaptures;
 	private int numDeaths;
+	private PImage paintGunImage;
 
 	/**
 	 * 
@@ -41,9 +42,10 @@ public class Avatar extends Sprite {
 	 * @param h     height of Avatar
 	 * @param color red/blue for one of the two characters in the game
 	 */
-	public Avatar(PImage image, int x, int y, int w, int h, Color color) {
-		super(image, x, y, w, h);
-		gun = new PaintGun(x + w, y + 150, w/4, h/2, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH * 2);
+	public Avatar(PImage avatarImage, PImage paintGunImage, int x, int y, int w, int h, Color color) {
+		super(avatarImage, x, y, w, h);
+		this.paintGunImage = paintGunImage;
+		gun = new PaintGun(paintGunImage, x + w, y + 150, w/4, h/2, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH * 2);
 
 		baseX = x;
 		baseY = y;
@@ -54,13 +56,16 @@ public class Avatar extends Sprite {
 		flagCaptures = 0;
 		numDeaths = 0;
 	}
+	
+	
 
 	/**
 	 * 
 	 * @param dir left, right
 	 */
 	public void walk(boolean right) {
-		x += xVel * scale * (right ? 1 : -1);
+		x += (xVel * scale * (right ? 1 : -1));
+		System.out.println(x);
 	}
 
 	/**
@@ -72,15 +77,17 @@ public class Avatar extends Sprite {
 		yVel -= 40;
 
 	}
+	
+	public void fall() {
+		yVel += GRAVITY;
+		y += yVel;
+	}
 
 	/**
 	 * 
 	 * @param gameObstacles the sprites to act on
 	 */
 	public void act(ArrayList<Sprite> gameObstacles) {
-		yVel += GRAVITY;
-		y += yVel * scale;
-
 		onPlatform = false;
 		for (Sprite sprite : gameObstacles) {
 			if (super.intersects(sprite)) {
@@ -143,7 +150,9 @@ public class Avatar extends Sprite {
 
 	public boolean onPaint(Platform p) {
 		for (PaintBlock block : p.getBorder()) {
-			if (intersects(block) && block.getColor() != null && getColor() != null
+			if (intersects(block) && block.getX() != p.getX() &&
+					block.getX()
+					!= p.getX() + p.getWidth() - PaintBlock.LENGTH && block.getColor() != null && getColor() != null
 					&& block.getColor().equals(getColor())) {
 				System.out.println("ON PAINT TRUE");
 				return true;
@@ -160,7 +169,6 @@ public class Avatar extends Sprite {
 		}
 		System.out.println(health);
 		if (health <= 0) {
-			health = 70;
 			respawn();
 			return true;
 		} else {
@@ -173,8 +181,9 @@ public class Avatar extends Sprite {
 	 * 
 	 */
 	public void respawn() {
+		health = 70;
 		super.moveToLocation(baseX, baseY);
-		gun = new PaintGun((int) (x + 200), (int) (y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH * 2);
+		gun = new PaintGun(paintGunImage,(int) (x + 200), (int) (y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH * 2);
 		numDeaths++;
 	}
 
@@ -212,11 +221,11 @@ public class Avatar extends Sprite {
 	}
 
 	public void boost() {
-		scale *= 2;
+		scale = 2;
 	}
 
 	public void undoSpeedBoost() {
-		scale /= 2;
+		scale = 1;
 	}
 
 	public boolean isBoosted() {
@@ -238,7 +247,7 @@ public class Avatar extends Sprite {
 	public void touchdown() {
 		flagCaptures++;
 		super.moveToLocation(baseX, baseY);
-		gun = new PaintGun((int) (x + 200), (int)(y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH * 2);
+		gun = new PaintGun(paintGunImage, (int) (x + 200), (int)(y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH * 2);
 	}
 
 	public int getNumDeaths() {

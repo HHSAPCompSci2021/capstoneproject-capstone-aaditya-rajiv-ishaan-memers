@@ -40,10 +40,16 @@ public class Game extends Screen implements NetworkListener {
 	private boolean flagTaken;
 	private int maxTime;
 	private Avatar activePlayer;
+
 	
 	private static final String messageTypeMove = "PLAYER_MOVEMENT";
 	private static final String messageTypeShoot = "SHOOT_BULLET";
 	private static final String messageTypeJump = "PLAYER_JUMP";
+	private static final String messageTypeFlagMovement = "FLAG_MOVEMENT";
+	private static final String messageTypePlatformPaint = "PLATFORM_PAINT";
+	private static final String messageTypeFlagCapture = "FLAG_CAPTURE";
+	private static final String  messageTypeFlagDropped = "FLAG_DROPPED";
+	private static final String messageTypePlayerKilled = "PLAYER_KILLED";
 	
 	
 	/**
@@ -59,9 +65,9 @@ public class Game extends Screen implements NetworkListener {
 
 	public void setup() {
 		String pre = surface.sketchPath();
-		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 100, 840, 200, 200, Color.RED);
+		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"),surface.loadImage(pre + "/" + "img/paintGunImage.png"), 100, 840, 200, 200, Color.RED);
 
-		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), 1300, 840, 200, 200, Color.BLUE);
+		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"),surface.loadImage(pre + "/" + "img/paintGunImage.png"), 1300, 840, 200, 200, Color.BLUE);
 
 		platforms = new ArrayList<Platform>();
 		bullets = new ArrayList<PaintBlock>();
@@ -112,10 +118,14 @@ public class Game extends Screen implements NetworkListener {
 			surface.switchScreen(ScreenSwitcher.WIN_SCREEN);
 		}
 		
+		
+		player1.fall();
+		player2.fall();
 		for(Platform p : platforms) {
 			ArrayList<PaintBlock> toRemove = new ArrayList<PaintBlock>();
 			for (PaintBlock bullet : bullets) {
 				p.paint(bullet);
+//				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypePlatformPaint, p, bullet.x, bullet.y, bullet.width, bullet.getColor());
 				if (p.contains(bullet)) {
 					toRemove.add(bullet);
 				}
@@ -124,13 +134,14 @@ public class Game extends Screen implements NetworkListener {
 			if (player1.onPaint(p)) {
 				System.out.println("BOOSTED");
 				player1.boost();
-			} else if (player1.isBoosted()) {
+			} 
+			else if (player1.intersects(p) && player1.isBoosted()) {
 				System.out.println("UNBOOSTED");
 				player1.undoSpeedBoost();
 			}
 			if (player2.onPaint(p)) {
 				player2.boost();
-			} else if (player2.isBoosted()){
+			} else if (player2.intersects(p) && player2.isBoosted()){
 				player2.undoSpeedBoost();
 			}
 			p.draw(surface);
@@ -166,16 +177,24 @@ public class Game extends Screen implements NetworkListener {
 			
 
 			if(b.intersects(player1) && b.getColor() != player1.getColor()) {
-				if(player1.loseHealth(player2) && !player1.hasFlag()) {
-					flagTaken = false;
+				if(player1.loseHealth(player2)) {
+					nm.sendMessage(NetworkDataObject.MESSAGE, messageTypePlayerKilled, 1);
+					if (!player1.hasFlag()) {
+						flagTaken = false;
+						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeFlagDropped);
+					}
 				}
 				
 				toRemove.add(b);
 			} 
 			
 			if(b.intersects(player2) && b.getColor() != player2.getColor()) {
-				if(player2.loseHealth(player1) && !player2.hasFlag()) {
-					flagTaken = false;
+				if(player2.loseHealth(player1)) {
+					nm.sendMessage(NetworkDataObject.MESSAGE, messageTypePlayerKilled, 2);
+					if (!player2.hasFlag()) {
+						flagTaken = false;
+						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeFlagDropped);
+					}
 				}
 				
 				toRemove.add(b);
@@ -188,9 +207,11 @@ public class Game extends Screen implements NetworkListener {
 		if (flag.intersects(player1)) {
 			player1.collectFlag();
 			flagTaken = true;
+			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeFlagCapture, "1");
 		} else if (flag.intersects(player2)){
 			player2.collectFlag();	
 			flagTaken = true;
+			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeFlagCapture, "2");
 		} 
 		
 		if(!flagTaken) {
@@ -204,6 +225,7 @@ public class Game extends Screen implements NetworkListener {
 					flag.draw(surface);
 				} else {
 					flag.draw(surface, (int)player1.x, (int)player1.y);
+//					nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeFlagMovement, flag.getX(), flag.getY());
 				}
 			} else {
 				if((Math.abs(player2.x - player2.getBase().x) < 100) && ((Math.abs(player2.y - player2.getBase().y) < 50))) {
@@ -213,6 +235,7 @@ public class Game extends Screen implements NetworkListener {
 					flag.draw(surface);
 				} else {
 					flag.draw(surface, (int)player2.x, (int)player2.y);
+//					nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeFlagMovement, flag.getX(), flag.getY());
 				}
 			}	
 		}
@@ -283,7 +306,22 @@ public class Game extends Screen implements NetworkListener {
 					}
 				} else if (ndo.message[0].equals(messageTypeJump)) {
 					player.jump();
-				}  else if (ndo.messageType.equals(NetworkDataObject.DISCONNECT)) {
+				} else if (ndo.message[0].equals(messageTypePlayerKilled)){
+					Avatar killed = (int) (ndo.message[1]) == 1 ? player1 : player2;
+					killed.respawn();
+				} else if (ndo.message[0].equals(messageTypeFlagDropped)){
+					flagTaken = false;
+				} else if (ndo.message[0].equals(messageTypeFlagMovement)) {
+					flag.draw(surface, (int) ndo.message[1], (int) ndo.message[2]);
+				}  else if (ndo.message[0].equals(messageTypePlatformPaint)) {
+					for (Platform p : platforms) {
+						if (((Platform) ndo.message[1]).equals(p)) {
+							PaintBlock block = new PaintBlock((int) ndo.message[2], (int) ndo.message[3], (int) ndo.message[4]);
+							block.fill((Color) ndo.message[5]);
+							p.paint(block);
+						}
+					}
+				} else if (ndo.messageType.equals(NetworkDataObject.DISCONNECT)) {
 						this.setup();
 						surface.switchScreen(ScreenSwitcher.WIN_SCREEN);
 						
