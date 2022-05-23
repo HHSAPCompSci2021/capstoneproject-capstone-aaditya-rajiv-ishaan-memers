@@ -60,7 +60,8 @@ public class Avatar extends Sprite {
 	 * @param dir left, right
 	 */
 	public void walk(boolean right) {
-		x += xVel * scale * (right ? 1 : -1);
+		x += (xVel * scale * (right ? 1 : -1));
+		System.out.println(x);
 	}
 
 	/**

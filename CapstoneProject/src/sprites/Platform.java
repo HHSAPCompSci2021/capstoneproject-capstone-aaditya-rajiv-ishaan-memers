@@ -85,5 +85,9 @@ public class Platform extends Sprite {
 	public ArrayList<PaintBlock> getBorder() {
 		return border;
 	}
+	
+	public boolean equals(Platform other) {
+		return (x == other.getX() && y == other.getY() && width == other.getWidth() && height == other.getHeight());
+	}
 
 }

@@ -40,7 +40,7 @@ public class CreateRoom extends Screen {
 
 	private String opponentUsername;
 
-	private boolean disabled;
+	private boolean disabled = false;
 		
 
 
@@ -58,6 +58,7 @@ public class CreateRoom extends Screen {
 	
 	
 	public void setup() {
+		System.out.println("IN SETUP");
 		nameLabel = new GLabel(surface, 300, 125, 200, 25);
 		nameLabel.setAlpha(190);
 		nameLabel.setTextAlign(GAlign.CENTER, null);
@@ -96,6 +97,7 @@ public class CreateRoom extends Screen {
 	public void draw() {
 		surface.background(255,100,0);
 		if (!disabled) {
+			System.out.println("ENABLING BUTTONS");
 			nameLabel.setEnabled(true);
 			nameLabel.setVisible(true);
 			nameField.setEnabled(true);
@@ -106,6 +108,17 @@ public class CreateRoom extends Screen {
 			slider.setVisible(true);
 			createButton.setEnabled(true);
 			createButton.setVisible(true);
+		} else {
+			nameLabel.setEnabled(false);
+			nameLabel.setVisible(false);
+			nameField.setEnabled(false);
+			nameField.setVisible(true);
+			sliderLabel.setEnabled(false);
+			sliderLabel.setVisible(false);
+			slider.setEnabled(false);
+			slider.setVisible(true);
+			createButton.setEnabled(false);
+			createButton.setVisible(false);
 		}
 		
 	}
@@ -144,6 +157,7 @@ public class CreateRoom extends Screen {
 			surface.setOpponentUsername(opponentUsername);
 			disabled = true;
 			surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
+			System.out.println("CALLING SETUP");
 			this.setup();
 
 		
