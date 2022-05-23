@@ -6,6 +6,7 @@ import java.awt.geom.Point2D;
 
 
 import processing.core.PApplet;
+import processing.core.PImage;
 /** Gun that can shoot which the player has
 	@author Rajiv Venkatesh, Aaditya Raj, Ishaan Singh
 	@version 2
@@ -26,6 +27,8 @@ public class PaintGun extends Sprite {
 	 * @param vel the muzzle velocity of bullets from this gun
 	 * @param str the size of "splotches" on the ground from this
 	 */
+	
+	
 	public PaintGun(int x, int y, int width, int height, int capacity, int vel, int strokeLength) {
 		super(x, y, width, height);
 		this.maxAmmo = capacity;
