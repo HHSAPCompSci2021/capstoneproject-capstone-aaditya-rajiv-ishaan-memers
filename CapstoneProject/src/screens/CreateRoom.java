@@ -120,14 +120,18 @@ public class CreateRoom extends Screen {
 			ss.setMaxConnections(2);
 			ss.waitForConnections(TCP_PORT);
 			System.out.println("\nTCP server running on " + TCP_PORT);
+			if (DrawingSurface.discover != null) {
+				DrawingSurface.discover.setDiscoverable(true);
+			}
+			
 			connect(myIP);
 			while (ss.getConnectedHosts().length != 2) {
-				System.out.println("FINDING OPPONENT");
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+//				System.out.println("FINDING OPPONENT");
+//				try {
+//					Thread.sleep(1000);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
 				continue;
 			}
 			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
