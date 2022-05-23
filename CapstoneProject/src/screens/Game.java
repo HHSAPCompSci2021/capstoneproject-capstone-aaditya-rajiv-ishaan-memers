@@ -46,6 +46,7 @@ public class Game extends Screen implements NetworkListener {
 	private static final String messageTypeJump = "PLAYER_JUMP";
 	private static final String messageTypeFlagMovement = "FLAG_MOVEMENT";
 	private static final String messageTypePlatformPaint = "PLATFORM_PAINT";
+	private static final Object messageTypeFlagCapture = "FLAG_CAPTURE";
 	
 	
 	/**
@@ -195,9 +196,11 @@ public class Game extends Screen implements NetworkListener {
 		if (flag.intersects(player1)) {
 			player1.collectFlag();
 			flagTaken = true;
+			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeFlagCapture, "1");
 		} else if (flag.intersects(player2)){
 			player2.collectFlag();	
 			flagTaken = true;
+			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeFlagCapture, "2");
 		} 
 		
 		if(!flagTaken) {
@@ -235,18 +238,18 @@ public class Game extends Screen implements NetworkListener {
 		
 		if (surface.isPressed(KeyEvent.VK_A)) {
 			activePlayer.walk(false);
-//			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeMove, activePlayer.getX(), activePlayer.getY()});
+			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeMove, activePlayer.getX(), activePlayer.getY()});
 		}
 		
 		if (surface.isPressed(KeyEvent.VK_D)) {
 			activePlayer.walk(true);			
-//			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeMove, activePlayer.getX(), activePlayer.getY()});
+			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeMove, activePlayer.getX(), activePlayer.getY()});
 		}
 			
 		if (surface.isPressed(KeyEvent.VK_W)) {
 			if (activePlayer.onPlatform()) {
 				activePlayer.jump();
-//				nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeJump});
+				nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeJump});
 			}
 		}
 		
@@ -320,7 +323,7 @@ public class Game extends Screen implements NetworkListener {
 		PaintBlock bullet = activePlayer.shoot(new Point2D.Double(mouseX, mouseY));
 		if (bullet != null) {
 			bullets.add(bullet);
-//			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeShoot, (double) mouseX, (double) mouseY});
+			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeShoot, (double) mouseX, (double) mouseY});
 		}
 	}
 	
