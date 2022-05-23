@@ -24,7 +24,7 @@ public class Flag extends PaintGun {
 	 * @param height The height of the flag.
 	 */
 	public Flag(int x, int y, int width, int height) {
-		super(x, y, width, height, capacity, vel, str);
+		super(null, x, y, width, height, capacity, vel, str);
 		baseX = x;
 		baseY = y;
 	}

@@ -29,8 +29,8 @@ public class PaintGun extends Sprite {
 	 */
 	
 	
-	public PaintGun(int x, int y, int width, int height, int capacity, int vel, int strokeLength) {
-		super(x, y, width, height);
+	public PaintGun(PImage image, int x, int y, int width, int height, int capacity, int vel, int strokeLength) {
+		super(image, x, y, width, height);
 		this.maxAmmo = capacity;
 		this.ammo = capacity;
 		this.velocity = vel;
