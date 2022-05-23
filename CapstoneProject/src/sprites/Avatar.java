@@ -73,15 +73,17 @@ public class Avatar extends Sprite {
 		yVel -= 40;
 
 	}
+	
+	public void fall() {
+		yVel += GRAVITY;
+		y += yVel;
+	}
 
 	/**
 	 * 
 	 * @param gameObstacles the sprites to act on
 	 */
 	public void act(ArrayList<Sprite> gameObstacles) {
-		yVel += GRAVITY;
-		y += yVel * scale;
-
 		onPlatform = false;
 		for (Sprite sprite : gameObstacles) {
 			if (super.intersects(sprite)) {
@@ -144,7 +146,9 @@ public class Avatar extends Sprite {
 
 	public boolean onPaint(Platform p) {
 		for (PaintBlock block : p.getBorder()) {
-			if (intersects(block) && block.getColor() != null && getColor() != null
+			if (intersects(block) && block.getX() != p.getX() &&
+					block.getX()
+					!= p.getX() + p.getWidth() - PaintBlock.LENGTH && block.getColor() != null && getColor() != null
 					&& block.getColor().equals(getColor())) {
 				System.out.println("ON PAINT TRUE");
 				return true;
@@ -213,11 +217,11 @@ public class Avatar extends Sprite {
 	}
 
 	public void boost() {
-		scale *= 2;
+		scale = 2;
 	}
 
 	public void undoSpeedBoost() {
-		scale /= 2;
+		scale = 1;
 	}
 
 	public boolean isBoosted() {
