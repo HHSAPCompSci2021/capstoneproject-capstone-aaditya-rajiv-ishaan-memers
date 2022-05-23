@@ -47,7 +47,9 @@ public class Game extends Screen implements NetworkListener {
 	private static final String messageTypeJump = "PLAYER_JUMP";
 	private static final String messageTypeFlagMovement = "FLAG_MOVEMENT";
 	private static final String messageTypePlatformPaint = "PLATFORM_PAINT";
-	private static final Object messageTypeFlagCapture = "FLAG_CAPTURE";
+	private static final String messageTypeFlagCapture = "FLAG_CAPTURE";
+	private static final String  messageTypeFlagDropped = "FLAG_DROPPED";
+	private static final String messageTypePlayerKilled = "PLAYER_KILLED";
 	
 	
 	/**
@@ -175,16 +177,24 @@ public class Game extends Screen implements NetworkListener {
 			
 
 			if(b.intersects(player1) && b.getColor() != player1.getColor()) {
-				if(player1.loseHealth(player2) && !player1.hasFlag()) {
-					flagTaken = false;
+				if(player1.loseHealth(player2)) {
+					nm.sendMessage(NetworkDataObject.MESSAGE, messageTypePlayerKilled, 1);
+					if (!player1.hasFlag()) {
+						flagTaken = false;
+						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeFlagDropped);
+					}
 				}
 				
 				toRemove.add(b);
 			} 
 			
 			if(b.intersects(player2) && b.getColor() != player2.getColor()) {
-				if(player2.loseHealth(player1) && !player2.hasFlag()) {
-					flagTaken = false;
+				if(player2.loseHealth(player1)) {
+					nm.sendMessage(NetworkDataObject.MESSAGE, messageTypePlayerKilled, 2);
+					if (!player2.hasFlag()) {
+						flagTaken = false;
+						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeFlagDropped);
+					}
 				}
 				
 				toRemove.add(b);
@@ -296,6 +306,11 @@ public class Game extends Screen implements NetworkListener {
 					}
 				} else if (ndo.message[0].equals(messageTypeJump)) {
 					player.jump();
+				} else if (ndo.message[0].equals(messageTypePlayerKilled)){
+					Avatar killed = (int) (ndo.message[1]) == 1 ? player1 : player2;
+					killed.respawn();
+				} else if (ndo.message[0].equals(messageTypeFlagDropped)){
+					flagTaken = false;
 				} else if (ndo.message[0].equals(messageTypeFlagMovement)) {
 					flag.draw(surface, (int) ndo.message[1], (int) ndo.message[2]);
 				}  else if (ndo.message[0].equals(messageTypePlatformPaint)) {
