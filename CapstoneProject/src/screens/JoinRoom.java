@@ -141,7 +141,7 @@ public class JoinRoom extends Screen {
 			}
 			
 			connect(hostField.getText());
-			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
+//			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
 //			while (opponentUsername == null) {
 //				continue;
 //			}
