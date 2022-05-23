@@ -50,7 +50,6 @@ public class Game extends Screen implements NetworkListener {
 	private static final String messageTypeFlagCapture = "FLAG_CAPTURE";
 	private static final String  messageTypeFlagDropped = "FLAG_DROPPED";
 	private static final String messageTypePlayerKilled = "PLAYER_KILLED";
-	private static final String messageTypeTouchdown = "TOUCHDOWN";
 	
 	
 	/**
@@ -223,7 +222,6 @@ public class Game extends Screen implements NetworkListener {
 					flagTaken = false;
 					flag.reset();
 					player1.touchdown();
-					nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeTouchdown, 1);
 					flag.draw(surface);
 				} else {
 					flag.draw(surface, (int)player1.x, (int)player1.y);
@@ -234,7 +232,6 @@ public class Game extends Screen implements NetworkListener {
 					flagTaken = false;
 					player2.touchdown();
 					flag.reset();
-					nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeTouchdown, 1);
 					flag.draw(surface);
 				} else {
 					flag.draw(surface, (int)player2.x, (int)player2.y);
@@ -314,11 +311,6 @@ public class Game extends Screen implements NetworkListener {
 					killed.respawn();
 				} else if (ndo.message[0].equals(messageTypeFlagDropped)){
 					flagTaken = false;
-				} else if (ndo.message[0].equals(messageTypeTouchdown)){
-					Avatar winning = (int) (ndo.message[1]) == 1 ? player1 : player2;
-					flagTaken = false;
-					flag.reset();
-					winning.touchdown();
 				} else if (ndo.message[0].equals(messageTypeFlagMovement)) {
 					flag.draw(surface, (int) ndo.message[1], (int) ndo.message[2]);
 				}  else if (ndo.message[0].equals(messageTypePlatformPaint)) {
