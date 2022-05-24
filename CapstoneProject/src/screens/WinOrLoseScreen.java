@@ -24,7 +24,7 @@ public class WinOrLoseScreen extends Screen {
 		if (playerScore > opponentScore) {
 			surface.image(surface.loadImage("img/victory.png"), 0, 0);
 		} else if (opponentScore > playerScore) {
-			surface.image(surface.loadImage("img/loseScreen.png"), 0, 0);
+			surface.image(surface.loadImage("img/loseScreen.jpg"), 0, 0);
 		}
 		else 
 			surface.image(surface.loadImage("img/tieScreen.png"), 0, 0);
