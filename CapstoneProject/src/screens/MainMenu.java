@@ -68,8 +68,6 @@ public class MainMenu extends Screen {
 			surface.switchScreen(ScreenSwitcher.CREATE_ROOM);
 		} else if (button2.contains(p)) {
 			surface.switchScreen(ScreenSwitcher.JOIN_ROOM);
-		} else if (button3.contains(p)) {
-			surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
 		}
 	}
 
