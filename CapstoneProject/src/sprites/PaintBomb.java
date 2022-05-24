@@ -32,11 +32,11 @@ public class PaintBomb extends PaintBlock {
 	 */
 	public ArrayList<PaintBlock> blowUp() {
 		ArrayList<PaintBlock> blocks = new ArrayList<PaintBlock>();
-		for (int angle = 0; angle < 360; angle += 45) {
+		for (int angle = 0; angle < 360; angle += 36) {
 			double x = RADIUS * Math.cos(Math.toRadians(angle)) + getCenterX();
 			double y = RADIUS * Math.sin(Math.toRadians(angle)) + getCenterY();
 			PaintBlock bullet = new PaintBlock((int) getCenterX(), (int) getCenterY(), getColor(),
-					PaintBlock.LENGTH, PaintBlock.VELOCITY, new Point2D.Double(x, y));
+					PaintBlock.LENGTH * 2, PaintBlock.VELOCITY, new Point2D.Double(x, y));
 			blocks.add(bullet);
 		}
 		return blocks;
