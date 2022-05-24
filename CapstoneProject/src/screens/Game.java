@@ -107,11 +107,6 @@ public class Game extends Screen {
 	}
 
 	public void draw() {
-		if (!usernameSent) {
-			System.out.println(nm);
-			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeUsername, surface.playerUsername);
-			usernameSent = true;
-		}
 		surface.image(surface.loadImage("img/background.png"), 1, 0);
 		
 		int player1Score = 0;
@@ -289,6 +284,12 @@ public class Game extends Screen {
 		player1.draw(surface, (activePlayer == player1 ? surface.playerUsername : surface.opponentUsername));
 		
 		player2.draw(surface, (activePlayer == player2 ? surface.playerUsername : surface.opponentUsername));
+		
+		if (!usernameSent) {
+			System.out.println(nm);
+			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeUsername, surface.playerUsername);
+			usernameSent = true;
+		}
 		
 		processNetworkMessages();
 
