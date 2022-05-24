@@ -128,6 +128,7 @@ public class Game extends Screen implements NetworkListener {
 				if (bullet instanceof PaintBomb && p.intersects(bullet)) {
 					PaintBomb bomb = (PaintBomb) bullet;
 					ArrayList<PaintBlock> bombBullets = bomb.blowUp();
+					toRemove.add(bomb);
 					toAdd.addAll(bombBullets);
 				}
 				if (p.contains(bullet)) {
