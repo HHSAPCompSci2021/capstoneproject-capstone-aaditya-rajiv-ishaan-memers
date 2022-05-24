@@ -102,7 +102,7 @@ public class Game extends Screen {
 		
 		flagTaken = false;
 		timer = 0;
-		maxTime = 14400;
+		maxTime = 250;
 		
 	}
 
