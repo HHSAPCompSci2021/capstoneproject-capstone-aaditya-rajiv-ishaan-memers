@@ -1,4 +1,7 @@
 package screens;
+/**
+ * @author Ishaan Singh
+ */
 
 import core.DrawingSurface;
 import g4p_controls.GButton;

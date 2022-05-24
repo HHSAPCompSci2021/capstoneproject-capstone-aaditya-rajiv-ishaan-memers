@@ -133,7 +133,7 @@ public class JoinRoom extends Screen {
 		// TODO Auto-generated method stub
 		
 		System.out.println("event running");
-		if (button == joinButton && event == GEvent.CLICKED && !nameField.getText().isEmpty() && !nameField.getText().contains(" ") && !hostField.getText().isEmpty() && !hostField.getText().contains(" ")) {			
+		if (button == joinButton && event == GEvent.CLICKED && !nameField.getText().trim().isEmpty() && !hostField.getText().trim().isEmpty()) {			
 			System.out.println(nameField.getText());
 			System.out.println("button clicked");
 			try {

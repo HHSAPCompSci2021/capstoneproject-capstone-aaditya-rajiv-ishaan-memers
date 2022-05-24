@@ -97,7 +97,7 @@ public class CreateRoom extends Screen {
 	public void handleButtonEvents(GButton button, GEvent event) {
 		// Create the control window?
 		System.out.println("event running");
-		if (button == createButton && event == GEvent.CLICKED && nameField.getText().length() > 0 && !nameField.getText().contains(" ")) {			
+		if (button == createButton && event == GEvent.CLICKED && !nameField.getText().trim().isEmpty()) {			
 			System.out.println("button clicked");
 			try {
 				myIP = InetAddress.getLocalHost();
