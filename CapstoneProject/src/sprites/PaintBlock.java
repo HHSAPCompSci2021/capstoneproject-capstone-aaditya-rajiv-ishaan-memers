@@ -23,7 +23,7 @@ public class PaintBlock extends Sprite {
 	 * @param velocity the velocity 
 	 * @param mouseClick the location
 	 */
-	public PaintBlock(int x, int y, double maxAngle, Color c, int length, double velocity, Point2D mouseClick) {
+	public PaintBlock(int x, int y, Color c, int length, double velocity, Point2D mouseClick) {
 		super(x, y, length, length);
 		this.c = c;
 		
@@ -84,6 +84,10 @@ public class PaintBlock extends Sprite {
 	public double getStroke() {
 		// TODO Auto-generated method stub
 		return width;
+	}
+	
+	public double[] getVelocities() {
+		return new double[] {xVel, yVel};
 	}
 	
 	
