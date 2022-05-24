@@ -44,7 +44,6 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 	
 	public static PeerDiscovery discover;
 	
-	public String pre = sketchPath();
 
 
 	
