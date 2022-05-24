@@ -59,22 +59,22 @@ public class CreateRoom extends Screen {
 	
 	
 	public void setup() {
-		nameLabel = new GLabel(surface, 300, 125, 200, 25);
+		nameLabel = new GLabel(surface, 300, 75, 200, 25);
 		nameLabel.setAlpha(190);
 		nameLabel.setTextAlign(GAlign.CENTER, null);
 		nameLabel.setOpaque(true);
 		nameLabel.setText("Enter Username!");
 		
-		nameField = new GTextField(surface, 300, 175, 200, 50);
+		nameField = new GTextField(surface, 300, 125, 200, 50);
 		nameField.setPromptText("Enter Username...");
 		
-		sliderLabel = new GLabel(surface, 300, 275, 200, 25);
+		sliderLabel = new GLabel(surface, 300, 225, 200, 25);
 		sliderLabel.setAlpha(190);
 		sliderLabel.setTextAlign(GAlign.CENTER, null);
 		sliderLabel.setOpaque(true);
 		sliderLabel.setText("Enter Time Limit!");
 		
-		slider = new GCustomSlider(surface, 250, 300, 300, 50, null);
+		slider = new GCustomSlider(surface, 250, 250, 300, 50, null);
 		// show          opaque  ticks value limits
 		slider.setShowDecor(false, true, false, false);
 		slider.setNumberFormat(GCustomSlider.DECIMAL, 2);
@@ -82,7 +82,7 @@ public class CreateRoom extends Screen {
 		slider.setNbrTicks(20);
 		slider.setStickToTicks(true);  //false by default 		// show          opaque  ticks value limits
 		
-		createButton = new GButton(surface, 300, 400, 200, 100, "Create Room");
+		createButton = new GButton(surface, 300, 350, 200, 100, "Create Room");
 		
 		group = new GGroup(surface);
 		group.addControl(nameLabel);
@@ -95,7 +95,8 @@ public class CreateRoom extends Screen {
 	}
 	
 	public void draw() {
-		surface.background(255,100,0);
+		surface.image(surface.loadImage("img/background.png"), 1, 0);
+
 		if(isActive) {
 			group.fadeIn(0, 0);
 			group.setEnabled(true);

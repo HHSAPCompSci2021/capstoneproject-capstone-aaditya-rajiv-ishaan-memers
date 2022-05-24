@@ -66,7 +66,7 @@ public class JoinRoom extends Screen {
 	}
 	
 	public void setup() {
-		nameLabel = new GLabel(surface, 300, 125, 200, 25);
+		nameLabel = new GLabel(surface, 300, 75, 200, 25);
 		nameLabel.setAlpha(190);
 		nameLabel.setTextAlign(GAlign.CENTER, null);
 		nameLabel.setOpaque(true);
@@ -74,12 +74,12 @@ public class JoinRoom extends Screen {
 		nameLabel.setEnabled(false);
 		nameLabel.setVisible(false);
 		
-		nameField = new GTextField(surface, 300, 175, 200, 50);
+		nameField = new GTextField(surface, 300, 125, 200, 50);
 		nameField.setPromptText("Enter Username...");
 		nameField.setEnabled(false);
 		nameField.setVisible(false);
 		
-		hostLabel = new GLabel(surface, 300, 275, 200, 25);
+		hostLabel = new GLabel(surface, 300, 225, 200, 25);
 		hostLabel.setAlpha(190);
 		hostLabel.setTextAlign(GAlign.CENTER, null);
 		hostLabel.setOpaque(true);
@@ -87,17 +87,17 @@ public class JoinRoom extends Screen {
 		hostLabel.setEnabled(false);
 		hostLabel.setVisible(false);
 		
-		hostField = new GTextField(surface, 300, 325, 200, 50);
+		hostField = new GTextField(surface, 300, 275, 200, 50);
 		hostField.setPromptText("Enter IP Address...");
 		hostField.setEnabled(false);
 		hostField.setVisible(false);
 		
 		
-		discoverButton = new GButton(surface, 300, 400, 200, 50, "Discover!");
+		discoverButton = new GButton(surface, 300, 350, 200, 50, "Discover!");
 		discoverButton.setEnabled(false);
 		discoverButton.setVisible(false);
 		
-		joinButton = new GButton(surface, 300, 450, 200, 50, "Join!");
+		joinButton = new GButton(surface, 300, 400, 200, 50, "Join!");
 		joinButton.setEnabled(false);
 		joinButton.setVisible(false);
 		
@@ -113,7 +113,7 @@ public class JoinRoom extends Screen {
 	}
 	
 	public void draw() {
-    	surface.background(255,100,0);
+		surface.image(surface.loadImage("img/background.png"), 1, 0);
 		if (isActive) {
 			group.fadeIn(0, 0);
 			group.setEnabled(true);
