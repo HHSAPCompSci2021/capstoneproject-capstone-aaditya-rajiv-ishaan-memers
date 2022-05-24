@@ -180,6 +180,8 @@ public class JoinRoom extends Screen {
 			findingIP = true;
 			if (DrawingSurface.discover.getPeers().length > 0) {
 				JOptionPane.showMessageDialog(null, DrawingSurface.discover.getPeers()[0].getHostAddress());
+			} else {
+				JOptionPane.showMessageDialog(null, "Sorry, no hosts found!");
 			}
 		}
 	}
