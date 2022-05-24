@@ -86,15 +86,12 @@ public class Game extends Screen implements NetworkListener {
 		
 		platforms.add(new Platform(950, 500, 100 , 50));
 
-		
 		platforms.add(new Platform(0, 675, 250, 50));
 		
 		platforms.add(new Platform(600, 750, 350, 50));
 		
 		platforms.add(new Platform(1350, 675, 250, 50));
 
-		
-		
 		boundaries.add(new Platform(0, 0, 1600, 1));
 		boundaries.add(new Platform (0,1040,1600,1));
 		boundaries.add(new Platform (0, 0, 1, 1200));
@@ -238,7 +235,6 @@ public class Game extends Screen implements NetworkListener {
 			} else {
 				if((Math.abs(player2.x - player2.getBase().x) < 100) && ((Math.abs(player2.y - player2.getBase().y) < 50))) {
 					flagTaken = false;
-					player2.touchdown();
 					flag.reset();
 					nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeTouchdown, 2});
 					flag.draw(surface);
@@ -256,17 +252,17 @@ public class Game extends Screen implements NetworkListener {
 		
 		player2Score -= (player2.getNumDeaths() * 200);
 		
-		if (surface.isPressed(KeyEvent.VK_A)) {
+		if (surface.isPressed(KeyEvent.VK_LEFT)) {
 			activePlayer.walk(false);
 			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeMove, activePlayer.getX(), activePlayer.getY()});
 		}
 		
-		if (surface.isPressed(KeyEvent.VK_D)) {
+		if (surface.isPressed(KeyEvent.VK_RIGHT)) {
 			activePlayer.walk(true);			
 			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeMove, activePlayer.getX(), activePlayer.getY()});
 		}
 			
-		if (surface.isPressed(KeyEvent.VK_W)) {
+		if (surface.isPressed(KeyEvent.VK_UP)) {
 			if (activePlayer.onPlatform()) {
 				activePlayer.jump();
 				nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeJump});
