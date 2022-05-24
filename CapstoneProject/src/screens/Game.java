@@ -269,15 +269,6 @@ public class Game extends Screen implements NetworkListener {
 			}
 		}
 		
-		if (surface.isPressed(KeyEvent.VK_B)) {
-			if (activePlayer.canThrowBomb()) {
-				double x = surface.mouseX;
-				double y = surface.mouseY;
-				bullets.add(activePlayer.throwBomb(new Point2D.Double(x, y)));
-				nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeBombThrow, x, y});
-			}
-		}
-		
 	
 		surface.push();
 		surface.fill(Color.WHITE.getRGB());
@@ -331,7 +322,10 @@ public class Game extends Screen implements NetworkListener {
 					flag.reset();
 					winning.touchdown();
 				} else if (ndo.message[0].equals(messageTypeBombThrow)) {
-					player.throwBomb(new Point2D.Double((double) ndo.message[1], (double) ndo.message[2]));
+					PaintBlock bullet = player.throwBomb(new Point2D.Double((double) ndo.message[1], (double) ndo.message[2]));
+					if (bullet != null) {
+						bullets.add(bullet);
+					}
 				} else if (ndo.message[0].equals(messageTypeFlagMovement)) {
 					flag.draw(surface, (int) ndo.message[1], (int) ndo.message[2]);
 				}  else if (ndo.message[0].equals(messageTypePlatformPaint)) {
@@ -357,11 +351,21 @@ public class Game extends Screen implements NetworkListener {
 	
 
 	public void mousePressed(int mouseX, int mouseY) {
-		PaintBlock bullet = activePlayer.shoot(new Point2D.Double(mouseX, mouseY));
-		if (bullet != null) {
-			bullets.add(bullet);
-			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeShoot, (double) mouseX, (double) mouseY});
+		PaintBlock bullet;
+		if (!activePlayer.canThrowBomb()) {
+			bullet = activePlayer.shoot(new Point2D.Double(mouseX, mouseY));
+			if (bullet != null) {
+				bullets.add(bullet);
+				nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeShoot, (double) mouseX, (double) mouseY});
+			}
+		} else {
+			bullet = activePlayer.throwBomb(new Point2D.Double(mouseX, mouseY));
+			if (bullet != null) {
+				bullets.add(bullet);
+				nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeBombThrow, (double) mouseX, (double) mouseY});
+			}
 		}
+		
 	}
 	
 	
