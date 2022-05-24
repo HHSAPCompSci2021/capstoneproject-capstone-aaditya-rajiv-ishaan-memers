@@ -77,11 +77,11 @@ public class CreateRoom extends Screen {
 		slider = new GCustomSlider(surface, 250, 250, 300, 50, null);
 		// show          opaque  ticks value limits
 		slider.setShowDecor(false, true, false, false);
-		slider.setNumberFormat(GCustomSlider.DECIMAL, 2);
-		slider.setLimits(0.5f, 0.5f, 10.0f);
+		slider.setNumberFormat(GCustomSlider.INTEGER, 2);
+		slider.setLimits(6000, 0, 12000);
 		slider.setNbrTicks(20);
 		slider.setStickToTicks(true);  //false by default 		// show          opaque  ticks value limits
-		slider.getValueI();
+		surface.setTimeLimit(slider.getValueI());
 		
 		createButton = new GButton(surface, 300, 350, 200, 100, "Create Room");
 		
