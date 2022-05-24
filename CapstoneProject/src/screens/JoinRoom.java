@@ -152,10 +152,9 @@ public class JoinRoom extends Screen {
 			surface.setPerspective(surface.RIGHT_SIDE);
 			surface.setPlayerUsername(nameField.getText());
 			surface.setOpponentUsername(opponentUsername);
-			
+
 			
 			isActive = false;
-			group.fadeOut(0, 0);
 			group.setEnabled(false);
 			surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
 			
