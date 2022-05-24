@@ -232,45 +232,80 @@ public class Avatar extends Sprite {
 		return playerColor;
 	}
 
+	/** Collects the flag
+	 * the player now has the flag as a gun
+	 */
 	public void collectFlag() {
 		gun = Game.flag;
 	}
 
+	/** Increases the speed when this avatar passes over their color of paint
+	 * 
+	 */
 	public void boost() {
 		scale = 2;
 	}
 
+	/** Decreases speed when the player is no longer over their own color
+	 * 
+	 */
 	public void undoSpeedBoost() {
 		scale = 1;
 	}
 
+	/** checks if the player is being boosted
+	 * 
+	 * @return whether the boost is in effect
+	 */
 	public boolean isBoosted() {
 		return (scale == 2);
 	}
 
+	/** Flag check
+	 *  
+	 * @return whether or not this player has the flag
+	 */
 	public boolean hasFlag() {
 		return (gun instanceof Flag);
 	}
 
+	/** Gets the base
+	 * 
+	 * @return the location of the base
+	 */
 	public Point getBase() {
 		return new Point(baseX, baseY);
 	}
 
+	/** Gets the num of captures
+	 * 
+	 * @return the number of captures
+	 */
 	public int getCaptures() {
 		return flagCaptures;
 	}
 
+	/** Called when the player brings the flag back to their base
+	 * 
+	 */
 	public void touchdown() {
 		flagCaptures++;
 		super.moveToLocation(baseX, baseY);
 		gun = new PaintGun(paintGunImage, (int) (x + 200), (int)(y + 150), 50, 100, 5, PaintBlock.VELOCITY, PaintBlock.LENGTH * 2);
 	}
 
+	/** Gets the number of deaths
+	 * 
+	 * @return the num of deaths
+	 */
 	public int getNumDeaths() {
 		return numDeaths;
 	}
 
-
+	/** Gets this player's bomb
+	 * 
+	 * @return the PaintBomb held by this player
+	 */
 	public PaintBomb getBomb() {
 		return bomb;
 	}

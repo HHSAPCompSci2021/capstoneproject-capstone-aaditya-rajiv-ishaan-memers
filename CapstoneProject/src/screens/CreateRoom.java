@@ -164,6 +164,9 @@ public class CreateRoom extends Screen {
 		}
 	}
 	
+	/** Disconnect from server
+	 * 
+	 */
 	private void disconnect() {
 		if (sc != null) {
 			sc.disconnect();
@@ -172,7 +175,10 @@ public class CreateRoom extends Screen {
 	}
 	
 	
-	
+	/** Connect to server
+	 * 
+	 * @param host server to connect to
+	 */
 	private void connect(InetAddress host) {
 		if (host != null) {
 			disconnect();

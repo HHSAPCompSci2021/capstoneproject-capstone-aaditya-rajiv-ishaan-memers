@@ -211,6 +211,9 @@ public class JoinRoom extends Screen {
 		}
 	}
 	
+	/** Disconnect from server
+	 * 
+	 */
 	private void disconnect() {
 		if (sc != null) {
 			sc.disconnect();
@@ -218,6 +221,9 @@ public class JoinRoom extends Screen {
 		}
 	}
 	
+	/** connect to server
+	 * @param host the hostto connect to
+	 */
 	private void connect(String host) {
 		InetAddressValidator validator = InetAddressValidator.getInstance();
 		if (validator.isValid(host)) {
@@ -234,6 +240,9 @@ public class JoinRoom extends Screen {
 		
 	}
 	
+	/** connect to server
+	 * @param host the hostto connect to
+	 */
 	private void connect(InetAddress host) {
 		if (host != null) {
 			disconnect();

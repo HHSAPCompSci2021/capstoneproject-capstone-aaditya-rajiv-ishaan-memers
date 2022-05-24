@@ -29,6 +29,12 @@ public class Flag extends PaintGun {
 		baseY = y;
 	}
 	
+	/** other draw method so that Flag follows player who has it 
+	 * 
+	 * @param drawer the drawing surface
+	 * @param x the x-coord of the player
+	 * @param y the y-coord of the player
+	 */
 	public void draw(PApplet drawer, int x, int y) {
 		super.moveToLocation(x, y);
 		this.draw(drawer);
@@ -42,6 +48,9 @@ public class Flag extends PaintGun {
 				(float) (6*width/7d), (float) (height/2d));
 	}
 	
+	/** Resets the flag back to the set location without changing anything lse
+	 * 
+	 */
 	public void reset() {
 		super.x = baseX;
 		super.y = baseY;
