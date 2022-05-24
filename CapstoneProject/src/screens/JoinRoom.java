@@ -52,7 +52,6 @@ public class JoinRoom extends Screen {
 
 	private Timer refreshTimer;
 
-	private boolean disabled;
 
 
 
@@ -148,7 +147,6 @@ public class JoinRoom extends Screen {
 			surface.setPerspective(surface.RIGHT_SIDE);
 			surface.setPlayerUsername(nameField.getText());
 			surface.setOpponentUsername(opponentUsername);
-			disabled = true;
 			
 			isActive = false;
 			group.fadeOut(0, 0);
