@@ -19,7 +19,7 @@ import screens.JoinRoom;
 import screens.MainMenu;
 import screens.Screen;
 import screens.ScreenSwitcher;
-import screens.WinScreen;
+import screens.WinOrLoseScreen;
 
 public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkListener {
 
@@ -67,7 +67,7 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 		Game screen4 = new Game(this);
 		screens.add(screen4);
 		
-		WinScreen screen5 = new WinScreen(this);
+		WinOrLoseScreen screen5 = new WinOrLoseScreen(this);
 		screens.add(screen5);
 		
 		activeScreen = screens.get(0);
@@ -147,8 +147,8 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 			((Game) activeScreen).setActivePlayer(perspective);
 		}
 		if (i == ScreenSwitcher.WIN_SCREEN) {
-			((WinScreen) activeScreen).setPlayerScore(((Game) screens.get(ScreenSwitcher.GAME_SCREEN)).getActivePlayerScore());
-			((WinScreen) activeScreen).setOpponentScore(((Game) screens.get(ScreenSwitcher.GAME_SCREEN)).getOpponentScore());
+			((WinOrLoseScreen) activeScreen).setPlayerScore(((Game) screens.get(ScreenSwitcher.GAME_SCREEN)).getActivePlayerScore());
+			((WinOrLoseScreen) activeScreen).setOpponentScore(((Game) screens.get(ScreenSwitcher.GAME_SCREEN)).getOpponentScore());
 		}
 	}
 	
