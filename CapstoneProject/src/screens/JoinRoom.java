@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.JOptionPane;
+
 import org.apache.commons.validator.routines.InetAddressValidator;
 
 import core.DrawingSurface;
@@ -32,7 +34,6 @@ public class JoinRoom extends Screen {
 	private GTextField hostField;
 	
 	private GButton discoverButton;
-	
 	private GButton joinButton;
 	
 	private static final int TCP_PORT = 4444;
@@ -52,6 +53,8 @@ public class JoinRoom extends Screen {
 
 	private Timer refreshTimer;
 
+	private boolean hasFoundIP;
+	private boolean findingIP;
 
 
 
@@ -62,6 +65,8 @@ public class JoinRoom extends Screen {
 		this.programID = "APCS-Capstone-PaintBattle";
 		refreshTimer = new Timer();
 		isActive = true;
+		hasFoundIP = false;
+		findingIP = false;
 	}
 	
 	public void setup() {
@@ -147,9 +152,9 @@ public class JoinRoom extends Screen {
 			surface.setPerspective(surface.RIGHT_SIDE);
 			surface.setPlayerUsername(nameField.getText());
 			surface.setOpponentUsername(opponentUsername);
+
 			
 			isActive = false;
-			group.fadeOut(0, 0);
 			group.setEnabled(false);
 			surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
 			
@@ -171,10 +176,11 @@ public class JoinRoom extends Screen {
 	
 	private class ShowHosts extends TimerTask {
 		public void run() {
+			findingIP = true;
 			if (DrawingSurface.discover.getPeers().length > 0) {
-				surface.text(DrawingSurface.discover.getPeers()[0].getHostAddress(), DRAWING_WIDTH/7, 50);
+				JOptionPane.showMessageDialog(null, DrawingSurface.discover.getPeers()[0].getHostAddress());
 			} else {
-				surface.text("Could not find hosts", DRAWING_WIDTH/7, 50);			
+				JOptionPane.showMessageDialog(null, "Sorry, no hosts found!");
 			}
 		}
 	}

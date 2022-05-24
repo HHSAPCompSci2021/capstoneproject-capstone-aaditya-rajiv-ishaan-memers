@@ -7,6 +7,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 
+import javax.swing.JOptionPane;
+
 import core.DrawingSurface;
 import g4p_controls.*;
 import networking.backend.PlayerClient;
@@ -39,6 +41,7 @@ public class CreateRoom extends Screen {
 	private NetworkListener clientProgram;
 
 	private String opponentUsername = "";
+
 
 		
 
@@ -81,15 +84,15 @@ public class CreateRoom extends Screen {
 	}
 	
 	public void draw() {
+		surface.textSize(64);
+		surface.fill(255, 100, 0);
 		surface.image(surface.loadImage("img/background.png"), 1, 0);
 
 		if(isActive) {
 			group.fadeIn(0, 0);
 			group.setEnabled(true);
 		}
-		
 	}
-
 	
 	public void handleButtonEvents(GButton button, GEvent event) {
 		// Create the control window?
@@ -99,6 +102,8 @@ public class CreateRoom extends Screen {
 			try {
 				myIP = InetAddress.getLocalHost();
 				System.out.println("Your Hostname/IP address is " + myIP);
+				JOptionPane.showMessageDialog(null, myIP.getHostAddress() + "");
+
 			} catch (UnknownHostException e) {
 				e.printStackTrace ();
 				System.out.println("Error getting your IP address!");
