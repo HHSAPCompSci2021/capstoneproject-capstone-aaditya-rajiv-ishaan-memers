@@ -59,31 +59,16 @@ public class CreateRoom extends Screen {
 	
 	
 	public void setup() {
-		nameLabel = new GLabel(surface, 300, 75, 200, 25);
+		nameLabel = new GLabel(surface, 300, 175, 200, 25);
 		nameLabel.setAlpha(190);
 		nameLabel.setTextAlign(GAlign.CENTER, null);
 		nameLabel.setOpaque(true);
 		nameLabel.setText("Enter Username!");
 		
-		nameField = new GTextField(surface, 300, 125, 200, 50);
+		nameField = new GTextField(surface, 300, 200, 200, 50);
 		nameField.setPromptText("Enter Username...");
 		
-		sliderLabel = new GLabel(surface, 300, 225, 200, 25);
-		sliderLabel.setAlpha(190);
-		sliderLabel.setTextAlign(GAlign.CENTER, null);
-		sliderLabel.setOpaque(true);
-		sliderLabel.setText("Enter Time Limit!");
-		
-		slider = new GCustomSlider(surface, 250, 250, 300, 50, null);
-		// show          opaque  ticks value limits
-		slider.setShowDecor(false, true, false, false);
-		slider.setNumberFormat(GCustomSlider.INTEGER, 2);
-		slider.setLimits(6000, 0, 12000);
-		slider.setNbrTicks(20);
-		slider.setStickToTicks(true);  //false by default 		// show          opaque  ticks value limits
-		surface.setTimeLimit(slider.getValueI());
-		
-		createButton = new GButton(surface, 300, 350, 200, 100, "Create Room");
+		createButton = new GButton(surface, 300, 275, 200, 100, "Create Room");
 		
 		group = new GGroup(surface);
 		group.addControl(nameLabel);
@@ -140,7 +125,6 @@ public class CreateRoom extends Screen {
 			surface.setPerspective(surface.LEFT_SIDE);
 			surface.setPlayerUsername(nameField.getText());
 			surface.setOpponentUsername(opponentUsername);
-			surface.setTimeLimit(slider.getValueI());
 			
 			isActive = false;
 			group.fadeOut(0, 0);

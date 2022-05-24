@@ -174,9 +174,9 @@ public class JoinRoom extends Screen {
 	private class ShowHosts extends TimerTask {
 		public void run() {
 			if (DrawingSurface.discover.getPeers().length > 0) {
-				System.out.println(DrawingSurface.discover.getPeers()[0].getHostAddress());
+				surface.text(DrawingSurface.discover.getPeers()[0].getHostAddress(), DRAWING_WIDTH/7, 50);
 			} else {
-				System.out.println("Could not find hosts");			
+				surface.text("Could not find hosts", DRAWING_WIDTH/7, 50);			
 			}
 		}
 	}

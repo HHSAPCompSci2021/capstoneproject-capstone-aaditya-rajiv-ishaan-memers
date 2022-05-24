@@ -21,9 +21,7 @@ import sprites.Sprite;
 
 /**
  * Represents the interactive game screen.
- *
  * @author Ishaan Singh and Aaditya Raj
- *
  */
 public class Game extends Screen implements NetworkListener {
 
@@ -49,7 +47,7 @@ public class Game extends Screen implements NetworkListener {
 	private static final String messageTypeFlagMovement = "FLAG_MOVEMENT";
 	private static final String messageTypePlatformPaint = "PLATFORM_PAINT";
 	private static final String messageTypeFlagCapture = "FLAG_CAPTURE";
-	private static final String  messageTypeFlagDropped = "FLAG_DROPPED";
+	private static final String messageTypeFlagDropped = "FLAG_DROPPED";
 	private static final String messageTypePlayerKilled = "PLAYER_KILLED";
 	private static final String messageTypeTouchdown = "TOUCHDOWN";
 	private static final String messageTypeBombThrow = "BOMB_THROW";
@@ -103,12 +101,12 @@ public class Game extends Screen implements NetworkListener {
 		
 		flagTaken = false;
 		timer = 0;
+		maxTime = 7200;
 		
 	}
 
 	public void draw() {
 		surface.image(surface.loadImage("img/background.png"), 1, 0);
-		maxTime = surface.getTimeLimit();
 		
 		int player1Score = 0;
 		int player2Score = 0;

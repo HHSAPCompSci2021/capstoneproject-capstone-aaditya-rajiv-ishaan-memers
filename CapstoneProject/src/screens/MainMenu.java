@@ -34,11 +34,13 @@ public class MainMenu extends Screen {
 
 		surface.image(surface.loadImage("img/background.png"), 1, 0);
 		
+		
 		surface.rect(button.x, button.y, button.width, button.height, 10, 10, 10, 10);
 		surface.rect(button2.x, button2.y, button2.width, button2.height, 10, 10, 10, 10);
 //		surface.rect(button3.x, button3.y, button3.width, button3.height, 10, 10, 10, 10);
 
 		surface.fill(0);
+		
 		String str = "Create Room!";
 		float w = surface.textWidth(str);
 		surface.text(str, button.x+button.width/2-w/2, button.y+button.height/2);
@@ -48,6 +50,12 @@ public class MainMenu extends Screen {
 //		String str3 = "Go to game (will not exist in final)!!";
 //		w = surface.textWidth(str3);
 //		surface.text(str3, button3.x+button3.width/2-w/2, button3.y+button3.height/2);
+		
+		surface.push();
+		surface.textSize(64);
+		surface.fill(255);
+		surface.text("Paint Battle", ((DRAWING_WIDTH*2)/7), 100);
+		surface.pop();
 		
 	}
 
