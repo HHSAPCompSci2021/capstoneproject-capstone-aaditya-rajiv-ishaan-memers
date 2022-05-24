@@ -28,7 +28,7 @@ public class Avatar extends Sprite {
 	private double prevX, prevY;
 	private int scale;
 	public static final double GRAVITY = 1.98;
-	private static final int BOMB_LIMIT = 600;
+	private static final int BOMB_LIMIT = 200;
 	private final int xVel = 10;
 	private boolean onPlatform;
 	private int flagCaptures;
