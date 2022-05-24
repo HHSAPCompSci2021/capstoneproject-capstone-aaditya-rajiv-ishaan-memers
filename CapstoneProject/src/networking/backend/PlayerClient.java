@@ -13,7 +13,7 @@ import networking.frontend.NetworkDataObject;
 import networking.frontend.NetworkListener;
 import networking.frontend.NetworkMessenger;
 
-public class SchoolClient implements NetworkMessenger {
+public class PlayerClient implements NetworkMessenger {
 
 	private InetAddress server;
 	private InetAddress myIP;
@@ -29,7 +29,7 @@ public class SchoolClient implements NetworkMessenger {
 	
 	
 
-	public SchoolClient(String programID, InetAddress myIP) {
+	public PlayerClient(String programID, InetAddress myIP) {
 		this.myIP = myIP;
 		this.programID = programID;
 		messageQueue = new ConcurrentLinkedQueue<NetworkDataObject>();
@@ -43,7 +43,7 @@ public class SchoolClient implements NetworkMessenger {
 					@Override
 					public void run() {
 
-						synchronized(SchoolClient.this) {
+						synchronized(PlayerClient.this) {
 
 							if (ndo.messageType.equals(NetworkDataObject.DISCONNECT)) {
 

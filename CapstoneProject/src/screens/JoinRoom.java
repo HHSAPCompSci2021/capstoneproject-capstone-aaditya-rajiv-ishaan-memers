@@ -16,7 +16,7 @@ import g4p_controls.GEvent;
 import g4p_controls.GGroup;
 import g4p_controls.GLabel;
 import g4p_controls.GTextField;
-import networking.backend.SchoolClient;
+import networking.backend.PlayerClient;
 import networking.frontend.NetworkDataObject;
 import networking.frontend.NetworkListener;
 import networking.frontend.NetworkMessenger;
@@ -40,7 +40,7 @@ public class JoinRoom extends Screen {
 	private static final long DISCOVER_TIMEOUT = 10000;
 
 	private InetAddress myIP;
-	private SchoolClient sc;
+	private PlayerClient sc;
 	private GGroup group;
 	boolean isActive;
 	
@@ -233,7 +233,7 @@ public class JoinRoom extends Screen {
 	private void connect(InetAddress host) {
 		if (host != null) {
 			disconnect();
-			sc = new SchoolClient(programID, myIP);
+			sc = new PlayerClient(programID, myIP);
 			boolean success = sc.connect(host,TCP_PORT);
 			if (!success) {
 				System.out.println("\nCould not connect to "+host+" on " + TCP_PORT);
