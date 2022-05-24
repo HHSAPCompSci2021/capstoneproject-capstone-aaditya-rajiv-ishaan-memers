@@ -44,7 +44,7 @@ public class JoinRoom extends Screen {
 	private GGroup group;
 	boolean isActive;
 	
-	private String opponentUsername;
+	private String opponentUsername = "";
 
 	
 	private String programID;

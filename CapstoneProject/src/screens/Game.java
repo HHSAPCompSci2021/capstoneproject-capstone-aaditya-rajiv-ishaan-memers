@@ -36,6 +36,7 @@ public class Game extends Screen implements NetworkListener {
 	private int timer;
 
 	private boolean flagTaken;
+	private boolean usernameSent;
 	private int maxTime;
 	private Avatar activePlayer;
 	private NetworkMessenger nm;
@@ -51,6 +52,7 @@ public class Game extends Screen implements NetworkListener {
 	private static final String messageTypePlayerKilled = "PLAYER_KILLED";
 	private static final String messageTypeTouchdown = "TOUCHDOWN";
 	private static final String messageTypeBombThrow = "BOMB_THROW";
+	private static final String messageTypeUsername = "USERNAME";
 	
 	
 	/**
@@ -106,6 +108,10 @@ public class Game extends Screen implements NetworkListener {
 	}
 
 	public void draw() {
+		if (!usernameSent) {
+			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeUsername, surface.playerUsername);
+			usernameSent = true;
+		}
 		surface.image(surface.loadImage("img/background.png"), 1, 0);
 		
 		int player1Score = 0;
@@ -280,9 +286,9 @@ public class Game extends Screen implements NetworkListener {
 		surface.text("Player 1 Score: " + this.player1Score + "\n" + "Player 2 Score: " + this.player2Score, 1300, 50);
 		surface.pop();
 		
-		player1.draw(surface);
+		player1.draw(surface, (activePlayer == player1 ? surface.playerUsername : surface.opponentUsername));
 		
-		player2.draw(surface);
+		player2.draw(surface, (activePlayer == player2 ? surface.playerUsername : surface.opponentUsername));
 		
 		processNetworkMessages();
 
@@ -331,8 +337,9 @@ public class Game extends Screen implements NetworkListener {
 					Avatar capturer = (int) (ndo.message[1]) == 1 ? player1 : player2;
 					capturer.collectFlag();
 					flagTaken = true;
-				}
-				else if (ndo.message[0].equals(messageTypeFlagMovement)) {
+				} else if (ndo.message[0].equals(messageTypeUsername)) {
+					surface.opponentUsername = (String) ndo.message[1];
+				} else if (ndo.message[0].equals(messageTypeFlagMovement)) {
 					flag.draw(surface, (int) ndo.message[1], (int) ndo.message[2]);
 				}  else if (ndo.message[0].equals(messageTypePlatformPaint)) {
 					for (Platform p : platforms) {
