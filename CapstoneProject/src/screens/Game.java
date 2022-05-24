@@ -40,6 +40,7 @@ public class Game extends Screen implements NetworkListener {
 	private boolean flagTaken;
 	private int maxTime;
 	private Avatar activePlayer;
+	private NetworkMessenger nm;
 
 	
 	private static final String messageTypeMove = "PLAYER_MOVEMENT";
