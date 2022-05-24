@@ -141,11 +141,12 @@ public class Avatar extends Sprite {
 	 * @param mouseClick the location of the throw
 	 */
 	public PaintBomb throwBomb(Point2D mouseClick) {
+		timer = 0;
 		return new PaintBomb((int) getCenterX(), (int) getCenterY(), mouseClick, getColor());
 	}
 	
 	public boolean canThrowBomb() {
-		return (timer % 600 == 0);
+		return (timer > 600);
 	}
 
 	/**
