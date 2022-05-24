@@ -44,7 +44,7 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 	
 	public static PeerDiscovery discover;
 	
-
+	private int timeLimit;
 
 	
 	public DrawingSurface() {
@@ -180,6 +180,14 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 	public void setOpponentUsername(String opponentUsername) {
 		// TODO Auto-generated method stub
 		this.opponentUsername = opponentUsername;
+	}
+	
+	public void setTimeLimit(int limit) {
+		limit = timeLimit;
+	}
+	
+	public int getTimeLimit() {
+		return timeLimit;
 	}
 }
 
