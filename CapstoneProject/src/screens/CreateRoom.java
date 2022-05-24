@@ -9,8 +9,8 @@ import java.util.Arrays;
 
 import core.DrawingSurface;
 import g4p_controls.*;
-import networking.backend.SchoolClient;
-import networking.backend.SchoolServer;
+import networking.backend.PlayerClient;
+import networking.backend.GameServer;
 import networking.frontend.NetworkDataObject;
 import networking.frontend.NetworkListener;
 import networking.frontend.NetworkMessenger;
@@ -30,8 +30,8 @@ public class CreateRoom extends Screen {
 	private static final int TCP_PORT = 4444;
 
 	private InetAddress myIP;
-	private SchoolServer ss;
-	private SchoolClient sc;
+	private GameServer ss;
+	private PlayerClient sc;
 	private GGroup group;
 	boolean isActive;
 	
@@ -116,7 +116,7 @@ public class CreateRoom extends Screen {
 				e.printStackTrace ();
 				System.out.println("Error getting your IP address!");
 			}
-			ss = new SchoolServer(programID, myIP);
+			ss = new GameServer(programID, myIP);
 			ss.setMaxConnections(2);
 			ss.waitForConnections(TCP_PORT);
 			System.out.println("\nTCP server running on " + TCP_PORT);
@@ -184,7 +184,7 @@ public class CreateRoom extends Screen {
 	private void connect(InetAddress host) {
 		if (host != null) {
 			disconnect();
-			sc = new SchoolClient(programID, myIP);
+			sc = new PlayerClient(programID, myIP);
 			boolean success = sc.connect(host,TCP_PORT);
 			if (!success) {
 				System.out.println("\nCould not connect to "+host+" on " + TCP_PORT);

@@ -65,9 +65,8 @@ public class Game extends Screen implements NetworkListener {
 
 	public void setup() {
 		String pre = surface.sketchPath();
-		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"),surface.loadImage(pre + "/" + "img/RedPlayerGun.png"), 100, 840, 200, 200, Color.RED);
-
-		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"),surface.loadImage(pre + "/" + "img/BluePlayerGun .png"), 1300, 840, 200, 200, Color.BLUE);
+		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), surface.loadImage(pre + "/" + "img/RedPlayerGun.png"), 100, 840, 200, 200, Color.RED);
+		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), surface.loadImage(pre + "/" + "img/BluePlayerGun.png"), 1300, 840, 200, 200, Color.BLUE);
 
 		platforms = new ArrayList<Platform>();
 		bullets = new ArrayList<PaintBlock>();
