@@ -3,6 +3,7 @@ package screens;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
 import java.util.Queue;
 
@@ -51,6 +52,7 @@ public class Game extends Screen implements NetworkListener {
 	private static final String  messageTypeFlagDropped = "FLAG_DROPPED";
 	private static final String messageTypePlayerKilled = "PLAYER_KILLED";
 	private static final String messageTypeTouchdown = "TOUCHDOWN";
+	private static final String messageTypeBombThrow = "BOMB_THROW";
 	
 	
 	/**
@@ -127,6 +129,11 @@ public class Game extends Screen implements NetworkListener {
 			for (PaintBlock bullet : bullets) {
 				p.paint(bullet);
 //				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypePlatformPaint, p, bullet.x, bullet.y, bullet.width, bullet.getColor());
+				if (bullet instanceof PaintBomb && p.intersects(bullet)) {
+					PaintBomb bomb = (PaintBomb) bullet;
+					ArrayList<PaintBlock> bombBullets = bomb.blowUp();
+					bullets.addAll(bombBullets);
+				}
 				if (p.contains(bullet)) {
 					toRemove.add(bullet);
 				}
@@ -175,14 +182,13 @@ public class Game extends Screen implements NetworkListener {
 		
 		for (PaintBlock b : bullets) {
 			b.draw(surface);
-			
 
 			if(b.intersects(player1) && b.getColor() != player1.getColor()) {
 				if(player1.loseHealth(player2)) {
-					nm.sendMessage(NetworkDataObject.MESSAGE, messageTypePlayerKilled, 1);
+					nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypePlayerKilled, 1});
 					if (!player1.hasFlag()) {
 						flagTaken = false;
-						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeFlagDropped);
+						nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeFlagDropped});
 					}
 				}
 				
@@ -191,10 +197,10 @@ public class Game extends Screen implements NetworkListener {
 			
 			if(b.intersects(player2) && b.getColor() != player2.getColor()) {
 				if(player2.loseHealth(player1)) {
-					nm.sendMessage(NetworkDataObject.MESSAGE, messageTypePlayerKilled, 2);
+					nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypePlayerKilled, 2});
 					if (!player2.hasFlag()) {
 						flagTaken = false;
-						nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeFlagDropped);
+						nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeFlagDropped});
 					}
 				}
 				
@@ -208,11 +214,11 @@ public class Game extends Screen implements NetworkListener {
 		if (flag.intersects(player1)) {
 			player1.collectFlag();
 			flagTaken = true;
-			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeFlagCapture, "1");
+			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeFlagCapture, 1});
 		} else if (flag.intersects(player2)){
 			player2.collectFlag();	
 			flagTaken = true;
-			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeFlagCapture, "2");
+			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeFlagCapture, 2});
 		} 
 		
 		if(!flagTaken) {
@@ -223,7 +229,7 @@ public class Game extends Screen implements NetworkListener {
 					flagTaken = false;
 					flag.reset();
 					player1.touchdown();
-					nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeTouchdown, 1);
+					nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeTouchdown, 1});
 					flag.draw(surface);
 				} else {
 					flag.draw(surface, (int)player1.x, (int)player1.y);
@@ -234,7 +240,7 @@ public class Game extends Screen implements NetworkListener {
 					flagTaken = false;
 					player2.touchdown();
 					flag.reset();
-					nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeTouchdown, 1);
+					nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeTouchdown, 2});
 					flag.draw(surface);
 				} else {
 					flag.draw(surface, (int)player2.x, (int)player2.y);
@@ -264,6 +270,15 @@ public class Game extends Screen implements NetworkListener {
 			if (activePlayer.onPlatform()) {
 				activePlayer.jump();
 				nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeJump});
+			}
+		}
+		
+		if (surface.isPressed(KeyEvent.VK_B)) {
+			if (activePlayer.canThrowBomb()) {
+				double x = surface.mouseX;
+				double y = surface.mouseY;
+				bullets.add(activePlayer.throwBomb(new Point2D.Double(x, y)));
+				nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeBombThrow, x, y});
 			}
 		}
 		
@@ -319,6 +334,8 @@ public class Game extends Screen implements NetworkListener {
 					flagTaken = false;
 					flag.reset();
 					winning.touchdown();
+				} else if (ndo.message[0].equals(messageTypeBombThrow)) {
+					player.throwBomb(new Point2D.Double((double) ndo.message[1], (double) ndo.message[2]));
 				} else if (ndo.message[0].equals(messageTypeFlagMovement)) {
 					flag.draw(surface, (int) ndo.message[1], (int) ndo.message[2]);
 				}  else if (ndo.message[0].equals(messageTypePlatformPaint)) {
@@ -350,6 +367,7 @@ public class Game extends Screen implements NetworkListener {
 			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeShoot, (double) mouseX, (double) mouseY});
 		}
 	}
+	
 	
 	public int getActivePlayerScore() {
 		return (activePlayer == player1 ? player1Score : player2Score);

@@ -56,9 +56,9 @@ public class PaintGun extends Sprite {
 			PaintBlock bullet;
 			
 			if(onRight) {
-				bullet = new PaintBlock((int) (x+width), (int) y, 60, ownerColor, stroke, velocity, click);	
+				bullet = new PaintBlock((int) (x+width), (int) y, ownerColor, stroke, velocity, click);	
 			} else {
-				bullet = new PaintBlock((int) x, (int) y, 60, ownerColor, stroke, velocity, click);
+				bullet = new PaintBlock((int) x, (int) y, ownerColor, stroke, velocity, click);
 					
 			}
 			
@@ -101,7 +101,7 @@ public class PaintGun extends Sprite {
 			
 			PaintBlock bullet;
 			
-				bullet = new PaintBlock((int) start.getX(), (int) start.getY(), 60, playerColor, stroke, velocity, end);
+				bullet = new PaintBlock((int) start.getX(), (int) start.getY(), playerColor, stroke, velocity, end);
 					
 			
 			ammo--;

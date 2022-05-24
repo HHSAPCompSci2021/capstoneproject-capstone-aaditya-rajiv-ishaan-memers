@@ -33,6 +33,7 @@ public class Avatar extends Sprite {
 	private int flagCaptures;
 	private int numDeaths;
 	private PImage paintGunImage;
+	private int timer;
 
 	/**
 	 * 
@@ -55,6 +56,7 @@ public class Avatar extends Sprite {
 		health = 70;
 		flagCaptures = 0;
 		numDeaths = 0;
+		timer = 0;
 	}
 	
 	
@@ -120,10 +122,16 @@ public class Avatar extends Sprite {
 	 */
 	public void draw(PApplet drawer) {
 		super.draw(drawer);
+		if (canThrowBomb()) {
+			gun.setRect(gun.x, gun.y, width/2, height);
+		} else {
+			gun.setRect(gun.x, gun.y, width/4, height/2);
+		}
 		if (!hasFlag())
 			gun.draw(drawer, this.x, this.y);
 		else
 			gun.draw(drawer, (int) this.x, (int) this.y);
+		timer++;
 	}
 
 	/**
@@ -132,9 +140,12 @@ public class Avatar extends Sprite {
 	 * @param startPoint the starting point
 	 * @param mouseClick the location of the throw
 	 */
-	public void throwBomb(Point2D mouseClick) {
-		bomb.launch(mouseClick);
-		bomb = null;
+	public PaintBomb throwBomb(Point2D mouseClick) {
+		return new PaintBomb((int) getCenterX(), (int) getCenterY(), mouseClick, getColor());
+	}
+	
+	public boolean canThrowBomb() {
+		return (timer % 600 == 0);
 	}
 
 	/**

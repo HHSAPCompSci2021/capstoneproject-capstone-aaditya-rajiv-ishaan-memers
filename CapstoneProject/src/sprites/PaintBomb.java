@@ -10,13 +10,8 @@ import processing.core.PApplet;
 	@author Aaditya Raj
 	@version 1
 */
-public class PaintBomb extends Sprite {
-	
-	private double explosionRadius, velocity;
-	private double xVel, yVel;
-	private boolean isThrown;
-	private Color c;
-	private Avatar owner;
+public class PaintBomb extends PaintBlock {
+
 	private static final int RADIUS = 8;
 
 	
@@ -27,12 +22,8 @@ public class PaintBomb extends Sprite {
 	 * @param r the radius of the paintbomb
 	 * @param c the color of this PaintBomb
 	 */
-	public PaintBomb(Avatar a, int x, int y, Color c) {
-		super(x, y, RADIUS, RADIUS);
-		this.explosionRadius = RADIUS*8;
-		this.c = c;
-		isThrown = false;
-		owner = a;
+	public PaintBomb(int x, int y, Point2D mouse, Color c) {
+		super(x, y, c, PaintBlock.LENGTH * 3, PaintBlock.VELOCITY, mouse);
 	}
 	
 	/** Scatters Paintbombs with the specified radius
@@ -40,44 +31,25 @@ public class PaintBomb extends Sprite {
 	 * @return An ArrayList of paintblocks to be drawn on the map and acted upon
 	 */
 	public ArrayList<PaintBlock> blowUp() {
-		return null;
+		ArrayList<PaintBlock> blocks = new ArrayList<PaintBlock>();
+		for (int angle = 0; angle < 360; angle += 45) {
+			double x = RADIUS * Math.cos(Math.toRadians(angle)) + getCenterX();
+			double y = RADIUS * Math.sin(Math.toRadians(angle)) + getCenterY();
+			PaintBlock bullet = new PaintBlock((int) getCenterX(), (int) getCenterY(), getColor(),
+					PaintBlock.LENGTH, PaintBlock.VELOCITY, new Point2D.Double(x, y));
+			blocks.add(bullet);
+		}
+		return blocks;
 	}	
 	
-	/** Throws this bomb
-	 * 
-	 * @param point the point at which the bomb is being thrown
-	 */
-	public void launch(Point2D mouseClick) {
-		if (owner != null) {
-			// set vx and vy based off mouse click and velocity field
-			double run = mouseClick.getX() - owner.getCenterX();
-			double rise = mouseClick.getY() - owner.getCenterY();
-			double currentSpeed = Math.sqrt(Math.pow(rise, 2) + Math.pow(run, 2));
-			if (currentSpeed > velocity) {
-				rise *= velocity/currentSpeed;
-				run *= velocity/currentSpeed;
-			} else {
-				rise *= velocity/currentSpeed;
-				run *=  velocity/currentSpeed;
-			}
-			this.xVel = run;
-			this.yVel = rise;
-			isThrown = true;
-		}
-		
+	public void draw(PApplet marker) {
+		marker.push();
+		marker.fill(getColor().getRed(), getColor().getGreen(), getColor().getBlue());
+		marker.circle((float) x, (float) y, (float) getWidth());
+		marker.pop();
+		super.moveByAmount(getVelocities()[0], getVelocities()[1]);
 	}
 	
-	public void draw(PApplet drawer) {
-		if (owner != null) {
-			if (isThrown) {
-				super.draw(drawer);
-			}
-		}
-		else if (owner == null) {
-			super.draw(drawer);
-		}
-	
-	}
 
 
 }
