@@ -102,7 +102,7 @@ public class Game extends Screen implements NetworkListener {
 		
 		flagTaken = false;
 		timer = 0;
-		maxTime = 6000;
+		maxTime = surface.getTimeLimit();
 	}
 
 	public void draw() {

@@ -81,6 +81,7 @@ public class CreateRoom extends Screen {
 		slider.setLimits(0.5f, 0.5f, 10.0f);
 		slider.setNbrTicks(20);
 		slider.setStickToTicks(true);  //false by default 		// show          opaque  ticks value limits
+		slider.getValueI();
 		
 		createButton = new GButton(surface, 300, 350, 200, 100, "Create Room");
 		
@@ -139,6 +140,7 @@ public class CreateRoom extends Screen {
 			surface.setPerspective(surface.LEFT_SIDE);
 			surface.setPlayerUsername(nameField.getText());
 			surface.setOpponentUsername(opponentUsername);
+			surface.setTimeLimit(slider.getValueI());
 			
 			isActive = false;
 			group.fadeOut(0, 0);
