@@ -23,7 +23,7 @@ import sprites.Sprite;
  * Represents the interactive game screen.
  * @author Ishaan Singh and Aaditya Raj
  */
-public class Game extends Screen implements NetworkListener {
+public class Game extends Screen {
 
 	private Avatar player1, player2;
 	private ArrayList<Platform> platforms;
@@ -39,7 +39,6 @@ public class Game extends Screen implements NetworkListener {
 	private boolean usernameSent;
 	private int maxTime;
 	private Avatar activePlayer;
-	private NetworkMessenger nm;
 
 	
 	private static final String messageTypeMove = "PLAYER_MOVEMENT";
@@ -109,6 +108,7 @@ public class Game extends Screen implements NetworkListener {
 
 	public void draw() {
 		if (!usernameSent) {
+			System.out.println(nm);
 			nm.sendMessage(NetworkDataObject.MESSAGE, messageTypeUsername, surface.playerUsername);
 			usernameSent = true;
 		}
@@ -391,17 +391,6 @@ public class Game extends Screen implements NetworkListener {
 		return (activePlayer == player1 ? player2Score : player1Score);
 	}
 
-	@Override
-	public void connectedToServer(NetworkMessenger nm) {
-		this.nm = nm;
-		
-	}
-
-	@Override
-	public void networkMessageReceived(NetworkDataObject ndo) {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 	public void setActivePlayer(int perspective) {

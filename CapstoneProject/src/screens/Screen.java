@@ -7,7 +7,7 @@ import networking.frontend.NetworkMessenger;
 public abstract class Screen {
 
 	public final int DRAWING_WIDTH, DRAWING_HEIGHT;
-	private NetworkMessenger nm;
+	protected NetworkMessenger nm;
 	
 	/**
 	 * Constructs a new screen. 

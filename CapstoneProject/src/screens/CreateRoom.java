@@ -102,7 +102,7 @@ public class CreateRoom extends Screen {
 			try {
 				myIP = InetAddress.getLocalHost();
 				System.out.println("Your Hostname/IP address is " + myIP);
-				JOptionPane.showMessageDialog(null, myIP.getHostAddress() + "");
+//				JOptionPane.showMessageDialog(null, myIP.getHostAddress() + "");
 
 			} catch (UnknownHostException e) {
 				e.printStackTrace ();
