@@ -190,11 +190,10 @@ public class Avatar extends Sprite {
 
 	
 	/** Gets the health of this avatar
-=======
 
 	/**
 	 * Gets the health of this avatar
->>>>>>> Stashed changes
+
 	 * 
 	 * @return the health
 	 */

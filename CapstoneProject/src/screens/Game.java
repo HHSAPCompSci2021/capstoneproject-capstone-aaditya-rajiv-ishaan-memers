@@ -247,17 +247,17 @@ public class Game extends Screen implements NetworkListener {
 		
 		player2Score -= (player2.getNumDeaths() * 200);
 		
-		if (surface.isPressed(KeyEvent.VK_A)) {
+		if (surface.isPressed(KeyEvent.VK_LEFT)) {
 			activePlayer.walk(false);
 			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeMove, activePlayer.getX(), activePlayer.getY()});
 		}
 		
-		if (surface.isPressed(KeyEvent.VK_D)) {
+		if (surface.isPressed(KeyEvent.VK_RIGHT)) {
 			activePlayer.walk(true);			
 			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeMove, activePlayer.getX(), activePlayer.getY()});
 		}
 			
-		if (surface.isPressed(KeyEvent.VK_W)) {
+		if (surface.isPressed(KeyEvent.VK_UP)) {
 			if (activePlayer.onPlatform()) {
 				activePlayer.jump();
 				nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeJump});

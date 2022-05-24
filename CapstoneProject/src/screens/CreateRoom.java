@@ -151,8 +151,7 @@ public class CreateRoom extends Screen {
 
 		@Override
 		public void networkMessageReceived(NetworkDataObject ndo) {
-			
-			
+
 			if (ndo.messageType.equals(NetworkDataObject.CLIENT_LIST)) {
 				System.out.println("\nClient list updated.");
 //				connectedList.setListData(Arrays.copyOf(ndo.message, ndo.message.length, InetAddress[].class));
