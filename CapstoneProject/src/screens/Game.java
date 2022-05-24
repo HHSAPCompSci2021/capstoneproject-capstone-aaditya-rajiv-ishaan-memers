@@ -3,7 +3,6 @@ package screens;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
 import java.util.Queue;
 
@@ -68,9 +67,8 @@ public class Game extends Screen implements NetworkListener {
 
 	public void setup() {
 		String pre = surface.sketchPath();
-		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"),surface.loadImage(pre + "/" + "img/RedPlayerGun.png"), 100, 840, 200, 200, Color.RED);
-
-		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"),surface.loadImage(pre + "/" + "img/BluePlayerGun .png"), 1300, 840, 200, 200, Color.BLUE);
+		player1 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), surface.loadImage(pre + "/" + "img/RedPlayerGun.png"), 100, 840, 200, 200, Color.RED);
+		player2 = new Avatar(surface.loadImage(pre + "/" + "img/character.png"), surface.loadImage(pre + "/" + "img/BluePlayerGun.png"), 1300, 840, 200, 200, Color.BLUE);
 
 		platforms = new ArrayList<Platform>();
 		bullets = new ArrayList<PaintBlock>();
@@ -252,17 +250,17 @@ public class Game extends Screen implements NetworkListener {
 		
 		player2Score -= (player2.getNumDeaths() * 200);
 		
-		if (surface.isPressed(KeyEvent.VK_LEFT)) {
+		if (surface.isPressed(KeyEvent.VK_A)) {
 			activePlayer.walk(false);
 			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeMove, activePlayer.getX(), activePlayer.getY()});
 		}
 		
-		if (surface.isPressed(KeyEvent.VK_RIGHT)) {
+		if (surface.isPressed(KeyEvent.VK_D)) {
 			activePlayer.walk(true);			
 			nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeMove, activePlayer.getX(), activePlayer.getY()});
 		}
 			
-		if (surface.isPressed(KeyEvent.VK_UP)) {
+		if (surface.isPressed(KeyEvent.VK_W)) {
 			if (activePlayer.onPlatform()) {
 				activePlayer.jump();
 				nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeJump});

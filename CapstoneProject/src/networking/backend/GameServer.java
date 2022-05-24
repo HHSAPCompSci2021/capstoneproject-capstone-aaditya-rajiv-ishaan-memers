@@ -24,7 +24,7 @@ import networking.frontend.NetworkMessenger;
  *
  * @author john_shelby
  */
-public class SchoolServer implements NetworkMessenger {
+public class GameServer implements NetworkMessenger {
 
     private boolean listening;
     
@@ -40,7 +40,7 @@ public class SchoolServer implements NetworkMessenger {
     private int maxConnections;
     
 
-    public SchoolServer(String programID, InetAddress myIP) {
+    public GameServer(String programID, InetAddress myIP) {
     	
     	this.programID = programID;
     	this.myIP = myIP;
@@ -63,7 +63,7 @@ public class SchoolServer implements NetworkMessenger {
         				repeatMessage(ndo);
 
         				if (ndo.messageType.equals(NetworkDataObject.DISCONNECT)) {
-        					synchronized(SchoolServer.this) {
+        					synchronized(GameServer.this) {
 
         						for (int i = writers.size()-1; i >= 0; i--) {	
         							if (writers.get(i).getHost().equals(address))
@@ -241,7 +241,7 @@ public class SchoolServer implements NetworkMessenger {
 							public void networkMessageReceived(NetworkDataObject ndo) {
 								timeout.cancel();
 								if (ndo.messageType.equals(NetworkDataObject.HANDSHAKE) && ndo.message[0].equals(programID)) {
-									synchronized(SchoolServer.this) {
+									synchronized(GameServer.this) {
 										cr.setListeners(listeners);
 										writers.add(cw);
 										readers.add(cr);
