@@ -121,7 +121,8 @@ public class Avatar extends Sprite {
 	 * 
 	 * @param drawer the PApplet that draws the Avatar
 	 */
-	public void draw(PApplet drawer) {
+	public void draw(PApplet drawer, String username) {
+		drawer.text(username, (float) x, (float) (y-10));
 		super.draw(drawer);
 		if (canThrowBomb() && !(gun instanceof Flag)) {
 			gun.setRect(gun.x, gun.y, width/2, height);

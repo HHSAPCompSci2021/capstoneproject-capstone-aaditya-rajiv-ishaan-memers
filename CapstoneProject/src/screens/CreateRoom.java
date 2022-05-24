@@ -38,7 +38,7 @@ public class CreateRoom extends Screen {
 	private String programID;
 	private NetworkListener clientProgram;
 
-	private String opponentUsername;
+	private String opponentUsername = "";
 
 		
 
