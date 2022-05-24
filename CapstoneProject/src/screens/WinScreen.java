@@ -18,7 +18,7 @@ public class WinScreen extends Screen {
 	
 	public void draw() {
 		
-		surface.image(surface.loadImage("img/victory.png"), 1, 0);
+		surface.image(surface.loadImage("img/victory.png"), 0, 0);
 		if (playerScore > opponentScore) {
 			surface.text(surface.playerUsername + " won the game", DRAWING_WIDTH/2, DRAWING_HEIGHT/2);
 		} else if (opponentScore > playerScore) {
