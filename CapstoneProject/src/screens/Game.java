@@ -246,12 +246,12 @@ public class Game extends Screen implements NetworkListener {
 			}	
 		}
 		
-		player1Score += (player1.getCaptures() * 200);
-		player2Score += (player2.getCaptures() * 200);
+		player1Score += (player1.getCaptures() * 25);
+		player2Score += (player2.getCaptures() * 25);
 	
-		player1Score -= (player1.getNumDeaths() * 200);
+		player1Score -= (player1.getNumDeaths() * 25);
 		
-		player2Score -= (player2.getNumDeaths() * 200);
+		player2Score -= (player2.getNumDeaths() * 25);
 		
 		if (surface.isPressed(KeyEvent.VK_A)) {
 			activePlayer.walk(false);
