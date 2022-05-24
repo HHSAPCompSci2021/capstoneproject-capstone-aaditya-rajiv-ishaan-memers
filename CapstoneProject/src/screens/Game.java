@@ -246,12 +246,12 @@ public class Game extends Screen implements NetworkListener {
 			}	
 		}
 		
-		player1Score += (player1.getCaptures() * 200);
-		player2Score += (player2.getCaptures() * 200);
+		player1Score += (player1.getCaptures() * 25);
+		player2Score += (player2.getCaptures() * 25);
 	
-		player1Score -= (player1.getNumDeaths() * 200);
+		player1Score -= (player1.getNumDeaths() * 25);
 		
-		player2Score -= (player2.getNumDeaths() * 200);
+		player2Score -= (player2.getNumDeaths() * 25);
 		
 		if (surface.isPressed(KeyEvent.VK_A)) {
 			activePlayer.walk(false);
@@ -327,7 +327,12 @@ public class Game extends Screen implements NetworkListener {
 					if (bullet != null) {
 						bullets.add(bullet);
 					}
-				} else if (ndo.message[0].equals(messageTypeFlagMovement)) {
+				} else if (ndo.message[0].equals(messageTypeFlagCapture)){
+					Avatar capturer = (int) (ndo.message[1]) == 1 ? player1 : player2;
+					capturer.collectFlag();
+					flagTaken = true;
+				}
+				else if (ndo.message[0].equals(messageTypeFlagMovement)) {
 					flag.draw(surface, (int) ndo.message[1], (int) ndo.message[2]);
 				}  else if (ndo.message[0].equals(messageTypePlatformPaint)) {
 					for (Platform p : platforms) {

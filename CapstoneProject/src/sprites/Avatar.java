@@ -28,7 +28,7 @@ public class Avatar extends Sprite {
 	private double prevX, prevY;
 	private int scale;
 	public static final double GRAVITY = 1.98;
-	private static final int BOMB_LIMIT = 600;
+	private static final int BOMB_LIMIT = 200;
 	private final int xVel = 10;
 	private boolean onPlatform;
 	private int flagCaptures;
@@ -123,9 +123,9 @@ public class Avatar extends Sprite {
 	 */
 	public void draw(PApplet drawer) {
 		super.draw(drawer);
-		if (canThrowBomb()) {
+		if (canThrowBomb() && !(gun instanceof Flag)) {
 			gun.setRect(gun.x, gun.y, width/2, height);
-		} else {
+		} else if (!(gun instanceof Flag)){
 			gun.setRect(gun.x, gun.y, width/4, height/2);
 		}
 		if (!hasFlag())
@@ -147,7 +147,7 @@ public class Avatar extends Sprite {
 	}
 	
 	public boolean canThrowBomb() {
-		return (timer > BOMB_LIMIT);
+		return (timer > BOMB_LIMIT && !(gun instanceof Flag));
 	}
 
 	/**
