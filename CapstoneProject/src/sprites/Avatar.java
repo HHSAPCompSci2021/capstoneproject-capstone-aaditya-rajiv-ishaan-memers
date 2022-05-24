@@ -123,9 +123,9 @@ public class Avatar extends Sprite {
 	 */
 	public void draw(PApplet drawer) {
 		super.draw(drawer);
-		if (canThrowBomb()) {
+		if (canThrowBomb() && !(gun instanceof Flag)) {
 			gun.setRect(gun.x, gun.y, width/2, height);
-		} else {
+		} else if (!(gun instanceof Flag)){
 			gun.setRect(gun.x, gun.y, width/4, height/2);
 		}
 		if (!hasFlag())
@@ -147,7 +147,7 @@ public class Avatar extends Sprite {
 	}
 	
 	public boolean canThrowBomb() {
-		return (timer > BOMB_LIMIT);
+		return (timer > BOMB_LIMIT && !(gun instanceof Flag));
 	}
 
 	/**
