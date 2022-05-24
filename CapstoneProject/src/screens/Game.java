@@ -62,7 +62,6 @@ public class Game extends Screen implements NetworkListener {
 	public Game(DrawingSurface s) {
 		super(1600, 1200);
 		surface = s;
-		maxTime = surface.getTimeLimit();
 		
 	}
 
@@ -108,6 +107,7 @@ public class Game extends Screen implements NetworkListener {
 
 	public void draw() {
 		surface.image(surface.loadImage("img/background.png"), 1, 0);
+		maxTime = surface.getTimeLimit();
 		
 		int player1Score = 0;
 		int player2Score = 0;
