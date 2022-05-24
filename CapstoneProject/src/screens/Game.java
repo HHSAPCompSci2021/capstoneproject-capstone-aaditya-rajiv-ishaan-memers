@@ -121,19 +121,21 @@ public class Game extends Screen implements NetworkListener {
 		player2.fall();
 		for(Platform p : platforms) {
 			ArrayList<PaintBlock> toRemove = new ArrayList<PaintBlock>();
+			ArrayList<PaintBlock> toAdd = new ArrayList<PaintBlock>();
 			for (PaintBlock bullet : bullets) {
 				p.paint(bullet);
 //				nm.sendMessage(NetworkDataObject.MESSAGE, messageTypePlatformPaint, p, bullet.x, bullet.y, bullet.width, bullet.getColor());
 				if (bullet instanceof PaintBomb && p.intersects(bullet)) {
 					PaintBomb bomb = (PaintBomb) bullet;
 					ArrayList<PaintBlock> bombBullets = bomb.blowUp();
-					bullets.addAll(bombBullets);
+					toAdd.addAll(bombBullets);
 				}
 				if (p.contains(bullet)) {
 					toRemove.add(bullet);
 				}
 			}
 			bullets.removeAll(toRemove);
+			bullets.addAll(toAdd);
 			if (player1.onPaint(p)) {
 				System.out.println("BOOSTED");
 				player1.boost();

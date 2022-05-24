@@ -23,7 +23,7 @@ public class PaintBomb extends PaintBlock {
 	 * @param c the color of this PaintBomb
 	 */
 	public PaintBomb(int x, int y, Point2D mouse, Color c) {
-		super(x, y, c, PaintBlock.LENGTH * 3, PaintBlock.VELOCITY, mouse);
+		super(x, y, c, PaintBlock.LENGTH * 6, PaintBlock.VELOCITY, mouse);
 	}
 	
 	/** Scatters Paintbombs with the specified radius

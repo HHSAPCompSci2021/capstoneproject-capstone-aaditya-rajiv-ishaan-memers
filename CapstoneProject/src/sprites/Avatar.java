@@ -28,6 +28,7 @@ public class Avatar extends Sprite {
 	private double prevX, prevY;
 	private int scale;
 	public static final double GRAVITY = 1.98;
+	private static final int BOMB_LIMIT = 60;
 	private final int xVel = 10;
 	private boolean onPlatform;
 	private int flagCaptures;
@@ -146,7 +147,7 @@ public class Avatar extends Sprite {
 	}
 	
 	public boolean canThrowBomb() {
-		return (timer > 600);
+		return (timer > BOMB_LIMIT);
 	}
 
 	/**
