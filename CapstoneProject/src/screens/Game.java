@@ -103,7 +103,7 @@ public class Game extends Screen implements NetworkListener {
 		
 		flagTaken = false;
 		timer = 0;
-		maxTime = 7200;
+		maxTime = 14400;
 		
 	}
 
