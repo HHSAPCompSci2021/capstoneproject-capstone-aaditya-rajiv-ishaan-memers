@@ -107,6 +107,7 @@ public class CreateRoom extends Screen {
 				myIP = InetAddress.getLocalHost();
 				String ip;
 				ArrayList<String> ips = new ArrayList<String>();
+				
 				Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
 		        while (interfaces.hasMoreElements()) {
 		            NetworkInterface iface = interfaces.nextElement();
@@ -127,14 +128,22 @@ public class CreateRoom extends Screen {
 			            }
 	                }
 		        }
-		        JOptionPane.showMessageDialog(null, ips);
+		        
+		        if (ips.size() == 0) {
+			        JOptionPane.showMessageDialog(null, "Error getting your IP address!");
+		        	return;
+		        } else {
+			        JOptionPane.showMessageDialog(null, ips);
+		        }
 
 			} catch (UnknownHostException e) {
 				e.printStackTrace ();
 				System.out.println("Error getting your IP address!");
+				return;
 			} catch (SocketException e) {
 				e.printStackTrace ();
 				System.out.println("Error getting your IP address!");
+				return;
 			}
 			ss = new GameServer(programID, myIP);
 			ss.setMaxConnections(2);
@@ -145,16 +154,10 @@ public class CreateRoom extends Screen {
 			}
 			
 			connect(myIP);
+			JOptionPane.showMessageDialog(null, "Finding an opponent. Please wait.");
 			while (ss.getConnectedHosts().length != 2) {
-//				System.out.println("FINDING OPPONENT");
-//				try {
-//					Thread.sleep(1000);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
 				continue;
 			}
-//			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
 			surface.setPerspective(surface.LEFT_SIDE);
 			surface.setPlayerUsername(nameField.getText());
 			surface.setOpponentUsername(opponentUsername);

@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import g4p_controls.GButton;
 import g4p_controls.GEvent;
 import networking.backend.PeerDiscovery;
@@ -79,6 +81,7 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 		} catch (IOException e1) {
 			e1.printStackTrace();
 			System.out.println("\nError starting broadcast discovery server on port " + BROADCAST_PORT + "\nCannot discover or be discovered.");
+			JOptionPane.showMessageDialog(null, "Please ensure you have one only window open!");
 		}
 	}
 	
