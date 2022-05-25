@@ -115,7 +115,6 @@ public class CreateRoom extends Screen {
 		            if (iface.isLoopback() || !iface.isUp())
 		                continue;
 
-	                if (iface.getDisplayName().startsWith("en")) {
 			            Enumeration<InetAddress> addresses = iface.getInetAddresses();
 			            
 			            while(addresses.hasMoreElements()) {
@@ -126,7 +125,6 @@ public class CreateRoom extends Screen {
 				                System.out.println(iface.getDisplayName() + " " + ip);
 			                }
 			            }
-	                }
 		        }
 		        
 		        if (ips.size() == 0) {
