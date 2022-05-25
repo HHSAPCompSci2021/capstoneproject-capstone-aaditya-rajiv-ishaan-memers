@@ -73,19 +73,35 @@ public class PaintBlock extends Sprite {
 		this.c = c;
 	}
 	
+	/** gets the color
+	 * 
+	 * @return the color
+	 */
 	public Color getColor() {
 		return c;
 	}
 	
+	/** gets the angle
+	 * 
+	 * @return the ange
+	 */
 	public double getAngle() {
 		return Math.atan(yVel/xVel);
 	}
 
+	/** gets the weight of the bullet
+	 * 
+	 * @return the stroke weight
+	 */
 	public double getStroke() {
 		// TODO Auto-generated method stub
 		return width;
 	}
 	
+	/** Returns a two element array contianing the x and y velocities in that order
+	 * 
+	 * @return the velocity components
+	 */
 	public double[] getVelocities() {
 		return new double[] {xVel, yVel};
 	}

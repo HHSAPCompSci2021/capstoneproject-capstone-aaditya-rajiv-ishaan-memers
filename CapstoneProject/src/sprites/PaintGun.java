@@ -7,6 +7,7 @@ import java.awt.geom.Point2D;
 
 import processing.core.PApplet;
 import processing.core.PImage;
+
 /** Gun that can shoot which the player has
 	@author Rajiv Venkatesh, Aaditya Raj, Ishaan Singh
 	@version 2
@@ -27,8 +28,6 @@ public class PaintGun extends Sprite {
 	 * @param vel the muzzle velocity of bullets from this gun
 	 * @param str the size of "splotches" on the ground from this
 	 */
-	
-	
 	public PaintGun(PImage image, int x, int y, int width, int height, int capacity, int vel, int strokeLength) {
 		super(image, x, y, width, height);
 		this.maxAmmo = capacity;
@@ -94,6 +93,13 @@ public class PaintGun extends Sprite {
 		counter++;
 	}
 
+	/** Shoots a PaintBlock from the bun
+	 * 
+	 * @param start the begin location of the bullet (the gun)
+	 * @param end the desired point that the bullet must pas through
+	 * @param playerColor the color of the bullet
+	 * @return the bullet that was shot
+	 */
 	public PaintBlock shoot(Point2D start , Point2D end, Color playerColor) {
 		// TODO Auto-generated method stub
 		System.out.println("Ammo: " + ammo);

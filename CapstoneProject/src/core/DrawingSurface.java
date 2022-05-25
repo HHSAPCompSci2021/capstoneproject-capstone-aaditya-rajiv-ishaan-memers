@@ -46,7 +46,9 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 	
 	private int timeLimit;
 
-	
+	/** DrawingSurface constructor
+	 * 
+	 */
 	public DrawingSurface() {
 		
 		screens = new ArrayList<Screen>();
@@ -172,20 +174,37 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 		
 	}
 
+	/** Sets the current player's usernmane
+	 * 
+	 * @param text the name
+	 */
 	public void setPlayerUsername(String text) {
 		// TODO Auto-generated method stub
 		this.playerUsername = text;
 	}
 
+	/** Sets the other player's username
+	 * 
+	 * @param opponentUsername name
+	 */
 	public void setOpponentUsername(String opponentUsername) {
 		// TODO Auto-generated method stub
 		this.opponentUsername = opponentUsername;
 	}
 	
+	
+	/** Sets the timeline (not used)
+	 * 
+	 * @param limit
+	 */
 	public void setTimeLimit(int limit) {
 		limit = timeLimit;
 	}
 	
+	/** Not used
+	 * 
+	 * @return the time limit set 
+	 */
 	public int getTimeLimit() {
 		return timeLimit;
 	}

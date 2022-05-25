@@ -36,14 +36,20 @@ public class WinOrLoseScreen extends Screen {
 
 	}
 
+	/**
+	 * Allows for score tracking
+	 * @param activePlayerScore this player's score
+	 */
 	public void setPlayerScore(int activePlayerScore) {
-		// TODO Auto-generated method stub
 		this.playerScore = activePlayerScore;
 		
 	}
 
+	/** Allows for score tracking in win-lose calc
+	 * 
+	 * @param opponentScore the other player's score
+	 */
 	public void setOpponentScore(int opponentScore) {
-		// TODO Auto-generated method stub
 		this.opponentScore = opponentScore;
 		
 	}

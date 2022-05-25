@@ -82,10 +82,19 @@ public class Platform extends Sprite {
 		}
 	}
 
+	/** Gets the border of paintblocks around the platform
+	 * 
+	 * @return the border
+	 */
 	public ArrayList<PaintBlock> getBorder() {
 		return border;
 	}
 	
+	/** Whether one platform is the same as another
+	 * 
+	 * @param other the other platform with which to check similarity
+	 * @return whether or not thee two platforms are identical
+	 */
 	public boolean equals(Platform other) {
 		return (x == other.getX() && y == other.getY() && width == other.getWidth() && height == other.getHeight());
 	}

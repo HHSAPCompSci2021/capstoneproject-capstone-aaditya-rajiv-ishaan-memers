@@ -382,18 +382,28 @@ public class Game extends Screen {
 		
 	}
 	
-	
+	/** gets player 1's score
+	 * 
+	 * @return the score of player 1
+	 */
 	public int getActivePlayerScore() {
 		return (activePlayer == player1 ? player1Score : player2Score);
 	}
 	
+	/** gets player 2's score
+	 * 
+	 * @return the score of player 2
+	 */
 	public int getOpponentScore() {
 		// TODO Auto-generated method stub
 		return (activePlayer == player1 ? player2Score : player1Score);
 	}
 
 
-
+/** sets who each player is (one or two)
+ * 
+ * @param perspective which player is the active one
+ */
 	public void setActivePlayer(int perspective) {
 		// TODO Auto-generated method stub
 		if (perspective == surface.RIGHT_SIDE) {
