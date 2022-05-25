@@ -4,8 +4,12 @@
 */package screens;
 
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 
 import javax.swing.JOptionPane;
 
@@ -101,10 +105,34 @@ public class CreateRoom extends Screen {
 			System.out.println("button clicked");
 			try {
 				myIP = InetAddress.getLocalHost();
-				System.out.println("Your Hostname/IP address is " + myIP);
-				JOptionPane.showMessageDialog(null, myIP.getHostAddress() + "");
+				String ip;
+				ArrayList<String> ips = new ArrayList<String>();
+				Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+		        while (interfaces.hasMoreElements()) {
+		            NetworkInterface iface = interfaces.nextElement();
+		            // filters out 127.0.0.1 and inactive interfaces
+		            if (iface.isLoopback() || !iface.isUp())
+		                continue;
+
+	                if (iface.getDisplayName().startsWith("en")) {
+			            Enumeration<InetAddress> addresses = iface.getInetAddresses();
+			            
+			            while(addresses.hasMoreElements()) {
+			                InetAddress addr = addresses.nextElement();
+			                ip = addr.getHostAddress();
+			                if (ip.contains(".")) {
+			                	ips.add(ip);
+				                System.out.println(iface.getDisplayName() + " " + ip);
+			                }
+			            }
+	                }
+		        }
+		        JOptionPane.showMessageDialog(null, ips);
 
 			} catch (UnknownHostException e) {
+				e.printStackTrace ();
+				System.out.println("Error getting your IP address!");
+			} catch (SocketException e) {
 				e.printStackTrace ();
 				System.out.println("Error getting your IP address!");
 			}
