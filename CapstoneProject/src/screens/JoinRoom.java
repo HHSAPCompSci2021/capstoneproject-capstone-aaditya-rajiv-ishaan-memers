@@ -121,7 +121,6 @@ public class JoinRoom extends Screen {
 		if (isActive) {
 			group.fadeIn(0, 0);
 			group.setEnabled(true);
-			group.setVisible(true);
 		}
 		
 
@@ -155,6 +154,7 @@ public class JoinRoom extends Screen {
 
 			
 			isActive = false;
+			group.fadeOut(0, 0);
 			group.setEnabled(false);
 			surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
 			
