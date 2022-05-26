@@ -159,6 +159,10 @@ public class JoinRoom extends Screen {
 		
 			
 		} else if (button == discoverButton) {
+			int confirmed = JOptionPane.showConfirmDialog(null, "After a few seconds, this will show the available hosts. Find available hosts?");
+			if (confirmed == JOptionPane.NO_OPTION || confirmed == JOptionPane.CANCEL_OPTION) {
+				return;
+			}
 			try {
 				System.out.println("\nSending broadcast packet...");
 				DrawingSurface.discover.sendDiscoveryPacket();
@@ -175,7 +179,7 @@ public class JoinRoom extends Screen {
 		public void run() {
 			findingIP = true;
 			if (DrawingSurface.discover.getPeers().length > 0) {
-				JOptionPane.showMessageDialog(null, DrawingSurface.discover.getPeers()[0].getHostAddress());
+				JOptionPane.showMessageDialog(null, DrawingSurface.discover.getPeers());
 			} else {
 				JOptionPane.showMessageDialog(null, "Sorry, no hosts found!");
 			}
