@@ -171,9 +171,11 @@ public class JoinRoom extends Screen {
 				DrawingSurface.discover.sendDiscoveryPacket();
 				refreshTimer.schedule(new ShowHosts(), DISCOVER_TIMEOUT);
 			} catch (IOException e1) {
-				System.out.println("\nError sending discovery packet.");
+				JOptionPane.showMessageDialog(null, "Error sending discovery packet.");
 				e1.printStackTrace();
 			} 
+		} else if (nameField.getText().trim().isEmpty() || hostField.getText().trim().isEmpty()){
+			JOptionPane.showMessageDialog(null, "Please enter both username and IP address");
 		}
 		
 	}

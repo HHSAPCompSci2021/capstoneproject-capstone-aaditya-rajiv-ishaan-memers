@@ -131,7 +131,7 @@ public class CreateRoom extends Screen {
 			        JOptionPane.showMessageDialog(null, "Error getting your IP address!");
 		        	return;
 		        } else {
-			        JOptionPane.showMessageDialog(null, "SHARE WITH YOUR OPPONENT: " + ips + "\nClick OK to start searching for a connection.");
+			        JOptionPane.showMessageDialog(null, "SHARE WITH YOUR OPPONENT: " + ips + "\nClick OK to create the game server.");
 		        }
 
 			} catch (UnknownHostException e) {
@@ -143,8 +143,8 @@ public class CreateRoom extends Screen {
 				System.out.println("Error getting your IP address!");
 				return;
 			}
-			int confirmed = JOptionPane.showConfirmDialog(null, "Proceed to create room and find an opponent? \n**Note that the screen will automatically \nswitch to game screen"
-					+ " \nonce your opponent is found and confirms**");
+			int confirmed = JOptionPane.showConfirmDialog(null, "Create game server? \n**Note that the screen will automatically switch to game screen"
+					+ " \nonce your opponent is found**");
 			if (confirmed == JOptionPane.NO_OPTION || confirmed == JOptionPane.CANCEL_OPTION) {
 				return;
 			}
@@ -168,7 +168,9 @@ public class CreateRoom extends Screen {
 			group.fadeOut(0, 0);
 			group.setEnabled(false);
 			surface.switchScreen(ScreenSwitcher.GAME_SCREEN);
-		} 
+		} else if (nameField.getText().trim().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Enter username");
+		}
 		
 	}
 	
