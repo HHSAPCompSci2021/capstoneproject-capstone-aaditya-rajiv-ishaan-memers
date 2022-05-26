@@ -52,6 +52,7 @@ public class Game extends Screen {
 	private static final String messageTypeTouchdown = "TOUCHDOWN";
 	private static final String messageTypeBombThrow = "BOMB_THROW";
 	private static final String messageTypeUsername = "USERNAME";
+	private static final String messageTypeScores = "SCORES";
 	
 	
 	/**
@@ -75,7 +76,7 @@ public class Game extends Screen {
 		boundaries = new ArrayList<Platform>();
 		
 		platforms.add(new Platform(650, 225, 250, 50));
-		
+					
 		platforms.add(new Platform(1175, 325, 200, 50));
 
 		platforms.add(new Platform(225, 325, 200, 50));
@@ -152,8 +153,12 @@ public class Game extends Screen {
 				player2.undoSpeedBoost();
 			}
 			p.draw(surface);
+			
+			
 			player1Score += p.numBlocksWithColor(player1.getColor());
 			player2Score += p.numBlocksWithColor(player2.getColor());
+     
+			
 			
 			numBlocks += p.getBorder().size();
 		}	
@@ -163,6 +168,7 @@ public class Game extends Screen {
 		
 		player1Score /= numBlocks;
 		player2Score /= numBlocks;
+		
 		
 		
 		ArrayList<Sprite> checkPieces = new ArrayList<Sprite>();
@@ -229,6 +235,9 @@ public class Game extends Screen {
 					flag.reset();
 					player1.touchdown();
 					nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeTouchdown, 1});
+					if (activePlayer == player1) {
+						nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeScores, this.player1Score, this.player2Score});
+					}
 					flag.draw(surface);
 				} else {
 					flag.draw(surface, (int)player1.x, (int)player1.y);
@@ -239,6 +248,9 @@ public class Game extends Screen {
 					flagTaken = false;
 					flag.reset();
 					nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeTouchdown, 2});
+					if (activePlayer == player1) {
+						nm.sendMessage(NetworkDataObject.MESSAGE, new Object[] {messageTypeScores, this.player1Score, this.player2Score});
+					}
 					flag.draw(surface);
 				} else {
 					flag.draw(surface, (int)player2.x, (int)player2.y);
@@ -249,6 +261,7 @@ public class Game extends Screen {
 		
 		player1Score += (player1.getCaptures() * 25);
 		player2Score += (player2.getCaptures() * 25);
+		
 	
 //		player1Score -= (player1.getNumDeaths() * 25);
 //		
@@ -277,7 +290,6 @@ public class Game extends Screen {
 		surface.textSize(30);
 		this.player1Score = player1Score;
 		this.player2Score = player2Score;
-		
 		surface.text("Player 1 Score: " + this.player1Score + "\n" + "Player 2 Score: " + this.player2Score, 1300, 50);
 		surface.pop();
 		
@@ -340,6 +352,9 @@ public class Game extends Screen {
 					flagTaken = true;
 				} else if (ndo.message[0].equals(messageTypeUsername)) {
 					surface.opponentUsername = (String) ndo.message[1];
+				} else if (ndo.message[0].equals(messageTypeScores)) {
+					this.player1Score = (int) ndo.message[1];
+					this.player2Score = (int) ndo.message[2];
 				} else if (ndo.message[0].equals(messageTypeFlagMovement)) {
 					flag.draw(surface, (int) ndo.message[1], (int) ndo.message[2]);
 				}  else if (ndo.message[0].equals(messageTypePlatformPaint)) {
