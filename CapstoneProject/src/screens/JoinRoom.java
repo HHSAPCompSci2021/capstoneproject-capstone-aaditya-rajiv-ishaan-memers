@@ -121,6 +121,7 @@ public class JoinRoom extends Screen {
 		if (isActive) {
 			group.fadeIn(0, 0);
 			group.setEnabled(true);
+			group.setVisible(true);
 		}
 		
 
