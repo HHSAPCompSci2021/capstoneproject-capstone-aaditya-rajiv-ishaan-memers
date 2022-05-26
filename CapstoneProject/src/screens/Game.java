@@ -288,8 +288,10 @@ public class Game extends Screen {
 		surface.push();
 		surface.fill(Color.WHITE.getRGB());
 		surface.textSize(30);
-		this.player1Score = player1Score;
-		this.player2Score = player2Score;
+		if (activePlayer == player1) {
+			this.player1Score = player1Score;
+			this.player2Score = player2Score;
+		}
 		surface.text("Player 1 Score: " + this.player1Score + "\n" + "Player 2 Score: " + this.player2Score, 1300, 50);
 		surface.pop();
 		
