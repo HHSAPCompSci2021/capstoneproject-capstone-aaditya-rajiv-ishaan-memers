@@ -103,7 +103,7 @@ public class Game extends Screen {
 		
 		flagTaken = false;
 		timer = 0;
-		maxTime = 4000;
+		maxTime = 2000;
 		
 	}
 
@@ -115,7 +115,7 @@ public class Game extends Screen {
 		int numBlocks = 0;
 		
 		if(timer > maxTime) {
-			surface.switchScreen(ScreenSwitcher.WIN_SCREEN);
+			surface.switchScreen(ScreenSwitcher.WIN_OR_LOSE_SCREEN);
 		}
 		
 		
