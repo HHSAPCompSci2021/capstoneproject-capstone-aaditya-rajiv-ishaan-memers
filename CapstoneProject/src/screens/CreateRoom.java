@@ -31,7 +31,7 @@ public class CreateRoom extends Screen {
 	private GLabel sliderLabel;
 	private GCustomSlider slider;
 	
-	private GButton createButton;
+	private GButton createButton; 
 	
 	private static final int TCP_PORT = 4444;
 
@@ -143,6 +143,11 @@ public class CreateRoom extends Screen {
 				System.out.println("Error getting your IP address!");
 				return;
 			}
+			int confirmed = JOptionPane.showConfirmDialog(null, "Proceed to create room and find an opponent? \n**Note that the screen will automatically \nswitch to game screen"
+					+ " \nonce your opponent is found and confirms**");
+			if (confirmed == JOptionPane.NO_OPTION || confirmed == JOptionPane.CANCEL_OPTION) {
+				return;
+			}
 			ss = new GameServer(programID, myIP);
 			ss.setMaxConnections(2);
 			ss.waitForConnections(TCP_PORT);
@@ -152,7 +157,6 @@ public class CreateRoom extends Screen {
 			}
 			
 			connect(myIP);
-			JOptionPane.showMessageDialog(null, "Finding an opponent. Please wait.");
 			while (ss.getConnectedHosts().length != 2) {
 				continue;
 			}

@@ -131,16 +131,12 @@ public class JoinRoom extends Screen {
 	public void handleButtonEvents(GButton button, GEvent event) {
 		// TODO Auto-generated method stub
 		
-		System.out.println("event running");
 		if (button == joinButton && event == GEvent.CLICKED && !nameField.getText().trim().isEmpty() && !hostField.getText().trim().isEmpty()) {			
-			System.out.println(nameField.getText());
-			System.out.println("button clicked");
 			try {
 				myIP = InetAddress.getLocalHost();
-				System.out.println("Your Hostname/IP address is " + myIP);
 			} catch (UnknownHostException e) {
 				e.printStackTrace ();
-				System.out.println("Error getting your IP address!");
+				JOptionPane.showMessageDialog(null, "Error getting your IP address!");
 			}
 			
 			connect(hostField.getText());
@@ -232,10 +228,10 @@ public class JoinRoom extends Screen {
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace(); 
-				System.out.println("Invalid IP Address format.");
+				JOptionPane.showMessageDialog(null, "Invalid IP Address format.");
 			}
 		} else {
-			System.out.println("Invalid IP Address format.");
+			JOptionPane.showMessageDialog(null, "Invalid IP Address format.");
 		}
 		
 	}
@@ -249,11 +245,11 @@ public class JoinRoom extends Screen {
 			sc = new PlayerClient(programID, myIP);
 			boolean success = sc.connect(host,TCP_PORT);
 			if (!success) {
-				System.out.println("\nCould not connect to "+host+" on " + TCP_PORT);
+				JOptionPane.showMessageDialog(null, "\nCould not connect to "+host+" on " + TCP_PORT);
 				sc.disconnect();
 				sc = null;
 			} else {
-				System.out.println("\nConnected to "+host+" on " + TCP_PORT);
+				JOptionPane.showMessageDialog(null, "\nConnected to "+host+" on " + TCP_PORT + "!\n Start the game?");
 				sc.addNetworkListener(clientProgram);
 				sc.addNetworkListener(new NetworkMessageHandler());
 				clientProgram.connectedToServer(sc);
