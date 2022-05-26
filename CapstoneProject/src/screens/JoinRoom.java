@@ -254,13 +254,17 @@ public class JoinRoom extends Screen {
 		if (host != null) {
 			disconnect();
 			sc = new PlayerClient(programID, myIP);
+			int confirmed = JOptionPane.showConfirmDialog(null, "Connect to this host? \n**Note that the screen will automatically"
+					+ "switch to game screen if a connection is made**");
+			if (confirmed == JOptionPane.NO_OPTION || confirmed == JOptionPane.CANCEL_OPTION) {
+				return false;
+			}			
 			boolean success = sc.connect(host,TCP_PORT);
 			if (!success) {
-				JOptionPane.showMessageDialog(null, "\nCould not connect to "+host+" on " + TCP_PORT);
+				JOptionPane.showMessageDialog(null, "Could not connect to "+host+" on " + TCP_PORT);
 				sc.disconnect();
 				sc = null;
 			} else {
-				JOptionPane.showMessageDialog(null, "\nConnected to "+host+" on " + TCP_PORT + "!\n Start the game?");
 				sc.addNetworkListener(clientProgram);
 				sc.addNetworkListener(new NetworkMessageHandler());
 				clientProgram.connectedToServer(sc);

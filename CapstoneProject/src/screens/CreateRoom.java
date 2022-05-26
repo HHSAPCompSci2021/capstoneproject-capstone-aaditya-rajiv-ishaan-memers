@@ -131,7 +131,7 @@ public class CreateRoom extends Screen {
 			        JOptionPane.showMessageDialog(null, "Error getting your IP address!");
 		        	return;
 		        } else {
-			        JOptionPane.showMessageDialog(null, "SHARE WITH YOUR OPPONENT: " + ips);
+			        JOptionPane.showMessageDialog(null, "SHARE WITH YOUR OPPONENT: " + ips + "\nClick OK to start searching for a connection.");
 		        }
 
 			} catch (UnknownHostException e) {
