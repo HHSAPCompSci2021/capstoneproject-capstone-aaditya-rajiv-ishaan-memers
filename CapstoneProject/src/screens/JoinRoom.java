@@ -162,7 +162,7 @@ public class JoinRoom extends Screen {
 		
 			
 		} else if (button == discoverButton) {
-			int confirmed = JOptionPane.showConfirmDialog(null, "After a few seconds, this will show the available hosts. Find available hosts?");
+			int confirmed = JOptionPane.showConfirmDialog(null, "After 10 seconds, this will show the available hosts. Find available hosts?");
 			if (confirmed == JOptionPane.NO_OPTION || confirmed == JOptionPane.CANCEL_OPTION) {
 				return;
 			}
@@ -257,7 +257,7 @@ public class JoinRoom extends Screen {
 			disconnect();
 			sc = new PlayerClient(programID, myIP);
 			int confirmed = JOptionPane.showConfirmDialog(null, "Connect to this host? \n**Note that the screen will automatically"
-					+ "switch to game screen if a connection is made**");
+					+ " switch to game screen if a connection is made**");
 			if (confirmed == JOptionPane.NO_OPTION || confirmed == JOptionPane.CANCEL_OPTION) {
 				return false;
 			}			
