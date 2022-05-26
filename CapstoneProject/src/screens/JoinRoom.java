@@ -140,7 +140,10 @@ public class JoinRoom extends Screen {
 				JOptionPane.showMessageDialog(null, "Error getting your IP address!");
 			}
 			
-			connect(hostField.getText());
+			boolean success = connect(hostField.getText());
+			if (!success) {
+				return;
+			}
 //			sc.sendMessage(NetworkDataObject.MESSAGE, "USERNAME", nameField.getText());
 //			while (opponentUsername == null) {
 //				continue;
@@ -225,18 +228,21 @@ public class JoinRoom extends Screen {
 	/** connect to server
 	 * @param host the hostto connect to
 	 */
-	private void connect(String host) {
+	private boolean connect(String host) {
 		InetAddressValidator validator = InetAddressValidator.getInstance();
 		if (validator.isValid(host)) {
 			try {
-				connect(InetAddress.getByName(host));
+				boolean success = connect(InetAddress.getByName(host));
+				return success;
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace(); 
 				JOptionPane.showMessageDialog(null, "Invalid IP Address format.");
+				return false;
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "Invalid IP Address format.");
+			return false;
 		}
 		
 	}
@@ -244,7 +250,7 @@ public class JoinRoom extends Screen {
 	/** connect to server
 	 * @param host the hostto connect to
 	 */
-	private void connect(InetAddress host) {
+	private boolean connect(InetAddress host) {
 		if (host != null) {
 			disconnect();
 			sc = new PlayerClient(programID, myIP);
@@ -259,7 +265,9 @@ public class JoinRoom extends Screen {
 				sc.addNetworkListener(new NetworkMessageHandler());
 				clientProgram.connectedToServer(sc);
 			}
+			return success;
 		}
+		return false;
 	}
 
 	
