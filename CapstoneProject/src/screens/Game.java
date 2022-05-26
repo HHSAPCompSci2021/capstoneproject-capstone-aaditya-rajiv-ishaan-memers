@@ -369,7 +369,7 @@ public class Game extends Screen {
 					}
 				} else if (ndo.messageType.equals(NetworkDataObject.DISCONNECT)) {
 						this.setup();
-						surface.switchScreen(ScreenSwitcher.WIN_SCREEN);
+						surface.switchScreen(ScreenSwitcher.WIN_OR_LOSE_SCREEN);
 						
 				}
 			}

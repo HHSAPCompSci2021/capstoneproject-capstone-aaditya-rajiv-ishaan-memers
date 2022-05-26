@@ -150,7 +150,7 @@ public class DrawingSurface extends PApplet implements ScreenSwitcher, NetworkLi
 		if (i == ScreenSwitcher.GAME_SCREEN) {
 			((Game) activeScreen).setActivePlayer(perspective);
 		}
-		if (i == ScreenSwitcher.WIN_SCREEN) {
+		if (i == ScreenSwitcher.WIN_OR_LOSE_SCREEN) {
 			((WinOrLoseScreen) activeScreen).setPlayerScore(((Game) screens.get(ScreenSwitcher.GAME_SCREEN)).getActivePlayerScore());
 			((WinOrLoseScreen) activeScreen).setOpponentScore(((Game) screens.get(ScreenSwitcher.GAME_SCREEN)).getOpponentScore());
 		}
